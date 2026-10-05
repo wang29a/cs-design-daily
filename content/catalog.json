@@ -44,6 +44,15 @@
       "topic": "网络",
       "source": "05-tcp-window.md",
       "insight": "用有限的在途状态，覆盖反馈的等待。"
+    },
+    {
+      "date": "2026-10-06",
+      "title": "B+ 树",
+      "subtitle": "怎样让一次读页带回足够多的选择",
+      "topic": "数据库",
+      "source": "2026-10-06-bplus-tree.md",
+      "id": "2026-10-06-bplus-tree",
+      "insight": "用页内多路选择和局部维护，保留全局有序查询。"
     }
   ]
 }

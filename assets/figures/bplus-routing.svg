@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="610" viewBox="0 0 560 610" role="img" aria-labelledby="title desc">
+<title id="title">B+ 树路由与叶页连接</title>
+<desc id="desc">根页 R 的分界是 31。小于 31 的查找去叶页 L1，等于或大于 31 去 L2。L1 保存 12、18、24，L2 保存 31、42、57。查找 24 到 L1 结束；虚线表示 L1 的下一页是 L2。</desc>
+<defs><marker id="ref" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#287467"/></marker><marker id="next" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#a54426"/></marker></defs>
+<rect width="560" height="610" rx="12" fill="#f7f5f0"/>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif" fill="#18283b">
+<text x="28" y="45" font-size="26" font-weight="600">根页管路由，叶页放数据</text>
+<text x="28" y="79" font-size="20" fill="#5b6877">实线：子页引用 · 虚线：叶页下一页</text>
+<rect x="130" y="112" width="300" height="104" rx="10" fill="#fffefb" stroke="#d9dfdc"/>
+<text x="280" y="148" text-anchor="middle" font-size="24">根页 R</text>
+<text x="280" y="190" text-anchor="middle" font-size="30" font-weight="600">分界 31</text>
+<path d="M206 216 V245 H144 V312" fill="none" stroke="#287467" stroke-width="3" marker-end="url(#ref)"/>
+<path d="M354 216 V245 H416 V312" fill="none" stroke="#287467" stroke-width="3" marker-end="url(#ref)"/>
+<rect x="370" y="255" width="112" height="34" fill="#f7f5f0"/>
+<text x="37" y="280" font-size="23">键 &lt; 31</text><text x="376" y="280" font-size="23">键 ≥ 31</text>
+<rect x="28" y="320" width="236" height="116" rx="10" fill="#e7f2ed" stroke="#287467"/>
+<rect x="296" y="320" width="236" height="116" rx="10" fill="#fffefb" stroke="#d9dfdc"/>
+<text x="146" y="358" text-anchor="middle" font-size="24" font-weight="600">叶页 L1</text>
+<text x="146" y="402" text-anchor="middle" font-size="28">12 · 18 · 24</text>
+<text x="414" y="358" text-anchor="middle" font-size="24" font-weight="600">叶页 L2</text>
+<text x="414" y="402" text-anchor="middle" font-size="28">31 · 42 · 57</text>
+<path d="M146 436 V474 H414 V442" fill="none" stroke="#a54426" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#next)"/>
+<rect x="202" y="457" width="156" height="30" fill="#f7f5f0"/>
+<text x="280" y="480" text-anchor="middle" font-size="20" fill="#a54426">L1.next = L2</text>
+<path d="M28 510 H532" stroke="#d9dfdc"/>
+<text x="280" y="546" text-anchor="middle" font-size="23" font-weight="600">查找 24：R → L1 → 找到条目</text>
+<text x="280" y="583" text-anchor="middle" font-size="20" fill="#5b6877">每个叶键还携带笔记位置，图中省略</text>
+</g></svg>

@@ -1,4 +1,5 @@
 import importlib.util
+import datetime
 import hashlib
 import json
 from pathlib import Path
@@ -40,17 +41,20 @@ class ContentBuildTests(unittest.TestCase):
             self.assertIn(lesson['title'], page.read_text())
             self.assertIn(lesson['id'], home)
 
-    def test_sixth_lesson_enters_home_archive_and_adjacent_navigation(self):
+    def test_new_lesson_enters_home_archive_and_adjacent_navigation(self):
         data = json.loads(self.catalog.read_text())
-        item = {**data['lessons'][-1], 'id': '2026-10-06-verification',
-                'date': '2026-10-06', 'title': '验证用新讲义'}
+        previous = max(data['lessons'], key=lambda lesson: lesson['date'])
+        date = (datetime.date.fromisoformat(previous['date']) + datetime.timedelta(days=1)).isoformat()
+        expected_count = len(data['lessons']) + 1
+        item = {**previous, 'id': date + '-verification',
+                'date': date, 'title': '验证用新讲义'}
         data['lessons'].append(item)
         self.catalog.write_text(json.dumps(data))
         report = self.generate()
-        self.assertEqual(report['lessons'], 6)
+        self.assertEqual(report['lessons'], expected_count)
         self.assertEqual(report['latestId'], item['id'])
         for path in ['index.html', 'archive/index.html',
-                     'lessons/2026-10-05-tcp-window/index.html']:
+                     'lessons/' + previous['id'] + '/index.html']:
             self.assertIn(item['id'], (self.output / path).read_text())
 
     def test_duplicate_date_preserves_previous_build(self):
@@ -133,16 +137,19 @@ class ContentBuildTests(unittest.TestCase):
         self.generate()
         before_catalog = self.catalog.read_bytes()
         before_page = (self.output / 'index.html').read_bytes()
-        item = {**json.loads(self.catalog.read_text())['lessons'][-1],
-                'id': '2026-10-06-new-lesson', 'date': '2026-10-06',
+        data = json.loads(self.catalog.read_text())
+        previous = max(data['lessons'], key=lambda lesson: lesson['date'])
+        date = (datetime.date.fromisoformat(previous['date']) + datetime.timedelta(days=1)).isoformat()
+        item = {**previous,
+                'id': date + '-new-lesson', 'date': date,
                 'source': 'missing-source.md'}
         with self.assertRaises(FileNotFoundError):
             publish(item, self.catalog, self.content, self.output)
         self.assertEqual(self.catalog.read_bytes(), before_catalog)
         self.assertEqual((self.output / 'index.html').read_bytes(), before_page)
-        item['source'] = '05-tcp-window.md'
+        item['source'] = previous['source']
         report = publish(item, self.catalog, self.content, self.output)
-        self.assertEqual(report['lessons'], 6)
+        self.assertEqual(report['lessons'], len(data['lessons']) + 1)
         self.assertIn(item['id'], (self.output / 'archive/index.html').read_text())
         with self.assertRaisesRegex(ValueError, 'already exists'):
             publish(item, self.catalog, self.content, self.output)

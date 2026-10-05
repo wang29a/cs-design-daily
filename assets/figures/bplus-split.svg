@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="940" viewBox="0 0 560 940" role="img" aria-labelledby="title desc">
+<title id="title">插入 29 后的分裂与范围扫描</title>
+<desc id="desc">叶页容量为三个条目。插入 29 使 L1 暂时出现 12、18、24、29。完成分裂后 L1 为 12、18，新页 L3 为 24、29，L2 仍为 31、42、57；根分界改为 24、31。范围读取 18 到 42 沿 L1、L3、L2 输出 18、24、29、31、42，并在 57 处停止。</desc>
+<defs><marker id="ref" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#287467"/></marker><marker id="next" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#a54426"/></marker></defs>
+<rect width="560" height="940" rx="12" fill="#f7f5f0"/>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif" fill="#18283b">
+<text x="28" y="45" font-size="26" font-weight="600">分裂修复路由，也修复叶链</text>
+<text x="28" y="79" font-size="20" fill="#5b6877">教学容量：叶页 3 项 · 时间自上而下</text>
+<text x="28" y="128" font-size="23" font-weight="600">① 插入 29：暂时溢出，尚未完成</text>
+<rect x="28" y="150" width="504" height="84" rx="10" fill="#fae9df" stroke="#a54426"/>
+<text x="280" y="184" text-anchor="middle" font-size="23">L1：12 · 18 · 24 · 29</text>
+<text x="280" y="218" text-anchor="middle" font-size="20" fill="#a54426">4 项超过容量；不能作为完成状态</text>
+<path d="M28 261 H532" stroke="#d9dfdc"/>
+<text x="28" y="299" font-size="23" font-weight="600">② 完成分裂：R 新增分界 24</text>
+<rect x="160" y="322" width="240" height="80" rx="10" fill="#e7f2ed" stroke="#287467"/>
+<text x="280" y="352" text-anchor="middle" font-size="22">根页 R</text>
+<text x="280" y="386" text-anchor="middle" font-size="28" font-weight="600">24 · 31</text>
+<path d="M190 402 V427 H103 V470" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#ref)"/>
+<path d="M280 402 V470" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#ref)"/>
+<path d="M370 402 V427 H457 V470" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#ref)"/>
+<rect x="66" y="428" width="74" height="34" fill="#f7f5f0"/>
+<rect x="420" y="428" width="74" height="34" fill="#f7f5f0"/>
+<text x="102" y="450" text-anchor="middle" font-size="20">&lt; 24</text>
+<rect x="220" y="428" width="120" height="31" fill="#f7f5f0"/>
+<text x="280" y="450" text-anchor="middle" font-size="20">24 ≤ 键 &lt; 31</text>
+<text x="457" y="450" text-anchor="middle" font-size="20">≥ 31</text>
+<rect x="28" y="478" width="150" height="92" rx="10" fill="#fffefb" stroke="#d9dfdc"/>
+<rect x="205" y="478" width="150" height="92" rx="10" fill="#e7f2ed" stroke="#287467"/>
+<rect x="382" y="478" width="150" height="92" rx="10" fill="#fffefb" stroke="#d9dfdc"/>
+<text x="103" y="513" text-anchor="middle" font-size="23" font-weight="600">L1</text>
+<text x="103" y="548" text-anchor="middle" font-size="26">12 · 18</text>
+<text x="280" y="513" text-anchor="middle" font-size="23" font-weight="600">L3（新增）</text>
+<text x="280" y="548" text-anchor="middle" font-size="26">24 · 29</text>
+<text x="457" y="513" text-anchor="middle" font-size="23" font-weight="600">L2</text>
+<text x="457" y="548" text-anchor="middle" font-size="23">31 · 42 · 57</text>
+<path d="M103 570 V599 H280 V575" fill="none" stroke="#a54426" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#next)"/>
+<path d="M280 570 V622 H457 V575" fill="none" stroke="#a54426" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#next)"/>
+<text x="28" y="657" font-size="20" fill="#5b6877">实线：子页引用 · 虚线：下一叶页</text>
+<path d="M28 681 H532" stroke="#d9dfdc"/>
+<text x="28" y="721" font-size="23" font-weight="600">③ 范围 18—42：只定位一次起点</text>
+<rect x="28" y="744" width="504" height="90" rx="10" fill="#e7f2ed" stroke="#d9dfdc"/>
+<text x="280" y="779" text-anchor="middle" font-size="25">L1：18 → L3：24、29</text>
+<text x="280" y="813" text-anchor="middle" font-size="25">→ L2：31、42；遇到 57 停止</text>
+<text x="280" y="873" text-anchor="middle" font-size="23" font-weight="600">输出：18、24、29、31、42</text>
+<text x="280" y="914" text-anchor="middle" font-size="20" fill="#5b6877">分界 24 被复制到根，数据条目仍留在 L3</text>
+</g></svg>
