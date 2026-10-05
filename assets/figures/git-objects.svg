@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="650" viewBox="0 0 560 650" role="img" aria-labelledby="title desc">
+<title id="title">完整版本，共享同一份未变化内容</title><desc id="desc">实线：对象引用 · 虚线：提交的父关系</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="650" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">完整版本，共享同一份未变化内容</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">实线：对象引用 · 虚线：提交的父关系</text>
+<rect x="32" y="112" width="216" height="60" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="140.0" y="150.0" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">提交 C0</text>
+<rect x="312" y="112" width="216" height="60" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="420.0" y="150.0" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">提交 C1</text>
+<path d="M 306 142 L 254 142" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)" stroke-dasharray="7 5"/>
+<rect x="32" y="220" width="216" height="64" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="140.0" y="260.0" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">根 tree · T0</text>
+<rect x="32" y="334" width="216" height="84" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="140.0" y="368" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">notes tree · D0</text>
+<text x="140.0" y="399" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">记录文件名 → blob</text>
+<path d="M 140 177 L 140 213" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)"/>
+<path d="M 140 290 L 140 327" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)"/>
+<rect x="312" y="220" width="216" height="64" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="420.0" y="260.0" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">根 tree · T1</text>
+<rect x="312" y="334" width="216" height="84" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="420.0" y="368" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">notes tree · D1</text>
+<text x="420.0" y="399" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">记录文件名 → blob</text>
+<path d="M 420 177 L 420 213" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)"/>
+<path d="M 420 290 L 420 327" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)"/>
+<rect x="24" y="510" width="150" height="68" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="99.0" y="552.0" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">blob M0</text>
+<rect x="205" y="510" width="150" height="68" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="552.0" fill="#287467" font-size="23" font-weight="600" text-anchor="middle">blob N0</text>
+<rect x="386" y="510" width="150" height="68" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="461.0" y="552.0" fill="#a54426" font-size="23" font-weight="600" text-anchor="middle">blob M1</text>
+<path d="M 94 424 L 94 503" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)"/>
+<path d="M 199 424 L 240 468 L 250 503" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 365 424 L 326 468 L 310 503" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 462 424 L 462 503" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<text x="280" y="483" fill="#287467" font-size="20" font-weight="400" text-anchor="middle">共享</text>
+<text x="99" y="607" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">memory.md</text>
+<text x="280" y="607" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">network.md</text>
+<text x="461" y="607" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">memory.md</text>
+<text x="280" y="637" fill="#18283b" font-size="21" font-weight="400" text-anchor="middle">memory.md 改为 M1；network.md 仍为 N0</text>
+</g>
+</svg>

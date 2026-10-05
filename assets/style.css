@@ -6,3 +6,13 @@
 @media(min-width:651px) and (max-width:950px){.reasoning-track{padding-left:25px;gap:30px 16px}.reasoning-track span{font-size:17px}}
 @media(max-width:380px){.site-header{flex-wrap:wrap}.site-header nav{width:100%;justify-content:flex-end}.home-intro{gap:12px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}@media print{.site-header,.site-footer,.reading-rail,.reading-progress,.reading-nav,.skip{display:none}body{background:white}main{max-width:none;padding:0}.article-layout{display:block;padding:0}.article-body{font-size:12pt;line-height:1.8}.article-body pre{white-space:pre-wrap}.article-header h1{font-size:25pt}}
+
+/* Mechanism diagrams use the same examples as the surrounding prose. */
+.article-body .lesson-figure{margin:32px 0 35px;font-family:var(--sans);break-inside:avoid}
+.article-body .figure-image{display:block;width:100%;max-width:640px;margin:auto;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--paper)}
+.article-body .figure-image img{display:block;width:100%;height:auto}
+.article-body .lesson-figure figcaption{max-width:640px;margin:12px auto 0;font-size:13px;line-height:1.8;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+.article-body .lesson-figure figcaption a{font-size:12px;align-self:flex-start;text-decoration:none}
+.article-body .figure-image:focus-visible{outline:3px solid var(--rust);outline-offset:4px}
+@media(max-width:650px){.article-body .lesson-figure{margin:26px 0 29px}.article-body .lesson-figure figcaption{font-size:12px;line-height:1.85}}
+@media print{.article-body .lesson-figure figcaption a{display:none}.article-body .figure-image{max-width:480px}.article-body .lesson-figure figcaption{max-width:480px}}

@@ -32,7 +32,7 @@ def template(name, values):
     return re.sub(r'\{\{([a-z_]+)\}\}', replace, source)
 
 
-def collect(catalog, content):
+def collect(catalog, content, base='/cs-design-daily'):
     entries = json.loads(catalog.read_text(encoding='utf-8'))['lessons']
     if not isinstance(entries, list) or not entries:
         raise ValueError('Catalog must contain at least one lesson')
@@ -67,7 +67,7 @@ def collect(catalog, content):
         if len(excerpt) > 95:
             excerpt = excerpt[:94].rstrip('，、； ') + '…'
         chars = len(re.findall(r'[\u3400-\u9fff]|[A-Za-z0-9]+', body))
-        lessons.append({**entry, 'body': render_markdown(body), 'excerpt': excerpt,
+        lessons.append({**entry, 'body': render_markdown(body, base=base), 'excerpt': excerpt,
                         'minutes': max(1, math.ceil(chars / 230)),
                         'sources': len(re.findall(r'\]\(https?://', body)),
                         'characters': chars})
@@ -90,7 +90,7 @@ def generate(output, catalog=None, content=None, base='/cs-design-daily'):
     if base and not re.fullmatch(r'/[a-zA-Z0-9/_-]+', base):
         raise ValueError('Invalid deployment base path')
     base = base.rstrip('/')
-    lessons = collect(catalog or ROOT / 'content/catalog.json', content or ROOT / 'content/lessons')
+    lessons = collect(catalog or ROOT / 'content/catalog.json', content or ROOT / 'content/lessons', base)
     latest = lessons[-1]
     common = {'base': base, 'latest_date': latest['date'].replace('-', '.'),
               'home_current': '', 'archive_current': ''}

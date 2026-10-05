@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="718" viewBox="0 0 560 718" role="img" aria-labelledby="title desc">
+<title id="title">写时复制：先共享，实际写入时分离</title><desc id="desc">箭头表示映射 · A / B 表示目标字节的内容</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="718" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">写时复制：先共享，实际写入时分离</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">箭头表示映射 · A / B 表示目标字节的内容</text>
+<text x="32" y="124" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">① fork 后：同一页，双方都暂时只读</text>
+<rect x="32" y="148" width="224" height="82" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="144.0" y="182" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">父进程 · 虚拟页 1</text>
+<text x="144.0" y="213" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">只读 / COW</text>
+<rect x="304" y="148" width="224" height="82" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="416.0" y="182" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">子进程 · 虚拟页 1</text>
+<text x="416.0" y="213" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">只读 / COW</text>
+<rect x="148" y="276" width="264" height="82" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="310" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">物理页 9 · A</text>
+<text x="280.0" y="341" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">引用计数 2</text>
+<path d="M 144 234 L 144 254 L 210 254 L 210 270" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 416 234 L 416 254 L 350 254 L 350 270" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 32 382 H 528" stroke="#d9dfdc"/>
+<text x="32" y="417" fill="#18283b" font-size="22" font-weight="600" text-anchor="start">② 子进程触发异常：复制、改映射、重试</text>
+<rect x="32" y="444" width="224" height="82" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="144.0" y="478" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">父进程 · 虚拟页 1</text>
+<text x="144.0" y="509" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">仍只读 / COW</text>
+<rect x="304" y="444" width="224" height="82" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="416.0" y="478" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">子进程 · 虚拟页 1</text>
+<text x="416.0" y="509" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">已恢复写权限</text>
+<rect x="32" y="570" width="224" height="82" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="144.0" y="604" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">物理页 9 · A</text>
+<text x="144.0" y="635" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">引用计数 1</text>
+<rect x="304" y="570" width="224" height="82" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="416.0" y="604" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">物理页 20 · B</text>
+<text x="416.0" y="635" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">复制 A 后重试写入 B</text>
+<path d="M 144 532 L 144 563" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 416 532 L 416 563" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<text x="280" y="694" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">写入落到私有副本，父进程仍读取 A</text>
+</g>
+</svg>

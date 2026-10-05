@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="660" viewBox="0 0 560 660" role="img" aria-labelledby="title desc">
+<title id="title">后面的字节到了，确认也不能跨过缺口</title><desc id="desc">接收端视图 · ACK 表示下一个期望收到的字节序号</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="660" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">后面的字节到了，确认也不能跨过缺口</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">接收端视图 · ACK 表示下一个期望收到的字节序号</text>
+<text x="32" y="118" fill="#18283b" font-size="22" font-weight="600" text-anchor="start">① 第二段丢失，第三段已到达</text>
+<rect x="32" y="154" width="160" height="100" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="112.0" y="188" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">已收到</text>
+<text x="112.0" y="219" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">1000—1999</text>
+<rect x="200" y="154" width="160" height="100" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="188" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">缺失</text>
+<text x="280.0" y="219" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">2000—2999</text>
+<rect x="368" y="154" width="160" height="100" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="448.0" y="188" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">已收到</text>
+<text x="448.0" y="219" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">3000—3999</text>
+<path d="M 200 292 L 200 259" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<text x="280" y="326" fill="#a54426" font-size="23" font-weight="400" text-anchor="middle">ACK 2000：前沿停在缺口前</text>
+<text x="32" y="386" fill="#18283b" font-size="22" font-weight="600" text-anchor="start">② 第二段重传到达，连续前缀补齐</text>
+<rect x="32" y="422" width="160" height="100" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="112.0" y="456" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">已收到</text>
+<text x="112.0" y="487" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">1000—1999</text>
+<rect x="200" y="422" width="160" height="100" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="456" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">已收到</text>
+<text x="280.0" y="487" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">2000—2999</text>
+<rect x="368" y="422" width="160" height="100" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="448.0" y="456" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">已收到</text>
+<text x="448.0" y="487" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">3000—3999</text>
+<path d="M 528 560 L 528 527" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="594" fill="#287467" font-size="23" font-weight="400" text-anchor="middle">ACK 4000：前沿越过已补齐区间</text>
+<text x="280" y="645" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">乱序缓存不等于连续收到；累计确认承诺连续前缀</text>
+</g>
+</svg>

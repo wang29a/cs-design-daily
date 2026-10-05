@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="660" viewBox="0 0 560 660" role="img" aria-labelledby="title desc">
+<title id="title">确认推进，新的发送额度随之释放</title><desc id="desc">教学模型：有效窗口恒为 4000 字节 · 每格 1000 字节</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="660" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">确认推进，新的发送额度随之释放</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型：有效窗口恒为 4000 字节 · 每格 1000 字节</text>
+<text x="32" y="118" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">① 已发三段，尚未收到确认</text>
+<rect x="36" y="153" width="93" height="68" rx="5" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="81" y="195" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">在途</text>
+<rect x="133" y="153" width="93" height="68" rx="5" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="178" y="195" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">在途</text>
+<rect x="230" y="153" width="93" height="68" rx="5" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="275" y="195" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">在途</text>
+<rect x="327" y="153" width="93" height="68" rx="5" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="372" y="195" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">可发送</text>
+<rect x="424" y="153" width="93" height="68" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="469" y="195" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">窗外</text>
+<text x="36" y="251" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">1000</text>
+<text x="133" y="251" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">2000</text>
+<text x="230" y="251" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">3000</text>
+<text x="327" y="251" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">4000</text>
+<text x="424" y="251" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">5000</text>
+<text x="521" y="251" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">6000</text>
+<path d="M 36 278 v 10 h 384 v -10" fill="none" stroke="#287467" stroke-width="2.5"/>
+<text x="280" y="322" fill="#287467" font-size="23" font-weight="400" text-anchor="middle">发送范围 [1000, 5000)</text>
+<text x="32" y="382" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">② 收到 ACK 2000，尚未发送新数据</text>
+<rect x="36" y="417" width="93" height="68" rx="5" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="81" y="459" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">已确认</text>
+<rect x="133" y="417" width="93" height="68" rx="5" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="178" y="459" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">在途</text>
+<rect x="230" y="417" width="93" height="68" rx="5" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="275" y="459" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">在途</text>
+<rect x="327" y="417" width="93" height="68" rx="5" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="372" y="459" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">可发送</text>
+<rect x="424" y="417" width="93" height="68" rx="5" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="469" y="459" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">可发送</text>
+<text x="36" y="515" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">1000</text>
+<text x="133" y="515" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">2000</text>
+<text x="230" y="515" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">3000</text>
+<text x="327" y="515" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">4000</text>
+<text x="424" y="515" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">5000</text>
+<text x="521" y="515" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">6000</text>
+<path d="M 133 542 v 10 h 384 v -10" fill="none" stroke="#287467" stroke-width="2.5"/>
+<text x="280" y="586" fill="#287467" font-size="23" font-weight="400" text-anchor="middle">发送范围 [2000, 6000)</text>
+<text x="280" y="637" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">下一个待发送位置仍为 4000；剩余额度 1000 → 2000</text>
+</g>
+</svg>

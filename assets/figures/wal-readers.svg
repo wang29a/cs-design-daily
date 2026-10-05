@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="704" viewBox="0 0 560 704" role="img" aria-labelledby="title desc">
+<title id="title">旧读者守住旧边界，新读者看到新提交</title><desc id="desc">时间自上而下 · 首次读取才建立本例的旧快照</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="704" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">旧读者守住旧边界，新读者看到新提交</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">时间自上而下 · 首次读取才建立本例的旧快照</text>
+<path d="M 56 117 L 56 654" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="88" y="116" width="440" height="92" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="308.0" y="150" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">① R：BEGIN 后执行 SELECT</text>
+<text x="308.0" y="181" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">读取 A0、B0，固定旧的可见边界</text>
+<rect x="88" y="266" width="440" height="92" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="308.0" y="300" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">② 写者提交 A1、B1</text>
+<text x="308.0" y="331" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">主数据库仍为 A0、B0；新版本在 WAL</text>
+<rect x="88" y="416" width="440" height="92" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="308.0" y="450" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">③ R 在同一读事务内再次查询</text>
+<text x="308.0" y="481" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">仍读到 A0、B0，不跨过旧边界</text>
+<rect x="88" y="566" width="440" height="92" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="308.0" y="600" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">④ N 开始新的读事务</text>
+<text x="308.0" y="631" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">按新边界从 WAL 读到 A1、B1</text>
+<text x="280" y="689" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">R 的旧视图维持到读事务结束</text>
+</g>
+</svg>

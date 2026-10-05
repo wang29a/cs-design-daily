@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="650" viewBox="0 0 560 650" role="img" aria-labelledby="title desc">
+<title id="title">接口负责连接，程序负责自己的工作</title><desc id="desc">实线箭头：字节流向 · 与正文的四行日志对应</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="650" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">接口负责连接，程序负责自己的工作</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">实线箭头：字节流向 · 与正文的四行日志对应</text>
+<rect x="40" y="112" width="480" height="86" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="146" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">app.log</text>
+<text x="280.0" y="177" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">四行日志，其中两行以 ERROR 开头</text>
+<rect x="40" y="234" width="480" height="86" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="268" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">grep</text>
+<text x="280.0" y="299" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">筛选 ERROR → 标准输出 fd 1</text>
+<rect x="40" y="356" width="480" height="86" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="390" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">内核管道缓冲区</text>
+<text x="280.0" y="421" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">传递字节，不解释日志的业务含义</text>
+<rect x="40" y="478" width="480" height="86" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="512" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">wc -l</text>
+<text x="280.0" y="543" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">标准输入 fd 0 → 统计换行符</text>
+<path d="M 280 203 L 280 228" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 325 L 280 350" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 447 L 280 472" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 32 591 H 528" stroke="#d9dfdc"/>
+<text x="280" y="626" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">最终输出 2；两边无需知道对方是谁</text>
+</g>
+</svg>

@@ -1,9 +1,33 @@
 """Safe Markdown subset used by the lecture sources."""
 import html
+from pathlib import Path
 import re
 from urllib.parse import urlsplit
 
 TOKEN = re.compile(r"(`[^`\n]+`|\*\*[^*\n]+\*\*|\[[^\]\n]+\]\([^\s)]+\))")
+IMAGE = re.compile(r'!\[([^\]\n]+)\]\(([^\s)]+)\)')
+
+
+def figure(match, base, assets):
+    label, path = match.groups()
+    if not label.strip():
+        raise ValueError('Figure needs a text description')
+    if not re.fullmatch(r'assets/figures/[a-z0-9][a-z0-9/_-]*\.(svg|png|webp|jpg)', path):
+        raise ValueError('Figure must use a local assets/figures path')
+    root = (assets or Path(__file__).resolve().parents[1] / 'assets').resolve()
+    source = (root / path.removeprefix('assets/')).resolve()
+    if not source.is_relative_to(root / 'figures'):
+        raise ValueError('Figure escapes its directory')
+    if not source.is_file():
+        raise ValueError('Missing figure: ' + path)
+    url = html.escape(base.rstrip('/') + '/' + path, quote=True)
+    description = html.escape(label, quote=True)
+    return ('<figure class="lesson-figure"><a class="figure-image" href="' + url +
+            '" target="_blank" rel="noopener noreferrer" aria-label="查看大图：' + description +
+            '"><img src="' + url + '" alt="' + description +
+            '" loading="lazy" decoding="async"></a><figcaption><span>' +
+            description + '</span><a href="' + url +
+            '" target="_blank" rel="noopener noreferrer">查看大图 ↗</a></figcaption></figure>')
 
 
 def inline(text):
@@ -27,7 +51,7 @@ def inline(text):
     return ''.join(chunks)
 
 
-def render_markdown(text):
+def render_markdown(text, base='/cs-design-daily', assets=None):
     output, paragraph, code = [], [], []
     in_code = False
     removed_title = False
@@ -49,6 +73,12 @@ def render_markdown(text):
             code.append(line)
         elif not line.strip():
             flush()
+        elif line.strip().startswith('!['):
+            flush()
+            match = IMAGE.fullmatch(line.strip())
+            if not match:
+                raise ValueError('Figure must occupy its own line with a description and local path')
+            output.append(figure(match, base, assets))
         elif re.match(r'^#{1,6} ', line):
             flush()
             level, title = line.split(' ', 1)
