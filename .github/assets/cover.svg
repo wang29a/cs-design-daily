@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420" role="img" aria-labelledby="title desc">
+  <title id="title">一日一设计</title>
+  <desc id="desc">理解一个设计，看见一类问题。深蓝色封面与金色括号，延续阅读页的视觉风格。</desc>
+  <rect width="1280" height="420" rx="16" fill="#15263d"/>
+  <path d="M950 0v420M1080 0v420M1210 0v420M840 80h440M840 210h440M840 340h440" stroke="#23364f" fill="none"/>
+  <rect x="920" y="100" width="240" height="240" rx="12" fill="#1c2f48" stroke="#314660"/>
+  <path d="M980 152h-20v136h20M1100 152h20v136h-20M1072 147l-62 146" stroke="#f1b96d" stroke-width="8" stroke-linecap="square" fill="none"/>
+  <text x="76" y="80" fill="#f1b96d" font-family="-apple-system,BlinkMacSystemFont,Arial,sans-serif" font-size="16" letter-spacing="4">CS DESIGN / A DAILY STUDY</text>
+  <text x="76" y="176" fill="#f5f7fa" font-family="Songti SC,Noto Serif CJK SC,serif" font-size="54" font-weight="600" letter-spacing="3">理解一个设计，</text>
+  <text x="76" y="252" fill="#f5f7fa" font-family="Songti SC,Noto Serif CJK SC,serif" font-size="54" font-weight="600" letter-spacing="3">看见一类问题。</text>
+  <path d="M76 296h54" stroke="#f1b96d" stroke-width="3"/>
+  <text x="76" y="352" fill="#b8c3d2" font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif" font-size="19" letter-spacing="2">每天，认真吃透一个计算机系统里的漂亮设计。</text>
+</svg>
