@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="{{description}}">
+<meta name="color-scheme" content="light">
+<title>{{title}} · 一日一设计</title>
+<link rel="icon" href="{{base}}/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="{{base}}/assets/style.css">
+<link rel="canonical" href="{{canonical}}">
+<script defer src="{{base}}/assets/app.js"></script>
+</head>
+<body class="{{page_type}}">
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header">
+  <a class="identity" href="{{base}}/"><span class="identity-mark" aria-hidden="true">[ / ]</span><span>一日一设计<small>COMPUTER SYSTEMS, UNDERSTOOD.</small></span></a>
+  <nav aria-label="主导航"><a href="{{base}}/" {{home_current}}>今日阅读</a><a href="{{base}}/archive/" {{archive_current}}>讲义归档</a><a class="repo-link" href="https://github.com/wang29a/cs-design-daily" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></nav>
+</header>
+<main id="main" tabindex="-1">{{content}}</main>
+<footer class="site-footer"><a href="{{base}}/">一日一设计</a><span>一天一个设计，一次认真理解。</span><span>中文手记 · 更新至 {{latest_date}}</span></footer>
+</body>
+</html>

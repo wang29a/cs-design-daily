@@ -40,11 +40,11 @@ AI 让获取答案变得越来越容易，也让判断答案的能力变得越�
 
 | 讲义 | 从一个问题走进去 | 领域 |
 | :--- | :--- | :--- |
-| [01 · Unix 管道](https://wang29a.github.io/cs-design-daily/#2026-10-01-unix-pipe) | 怎样让互不认识的程序协作？ | 操作系统 |
-| [02 · 虚拟内存](https://wang29a.github.io/cs-design-daily/#2026-10-02-virtual-memory) | 怎样用一层映射改变资源的分配方式？ | 内存管理 |
-| [03 · WAL](https://wang29a.github.io/cs-design-daily/#2026-10-03-wal) | 怎样在随时可能中断的世界里确认一次修改？ | 数据库 |
-| [04 · Git 对象与引用](https://wang29a.github.io/cs-design-daily/#2026-10-04-git-objects) | 怎样让完整版本共享同一份未变化内容？ | 版本控制 |
-| [05 · TCP 滑动窗口](https://wang29a.github.io/cs-design-daily/#2026-10-05-tcp-window) | 怎样把等待变成可控的并行？ | 网络 |
+| [01 · Unix 管道](https://wang29a.github.io/cs-design-daily/lessons/2026-10-01-unix-pipe/) | 怎样让互不认识的程序协作？ | 操作系统 |
+| [02 · 虚拟内存](https://wang29a.github.io/cs-design-daily/lessons/2026-10-02-virtual-memory/) | 怎样用一层映射改变资源的分配方式？ | 内存管理 |
+| [03 · WAL](https://wang29a.github.io/cs-design-daily/lessons/2026-10-03-wal/) | 怎样在随时可能中断的世界里确认一次修改？ | 数据库 |
+| [04 · Git 对象与引用](https://wang29a.github.io/cs-design-daily/lessons/2026-10-04-git-objects/) | 怎样让完整版本共享同一份未变化内容？ | 版本控制 |
+| [05 · TCP 滑动窗口](https://wang29a.github.io/cs-design-daily/lessons/2026-10-05-tcp-window/) | 怎样把等待变成可控的并行？ | 网络 |
 
 后续讲义会继续加入[在线阅读页](https://wang29a.github.io/cs-design-daily/)的日期归档。你可以从最新一讲开始，也可以沿着自己的兴趣回看。
 
@@ -62,7 +62,26 @@ AI 让获取答案变得越来越容易，也让判断答案的能力变得越�
 
 网页托管在 GitHub Pages，阅读不依赖本机开机。新内容的生成仍依赖本机和 Codex 正常运行；任务未成功执行时，既有讲义会继续保留。同一天不会重复追加，往期内容可以持续回看。
 
-阅读页将所有讲义完整嵌入一个 HTML 文件，使用原生 CSS 与 JavaScript，不依赖前端框架或外部字体。这个仓库保存公开阅读页和部署配置，工作流仅发布 `site/`。
+## 内容是源，页面是结果
+
+每篇讲义是独立的 Markdown 文件，日期、标题、领域和关键洞察由目录管理。模板描述阅读界面，CSS 与 JavaScript 负责展示及交互，构建器将它们组合成首页、归档和每篇文章的独立页面。新增一讲时无需改写 HTML，也无需修改前端代码。
+
+```text
+content/
+  catalog.json          日期、标题、领域与源文件映射
+  lessons/*.md          每篇讲义的完整正文
+templates/              首页、归档、阅读页与共享布局
+assets/                 样式、交互与标识
+scripts/
+  build.py              验证内容并生成网站
+  publish.py            验证新讲义后追加目录
+tests/                  内容发布与构建不变量
+dist/                   生成结果，不提交到版本库
+```
+
+GitHub Actions 从这些源文件运行检查并构建 `dist/`，然后发布到 Pages。构建失败时不会发布候选结果；重复日期、缺失正文和未关闭的代码围栏都会被拒绝。每次构建生成文件哈希清单，用于确认公网内容对应本次源文件。
+
+在仓库根目录运行 `python3 scripts/build.py` 可以复现网站。构建仅使用 Python 标准库；阅读页面无需 JavaScript 也能打开全文和导航，脚本只增强领域筛选、阅读进度及旧书签兼容。
 
 ---
 

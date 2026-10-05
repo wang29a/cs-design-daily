@@ -1,0 +1,49 @@
+{
+  "lessons": [
+    {
+      "id": "2026-10-01-unix-pipe",
+      "date": "2026-10-01",
+      "title": "Unix 管道",
+      "subtitle": "怎样让互不认识的程序协作",
+      "topic": "操作系统",
+      "source": "01-unix-pipe.md",
+      "insight": "统一边界，让程序各自做好一小件事。"
+    },
+    {
+      "id": "2026-10-02-virtual-memory",
+      "date": "2026-10-02",
+      "title": "虚拟内存",
+      "subtitle": "怎样用一层映射改变资源的分配方式",
+      "topic": "内存管理",
+      "source": "02-virtual-memory.md",
+      "insight": "名字与物理位置之间，留出一层映射。"
+    },
+    {
+      "id": "2026-10-03-wal",
+      "date": "2026-10-03",
+      "title": "WAL",
+      "subtitle": "怎样在随时可能中断的世界里确认一次修改",
+      "topic": "数据库",
+      "source": "03-wal.md",
+      "insight": "先留下恢复依据，再确认一次修改。"
+    },
+    {
+      "id": "2026-10-04-git-objects",
+      "date": "2026-10-04",
+      "title": "Git 对象与引用",
+      "subtitle": "怎样让完整版本共享同一份未变化内容",
+      "topic": "版本控制",
+      "source": "04-git-objects.md",
+      "insight": "稳定的内容，与可移动的引用。"
+    },
+    {
+      "id": "2026-10-05-tcp-window",
+      "date": "2026-10-05",
+      "title": "TCP 滑动窗口",
+      "subtitle": "怎样把等待变成可控的并行",
+      "topic": "网络",
+      "source": "05-tcp-window.md",
+      "insight": "用有限的在途状态，覆盖反馈的等待。"
+    }
+  ]
+}
