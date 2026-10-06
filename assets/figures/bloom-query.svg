@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="742" viewBox="0 0 560 742" role="img" aria-labelledby="title desc">
+<title id="title">相同最终答案，不同查询成本</title><desc id="desc">教学集合 {24, 31} · 箭头表示处理顺序</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="742" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">相同最终答案，不同查询成本</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学集合 {24, 31} · 箭头表示处理顺序</text>
+<text x="63" y="119" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">0</text>
+<rect x="36" y="133" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="63" y="170" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<text x="124" y="119" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">1</text>
+<rect x="97" y="133" width="55" height="56" rx="5" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="124" y="170" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">1</text>
+<text x="185" y="119" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">2</text>
+<rect x="158" y="133" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="185" y="170" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<text x="246" y="119" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">3</text>
+<rect x="219" y="133" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="246" y="170" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<text x="307" y="119" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">4</text>
+<rect x="280" y="133" width="55" height="56" rx="5" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="307" y="170" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">1</text>
+<text x="368" y="119" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">5</text>
+<rect x="341" y="133" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="368" y="170" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<text x="429" y="119" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">6</text>
+<rect x="402" y="133" width="55" height="56" rx="5" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="429" y="170" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">1</text>
+<text x="490" y="119" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">7</text>
+<rect x="463" y="133" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="490" y="170" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<rect x="32" y="234" width="234" height="87" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="149.0" y="268" fill="#18283b" font-size="26" font-weight="600" text-anchor="middle">查询 57</text>
+<text x="149.0" y="299" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">位置 (2, 6)</text>
+<path d="M 149 325 L 149 350" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="358" width="234" height="87" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="149.0" y="392" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">读到 (0, 1)</text>
+<text x="149.0" y="423" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">一定不存在</text>
+<path d="M 149 449 L 149 474" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="482" width="234" height="87" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="149.0" y="516" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">跳过精确查询</text>
+<text x="149.0" y="547" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">最终：不存在</text>
+<text x="149" y="616" fill="#287467" font-size="24" font-weight="600" text-anchor="middle">可靠否定</text>
+<rect x="294" y="234" width="234" height="87" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="411.0" y="268" fill="#18283b" font-size="26" font-weight="600" text-anchor="middle">查询 29</text>
+<text x="411.0" y="299" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">位置 (1, 6)</text>
+<path d="M 411 325 L 411 350" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<rect x="294" y="358" width="234" height="87" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="411.0" y="392" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">读到 (1, 1)</text>
+<text x="411.0" y="423" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">可能存在</text>
+<path d="M 411 449 L 411 474" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<rect x="294" y="482" width="234" height="87" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="411.0" y="516" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">继续精确查询</text>
+<text x="411.0" y="547" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">最终：不存在</text>
+<text x="411" y="616" fill="#a54426" font-size="24" font-weight="600" text-anchor="middle">一次误报</text>
+<path d="M 32 652 H 528" stroke="#d9dfdc"/>
+<text x="280" y="695" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">“可能存在”只放行，精确查询负责最终确认</text>
+</g>
+</svg>

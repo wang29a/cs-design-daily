@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regenerate the ten teaching diagrams with only the Python standard library."""
+"""Regenerate teaching diagrams with only the Python standard library."""
 from html import escape
 from pathlib import Path
 
@@ -242,12 +242,56 @@ def tcp_gap():
     d.save()
 
 
+def bloom_bits(d, y, bits, highlights=()):
+    for i, value in enumerate(bits):
+        x = 36 + i * 61
+        d.text(x + 27, y - 14, str(i), size=22, color=MUTED, anchor='middle')
+        d.rect(x, y, 55, 56, GREEN if value else WHITE, radius=5,
+               stroke=TEAL if i in highlights else LINE)
+        d.text(x + 27, y + 37, str(value), size=27, weight=600, anchor='middle')
+
+
+def bloom_insert():
+    d = Drawing('bloom-insert', 638, '标记可以叠加，不需要专属位置', '教学模型：m = 8 位，k = 2 · 向下箭头表示时间')
+    for y, heading, bits, highlights in [
+        (158, '① 初始：所有位置为 0', [0] * 8, ()),
+        (337, '② 插入 24：置位 (1, 4)', [0, 1, 0, 0, 1, 0, 0, 0], (1, 4)),
+        (516, '③ 插入 31：置位 (4, 6)', [0, 1, 0, 0, 1, 0, 1, 0], (4, 6)),
+    ]:
+        d.text(32, y - 49, heading, size=24, weight=600)
+        bloom_bits(d, y, bits, highlights)
+    for y in (225, 404):
+        d.arrow([(280, y), (280, y + 30)], color='teal')
+    d.text(280, 614, '位置 4 被共享；插入只置 1，不清零', size=23, anchor='middle')
+    d.save()
+
+
+def bloom_query():
+    d = Drawing('bloom-query', 742, '相同最终答案，不同查询成本', '教学集合 {24, 31} · 箭头表示处理顺序')
+    bloom_bits(d, 133, [0, 1, 0, 0, 1, 0, 1, 0])
+    for x, key, positions, values, decision, end, fill, color in [
+        (32, '57', '(2, 6)', '(0, 1)', '一定不存在', '跳过精确查询', GREEN, 'teal'),
+        (294, '29', '(1, 6)', '(1, 1)', '可能存在', '继续精确查询', PEACH, 'rust'),
+    ]:
+        d.card(x, 234, 234, 87, '查询 ' + key, '位置 ' + positions, size=26)
+        d.arrow([(x + 117, 325), (x + 117, 350)], color=color)
+        d.card(x, 358, 234, 87, '读到 ' + values, decision, fill, size=25)
+        d.arrow([(x + 117, 449), (x + 117, 474)], color=color)
+        d.card(x, 482, 234, 87, end, '最终：不存在', fill, size=24)
+        d.text(x + 117, 616, '可靠否定' if key == '57' else '一次误报',
+               size=24, color=TEAL if key == '57' else RUST, weight=600, anchor='middle')
+    d.rule(652)
+    d.text(280, 695, '“可能存在”只放行，精确查询负责最终确认', size=22, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    for draw in [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
-                 git_objects, git_refs, tcp_window, tcp_gap]:
+    drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
+                git_objects, git_refs, tcp_window, tcp_gap, bloom_insert, bloom_query]
+    for draw in drawings:
         draw()
-    print('Generated 10 teaching diagrams in assets/figures/')
+    print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')
 
 
 if __name__ == '__main__':

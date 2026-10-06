@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="638" viewBox="0 0 560 638" role="img" aria-labelledby="title desc">
+<title id="title">标记可以叠加，不需要专属位置</title><desc id="desc">教学模型：m = 8 位，k = 2 · 向下箭头表示时间</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="638" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">标记可以叠加，不需要专属位置</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型：m = 8 位，k = 2 · 向下箭头表示时间</text>
+<text x="32" y="109" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">① 初始：所有位置为 0</text>
+<text x="63" y="144" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">0</text>
+<rect x="36" y="158" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="63" y="195" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<text x="124" y="144" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">1</text>
+<rect x="97" y="158" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="124" y="195" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<text x="185" y="144" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">2</text>
+<rect x="158" y="158" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="185" y="195" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<text x="246" y="144" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">3</text>
+<rect x="219" y="158" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="246" y="195" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<text x="307" y="144" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">4</text>
+<rect x="280" y="158" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="307" y="195" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<text x="368" y="144" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">5</text>
+<rect x="341" y="158" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="368" y="195" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<text x="429" y="144" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">6</text>
+<rect x="402" y="158" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="429" y="195" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<text x="490" y="144" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">7</text>
+<rect x="463" y="158" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="490" y="195" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<text x="32" y="288" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">② 插入 24：置位 (1, 4)</text>
+<text x="63" y="323" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">0</text>
+<rect x="36" y="337" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="63" y="374" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<text x="124" y="323" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">1</text>
+<rect x="97" y="337" width="55" height="56" rx="5" fill="#e7f2ed" stroke="#287467" stroke-width="1.5"/>
+<text x="124" y="374" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">1</text>
+<text x="185" y="323" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">2</text>
+<rect x="158" y="337" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="185" y="374" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<text x="246" y="323" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">3</text>
+<rect x="219" y="337" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="246" y="374" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<text x="307" y="323" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">4</text>
+<rect x="280" y="337" width="55" height="56" rx="5" fill="#e7f2ed" stroke="#287467" stroke-width="1.5"/>
+<text x="307" y="374" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">1</text>
+<text x="368" y="323" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">5</text>
+<rect x="341" y="337" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="368" y="374" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<text x="429" y="323" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">6</text>
+<rect x="402" y="337" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="429" y="374" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<text x="490" y="323" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">7</text>
+<rect x="463" y="337" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="490" y="374" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<text x="32" y="467" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">③ 插入 31：置位 (4, 6)</text>
+<text x="63" y="502" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">0</text>
+<rect x="36" y="516" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="63" y="553" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<text x="124" y="502" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">1</text>
+<rect x="97" y="516" width="55" height="56" rx="5" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="124" y="553" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">1</text>
+<text x="185" y="502" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">2</text>
+<rect x="158" y="516" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="185" y="553" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<text x="246" y="502" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">3</text>
+<rect x="219" y="516" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="246" y="553" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<text x="307" y="502" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">4</text>
+<rect x="280" y="516" width="55" height="56" rx="5" fill="#e7f2ed" stroke="#287467" stroke-width="1.5"/>
+<text x="307" y="553" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">1</text>
+<text x="368" y="502" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">5</text>
+<rect x="341" y="516" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="368" y="553" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<text x="429" y="502" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">6</text>
+<rect x="402" y="516" width="55" height="56" rx="5" fill="#e7f2ed" stroke="#287467" stroke-width="1.5"/>
+<text x="429" y="553" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">1</text>
+<text x="490" y="502" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">7</text>
+<rect x="463" y="516" width="55" height="56" rx="5" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="490" y="553" fill="#18283b" font-size="27" font-weight="600" text-anchor="middle">0</text>
+<path d="M 280 225 L 280 255" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 404 L 280 434" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="614" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">位置 4 被共享；插入只置 1，不清零</text>
+</g>
+</svg>

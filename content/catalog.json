@@ -53,6 +53,15 @@
       "source": "2026-10-06-bplus-tree.md",
       "id": "2026-10-06-bplus-tree",
       "insight": "用页内多路选择和局部维护，保留全局有序查询。"
+    },
+    {
+      "date": "2026-10-07",
+      "title": "Bloom 过滤器",
+      "subtitle": "怎样用一点误报换掉昂贵的否定查找",
+      "topic": "数据结构",
+      "source": "2026-10-07-bloom-filter.md",
+      "id": "2026-10-07-bloom-filter",
+      "insight": "把可靠否定交给压缩标记，把模糊情况交回精确查询。"
     }
   ]
 }
