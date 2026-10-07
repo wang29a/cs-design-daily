@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="670" viewBox="0 0 560 670" role="img" aria-labelledby="title desc">
+<title id="title">钱会离开账户，却没有离开系统</title><desc id="desc">教学模型 · 横向为转移方向，向下为阶段顺序</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="670" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">钱会离开账户，却没有离开系统</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型 · 横向为转移方向，向下为阶段顺序</text>
+<text x="32" y="108" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">① 发送前</text>
+<rect x="32" y="135" width="150" height="68" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="107.0" y="177.0" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">A：100 元</text>
+<rect x="206" y="135" width="148" height="68" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="177.0" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">通道：空</text>
+<rect x="378" y="135" width="150" height="68" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="453.0" y="177.0" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">B：100 元</text>
+<path d="M 184 169 L 202 169" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 356 169 L 374 169" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="237" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">100 + 0 + 100 = 200</text>
+<text x="32" y="296" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">② x 已发送，尚未接收</text>
+<rect x="32" y="323" width="150" height="68" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="107.0" y="365.0" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">A：90 元</text>
+<rect x="206" y="323" width="148" height="68" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="365.0" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">x：10 元</text>
+<rect x="378" y="323" width="150" height="68" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="453.0" y="365.0" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">B：100 元</text>
+<path d="M 184 357 L 202 357" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 356 357 L 374 357" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="425" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">90 + 10 + 100 = 200</text>
+<text x="32" y="484" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">③ B 收到 x</text>
+<rect x="32" y="511" width="150" height="68" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="107.0" y="553.0" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">A：90 元</text>
+<rect x="206" y="511" width="148" height="68" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="553.0" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">通道：空</text>
+<rect x="378" y="511" width="150" height="68" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="453.0" y="553.0" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">B：110 元</text>
+<path d="M 184 545 L 202 545" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 356 545 L 374 545" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="613" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">90 + 0 + 110 = 200</text>
+<path d="M 280 253 L 280 281" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)"/>
+<path d="M 280 441 L 280 469" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)"/>
+<text x="280" y="648" fill="#18283b" font-size="24" font-weight="400" text-anchor="middle">通道里的业务消息，也是全局状态</text>
+</g>
+</svg>

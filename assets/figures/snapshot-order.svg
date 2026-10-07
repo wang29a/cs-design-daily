@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="658" viewBox="0 0 560 658" role="img" aria-labelledby="title desc">
+<title id="title">标记一旦超车，记录就会漏钱</title><desc id="desc">同样保存 A = 90、B = 100 · 横向为 B 的接收顺序</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="658" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">标记一旦超车，记录就会漏钱</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">同样保存 A = 90、B = 100 · 横向为 B 的接收顺序</text>
+<rect x="32" y="117" width="496" height="224" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="153" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">① 正确：业务消息先到</text>
+<rect x="64" y="171" width="184" height="59" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="156.0" y="208.5" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">x：10 元</text>
+<rect x="312" y="171" width="184" height="59" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="404.0" y="208.5" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">M_A</text>
+<path d="M 258 200 L 300 200" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="272" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">记录 x 后，标记关闭清单</text>
+<text x="280" y="312" fill="#287467" font-size="23" font-weight="600" text-anchor="middle">通道保存 10 元；合计 200 元</text>
+<rect x="32" y="375" width="496" height="224" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="411" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">② 反事实：标记超过 x</text>
+<rect x="64" y="429" width="184" height="59" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="156.0" y="466.5" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">M_A</text>
+<rect x="312" y="429" width="184" height="59" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="404.0" y="466.5" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">x：10 元</text>
+<path d="M 258 458 L 300 458" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<text x="280" y="530" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">先关闭空清单，x 随后才到</text>
+<text x="280" y="570" fill="#a54426" font-size="23" font-weight="600" text-anchor="middle">通道保存 0 元；合计 190 元</text>
+<text x="280" y="636" fill="#18283b" font-size="21" font-weight="400" text-anchor="middle">业务消息与标记，需要同一逻辑通道的顺序保证</text>
+</g>
+</svg>

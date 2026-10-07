@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="960" viewBox="0 0 560 960" role="img" aria-labelledby="title desc">
+<title id="title">保存的照片，不跟着实时状态改</title><desc id="desc">同一轮快照 · x 已发送 · 向下表示本例事件顺序</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="960" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">保存的照片，不跟着实时状态改</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">同一轮快照 · x 已发送 · 向下表示本例事件顺序</text>
+<rect x="32" y="110" width="496" height="149" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="147" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">① B 发起：保存 B = 100</text>
+<text x="52" y="190" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">开始记录 A→B；B→A 发出 M_B</text>
+<text x="52" y="229" fill="#5b6877" font-size="23" font-weight="400" text-anchor="start">A→B 中仍有 x；B 尚未收到</text>
+<path d="M 280 265 L 280 291" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="299" width="496" height="149" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="336" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">② A 收到 M_B：保存 A = 90</text>
+<text x="52" y="379" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">记录 B→A 为空；发出 M_A</text>
+<text x="52" y="418" fill="#5b6877" font-size="23" font-weight="400" text-anchor="start">A→B 的交付顺序：x → M_A</text>
+<path d="M 280 454 L 280 480" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="488" width="496" height="149" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="525" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">③ B 收到 x：实时余额 = 110</text>
+<text x="52" y="568" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">保存的 B 仍是 100，不再修改</text>
+<text x="52" y="607" fill="#5b6877" font-size="23" font-weight="400" text-anchor="start">A→B 清单：加入 x（10 元）</text>
+<path d="M 280 643 L 280 669" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="677" width="496" height="149" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="714" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">④ B 收到 M_A：关闭清单</text>
+<text x="52" y="757" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">A→B 保存 x；B→A 保存空</text>
+<text x="52" y="796" fill="#5b6877" font-size="23" font-weight="400" text-anchor="start">两端与两条通道记录均已完成</text>
+<path d="M 32 856 H 528" stroke="#d9dfdc"/>
+<text x="280" y="897" fill="#18283b" font-size="24" font-weight="400" text-anchor="middle">收集结果：90 + 100 + 10 + 0 = 200</text>
+<text x="280" y="935" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">M_A、M_B 是标记，不转移金额</text>
+</g>
+</svg>

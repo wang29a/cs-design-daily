@@ -62,6 +62,15 @@
       "source": "2026-10-07-bloom-filter.md",
       "id": "2026-10-07-bloom-filter",
       "insight": "把可靠否定交给压缩标记，把模糊情况交回精确查询。"
+    },
+    {
+      "date": "2026-10-08",
+      "title": "钱正在路上",
+      "subtitle": "怎样给不停运行的系统拍一张可信的照片",
+      "topic": "分布式系统",
+      "source": "2026-10-08-distributed-snapshot.md",
+      "id": "2026-10-08-distributed-snapshot",
+      "insight": "用有序消息里的边界，拼合局部记录与跨边界的在途消息。"
     }
   ]
 }

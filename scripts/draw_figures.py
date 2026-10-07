@@ -285,10 +285,78 @@ def bloom_query():
     d.save()
 
 
+def snapshot_money():
+    d = Drawing('snapshot-money', 670, '钱会离开账户，却没有离开系统', '教学模型 · 横向为转移方向，向下为阶段顺序')
+    for y, heading, a, channel, b in [
+        (135, '① 发送前', 'A：100 元', '通道：空', 'B：100 元'),
+        (323, '② x 已发送，尚未接收', 'A：90 元', 'x：10 元', 'B：100 元'),
+        (511, '③ B 收到 x', 'A：90 元', '通道：空', 'B：110 元'),
+    ]:
+        d.text(32, y - 27, heading, size=24, weight=600)
+        d.card(32, y, 150, 68, a, size=23)
+        d.card(206, y, 148, 68, channel, fill=PEACH if 'x' in channel else GREEN, size=23)
+        d.card(378, y, 150, 68, b, size=23)
+        d.arrow([(184, y + 34), (202, y + 34)], color='teal')
+        d.arrow([(356, y + 34), (374, y + 34)], color='teal')
+        d.text(280, y + 102, '90 + 10 + 100 = 200' if 'x' in channel else
+               ('100 + 0 + 100 = 200' if y == 135 else '90 + 0 + 110 = 200'),
+               size=23, anchor='middle')
+    for y in (253, 441):
+        d.arrow([(280, y), (280, y + 28)], color='ink')
+    d.text(280, 648, '通道里的业务消息，也是全局状态', size=24, anchor='middle')
+    d.save()
+
+
+def snapshot_marker():
+    d = Drawing('snapshot-marker', 960, '保存的照片，不跟着实时状态改', '同一轮快照 · x 已发送 · 向下表示本例事件顺序')
+    rows = [
+        (110, '① B 发起：保存 B = 100',
+         '开始记录 A→B；B→A 发出 M_B', 'A→B 中仍有 x；B 尚未收到', WHITE),
+        (299, '② A 收到 M_B：保存 A = 90',
+         '记录 B→A 为空；发出 M_A', 'A→B 的交付顺序：x → M_A', WHITE),
+        (488, '③ B 收到 x：实时余额 = 110',
+         '保存的 B 仍是 100，不再修改', 'A→B 清单：加入 x（10 元）', PEACH),
+        (677, '④ B 收到 M_A：关闭清单',
+         'A→B 保存 x；B→A 保存空', '两端与两条通道记录均已完成', GREEN),
+    ]
+    for y, heading, line1, line2, fill in rows:
+        d.rect(32, y, 496, 149, fill)
+        d.text(52, y + 37, heading, size=24, weight=600)
+        d.text(52, y + 80, line1, size=23)
+        d.text(52, y + 119, line2, size=23, color=MUTED)
+        if y != 677:
+            d.arrow([(280, y + 155), (280, y + 181)], color='teal')
+    d.rule(856)
+    d.text(280, 897, '收集结果：90 + 100 + 10 + 0 = 200', size=24, anchor='middle')
+    d.text(280, 935, 'M_A、M_B 是标记，不转移金额', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+def snapshot_order():
+    d = Drawing('snapshot-order', 658, '标记一旦超车，记录就会漏钱', '同样保存 A = 90、B = 100 · 横向为 B 的接收顺序')
+    for y, heading, first, second, record, result, fill, color in [
+        (117, '① 正确：业务消息先到', 'x：10 元', 'M_A',
+         '记录 x 后，标记关闭清单', '通道保存 10 元；合计 200 元', GREEN, 'teal'),
+        (375, '② 反事实：标记超过 x', 'M_A', 'x：10 元',
+         '先关闭空清单，x 随后才到', '通道保存 0 元；合计 190 元', PEACH, 'rust'),
+    ]:
+        d.rect(32, y, 496, 224, fill)
+        d.text(52, y + 36, heading, size=24, weight=600)
+        d.card(64, y + 54, 184, 59, first, size=24)
+        d.card(312, y + 54, 184, 59, second, size=24)
+        d.arrow([(258, y + 83), (300, y + 83)], color=color)
+        d.text(280, y + 155, record, size=23, anchor='middle')
+        d.text(280, y + 195, result, size=23, weight=600,
+               color=TEAL if color == 'teal' else RUST, anchor='middle')
+    d.text(280, 636, '业务消息与标记，需要同一逻辑通道的顺序保证', size=21, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
-                git_objects, git_refs, tcp_window, tcp_gap, bloom_insert, bloom_query]
+                git_objects, git_refs, tcp_window, tcp_gap, bloom_insert, bloom_query,
+                snapshot_money, snapshot_marker, snapshot_order]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')
