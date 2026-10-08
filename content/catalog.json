@@ -71,6 +71,15 @@
       "source": "2026-10-08-distributed-snapshot.md",
       "id": "2026-10-08-distributed-snapshot",
       "insight": "用有序消息里的边界，拼合局部记录与跨边界的在途消息。"
+    },
+    {
+      "date": "2026-10-09",
+      "title": "RocksDB：把更新变成分批重建",
+      "subtitle": "写入、读取与后台合并怎样配合",
+      "topic": "存储引擎",
+      "source": "2026-10-09-rocksdb-lsm.md",
+      "id": "2026-10-09-rocksdb-lsm",
+      "insight": "用日志保障恢复，以有序批次承接更新，把维护旧布局的成本转交给受约束的后台合并。"
     }
   ]
 }

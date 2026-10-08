@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="888" viewBox="0 0 560 888" role="img" aria-labelledby="title desc">
+<title id="title">删掉删除标记，旧数据可能重新出现</title><desc id="desc">教学模型：没有旧快照 · 所有相关文件在图中</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="888" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">删掉删除标记，旧数据可能重新出现</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型：没有旧快照 · 所有相关文件在图中</text>
+<rect x="32" y="116" width="496" height="290" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="54" y="154" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">反事实：只处理 S3</text>
+<rect x="54" y="180" width="224" height="72" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="166.0" y="224.0" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">a@5 = DEL</text>
+<rect x="348" y="180" width="158" height="72" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="427.0" y="224.0" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">无输出</text>
+<path d="M 286 216 L 338 216" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<text x="280" y="293" fill="#18283b" font-size="25" font-weight="400" text-anchor="middle">S1 仍有 a@1 = 10</text>
+<path d="M 280 308 L 280 337" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<text x="280" y="375" fill="#a54426" font-size="23" font-weight="600" text-anchor="middle">Get(a) → 10：已删除的值“复活”</text>
+<rect x="32" y="442" width="496" height="374" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="54" y="480" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">正确：完整覆盖 S1、S2、S3</text>
+<text x="280" y="533" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">a：DEL@5 与 10@1 → 都省去</text>
+<text x="280" y="577" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">b：21@3 与 20@2 → 留 21@3</text>
+<text x="280" y="621" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">c：30@4 → 留 30@4</text>
+<path d="M 280 643 L 280 674" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="54" y="688" width="452" height="72" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="732.0" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">新文件：b@3 = 21，c@4 = 30</text>
+<text x="280" y="794" fill="#287467" font-size="23" font-weight="600" text-anchor="middle">Get(a) → 不存在；读取答案保持一致</text>
+<text x="280" y="855" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">仍有更旧记录或旧快照时，不能照此省去</text>
+</g>
+</svg>

@@ -352,11 +352,71 @@ def snapshot_order():
     d.save()
 
 
+def lsm_path():
+    d = Drawing('lsm-path', 860, '同一批修改，需要两种不同表示', '教学模型：单数据分组 · WAL 开启 · sync=true')
+    d.card(32, 112, 496, 90, '应用：Put / Delete', '修改 a、b、c；需要查询，也需要恢复')
+    d.card(32, 258, 236, 100, 'WAL', '按修改顺序记录', PEACH)
+    d.card(292, 258, 236, 100, 'memtable', '内存中的有序数据', GREEN)
+    d.arrow([(220, 210), (150, 248)], color='rust')
+    d.arrow([(340, 210), (410, 248)], color='teal')
+    d.text(150, 402, '恢复依据完成同步', size=21, color=RUST, anchor='middle')
+    d.text(150, 434, '成功返回前的必要条件', size=20, color=MUTED, anchor='middle')
+    d.card(32, 478, 496, 86, '冻结旧 memtable，启用新的 memtable', '旧批次稳定下来，新修改继续进入内存', GREEN, size=22)
+    d.arrow([(410, 366), (410, 450), (280, 450), (280, 470)], color='teal')
+    d.card(32, 612, 496, 86, '刷出：生成 L0 的新 SST 文件', 'S1、S2、S3 各自按键有序，写完后保持不变', size=22)
+    d.arrow([(280, 572), (280, 604)], color='teal')
+    d.card(32, 746, 496, 78, '后台合并：重建新的有序文件', '维持读取答案，控制重复版本与候选文件', GREEN, size=22)
+    d.arrow([(280, 706), (280, 738)], color='teal')
+    d.text(280, 847, '箭头表示流向，不表示完整并发调用时序', size=20, color=MUTED, anchor='middle')
+    d.save()
+
+
+def lsm_versions():
+    d = Drawing('lsm-versions', 738, '文件各自有序，同一个键仍有多个版本', '删除标记已刷出 · 本例按串行刷出顺序查找 L0')
+    rows = [
+        (122, 'S3：最新批次', 'a@5 = DEL', 'Get(a) → 不存在；到这里结束', PEACH, RUST),
+        (314, 'S2：第二批次', 'b@3 = 21，c@4 = 30', 'Get(b) → 21；不用取 S1 的旧值', GREEN, TEAL),
+        (506, 'S1：第一批次', 'a@1 = 10，b@2 = 20', '旧记录仍在文件里，已被更新覆盖', WHITE, MUTED),
+    ]
+    for y, title, data, result, fill, color in rows:
+        d.rect(32, y, 496, 150, fill)
+        d.text(54, y + 34, title, size=24, weight=600)
+        d.text(280, y + 81, data, size=26, anchor='middle')
+        d.text(280, y + 123, result, size=22, color=color, anchor='middle')
+    d.arrow([(16, 156), (16, 528)], color='teal')
+    d.text(280, 699, 'DEL 是覆盖证据；文件缺失一个键只排除该文件', size=21, anchor='middle')
+    d.text(280, 727, '@ 后的数字是修改序号，不是时间戳', size=20, color=MUTED, anchor='middle')
+    d.save()
+
+
+def lsm_delete():
+    d = Drawing('lsm-delete', 888, '删掉删除标记，旧数据可能重新出现', '教学模型：没有旧快照 · 所有相关文件在图中')
+    d.rect(32, 116, 496, 290, PEACH)
+    d.text(54, 154, '反事实：只处理 S3', size=25, weight=600)
+    d.card(54, 180, 224, 72, 'a@5 = DEL', size=24)
+    d.card(348, 180, 158, 72, '无输出', size=24)
+    d.arrow([(286, 216), (338, 216)], color='rust')
+    d.text(280, 293, 'S1 仍有 a@1 = 10', size=25, anchor='middle')
+    d.arrow([(280, 308), (280, 337)], color='rust')
+    d.text(280, 375, 'Get(a) → 10：已删除的值“复活”', size=23, color=RUST, weight=600, anchor='middle')
+    d.rect(32, 442, 496, 374, GREEN)
+    d.text(54, 480, '正确：完整覆盖 S1、S2、S3', size=24, weight=600)
+    d.text(280, 533, 'a：DEL@5 与 10@1 → 都省去', size=23, anchor='middle')
+    d.text(280, 577, 'b：21@3 与 20@2 → 留 21@3', size=23, anchor='middle')
+    d.text(280, 621, 'c：30@4 → 留 30@4', size=23, anchor='middle')
+    d.arrow([(280, 643), (280, 674)], color='teal')
+    d.card(54, 688, 452, 72, '新文件：b@3 = 21，c@4 = 30', size=24)
+    d.text(280, 794, 'Get(a) → 不存在；读取答案保持一致', size=23, color=TEAL, weight=600, anchor='middle')
+    d.text(280, 855, '仍有更旧记录或旧快照时，不能照此省去', size=22, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
                 git_objects, git_refs, tcp_window, tcp_gap, bloom_insert, bloom_query,
-                snapshot_money, snapshot_marker, snapshot_order]
+                snapshot_money, snapshot_marker, snapshot_order,
+                lsm_path, lsm_versions, lsm_delete]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="738" viewBox="0 0 560 738" role="img" aria-labelledby="title desc">
+<title id="title">文件各自有序，同一个键仍有多个版本</title><desc id="desc">删除标记已刷出 · 本例按串行刷出顺序查找 L0</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="738" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">文件各自有序，同一个键仍有多个版本</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">删除标记已刷出 · 本例按串行刷出顺序查找 L0</text>
+<rect x="32" y="122" width="496" height="150" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="54" y="156" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">S3：最新批次</text>
+<text x="280" y="203" fill="#18283b" font-size="26" font-weight="400" text-anchor="middle">a@5 = DEL</text>
+<text x="280" y="245" fill="#a54426" font-size="22" font-weight="400" text-anchor="middle">Get(a) → 不存在；到这里结束</text>
+<rect x="32" y="314" width="496" height="150" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="54" y="348" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">S2：第二批次</text>
+<text x="280" y="395" fill="#18283b" font-size="26" font-weight="400" text-anchor="middle">b@3 = 21，c@4 = 30</text>
+<text x="280" y="437" fill="#287467" font-size="22" font-weight="400" text-anchor="middle">Get(b) → 21；不用取 S1 的旧值</text>
+<rect x="32" y="506" width="496" height="150" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="54" y="540" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">S1：第一批次</text>
+<text x="280" y="587" fill="#18283b" font-size="26" font-weight="400" text-anchor="middle">a@1 = 10，b@2 = 20</text>
+<text x="280" y="629" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">旧记录仍在文件里，已被更新覆盖</text>
+<path d="M 16 156 L 16 528" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="699" fill="#18283b" font-size="21" font-weight="400" text-anchor="middle">DEL 是覆盖证据；文件缺失一个键只排除该文件</text>
+<text x="280" y="727" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">@ 后的数字是修改序号，不是时间戳</text>
+</g>
+</svg>
