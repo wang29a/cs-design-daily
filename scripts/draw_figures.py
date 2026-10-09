@@ -411,12 +411,74 @@ def lsm_delete():
     d.save()
 
 
+def rocksdb_version_readers():
+    d = Drawing('rocksdb-version-readers', 886, '入口切换了，旧读者仍有自己的路径', '教学模型：单列族 · 序号 5 · 箭头表示持有')
+    d.rect(32, 112, 496, 280, PEACH)
+    d.text(54, 150, '旧迭代器 R：发布前创建，尚未关闭', size=23, weight=600)
+    d.card(54, 172, 452, 66, 'R → V0 = {S1, S2, S3}', size=25)
+    d.arrow([(280, 246), (280, 273)], color='rust')
+    for y, label in [(306, 'S1：a@1=10，b@2=20'), (342, 'S2：b@3=21，c@4=30'), (378, 'S3：a@5=DEL')]:
+        d.text(280, y, label, size=23, anchor='middle')
+    d.rect(32, 426, 496, 222, GREEN)
+    d.text(54, 465, '新请求 N：发布后取得当前集合', size=23, weight=600)
+    d.card(54, 487, 452, 66, 'N → V1 = {S4}', size=25)
+    d.arrow([(280, 561), (280, 588)], color='teal')
+    d.text(280, 625, 'S4：b@3=21，c@4=30', size=25, anchor='middle')
+    d.rule(690)
+    d.text(280, 733, '两条读取路径：a 不存在，b=21，c=30', size=24, weight=600, anchor='middle')
+    d.text(280, 779, '旧文件集合 ≠ 旧修改序号', size=25, color=TEAL, anchor='middle')
+    d.text(280, 820, '假设：无旧快照、无其他相关文件', size=22, color=MUTED, anchor='middle')
+    d.text(280, 855, '图中省略 memtable 与 SuperVersion', size=21, color=MUTED, anchor='middle')
+    d.save()
+
+
+def rocksdb_publication_crash():
+    d = Drawing('rocksdb-publication-crash', 945, '落盘的成员记录决定重启后用谁', '教学模型：正常同步成功 · 向下箭头表示顺序')
+    d.card(40, 116, 480, 90, '① 写完 S4，同步文件与目录', 'S4 内容：b@3=21，c@4=30', size=24)
+    d.arrow([(280, 214), (280, 249)], color='teal')
+    d.rect(40, 265, 480, 124, PEACH)
+    d.text(280, 305, '断电 A：edit 尚未追加', size=24, weight=600, anchor='middle')
+    d.text(280, 342, '恢复 V0 = {S1, S2, S3}', size=24, color=RUST, anchor='middle')
+    d.text(280, 374, 'S4 存在，也尚未取得成员资格', size=21, anchor='middle')
+    d.arrow([(280, 397), (280, 433)], color='teal')
+    d.card(40, 449, 480, 90, '② 完整 edit 追加并同步成功', '移除 S1、S2、S3；加入 S4', size=24)
+    d.arrow([(280, 547), (280, 582)], color='teal')
+    d.rect(40, 598, 480, 110, GREEN)
+    d.text(280, 638, '断电 B：尚未发布内存集合', size=24, weight=600, anchor='middle')
+    d.text(280, 678, '恢复 V1 = {S4}', size=25, color=TEAL, anchor='middle')
+    d.arrow([(280, 716), (280, 752)], color='teal')
+    d.card(40, 768, 480, 66, '③ 正常运行中发布 V1', size=25)
+    d.text(280, 882, '追加后、同步结果未知：不在 A 的范围内', size=22, anchor='middle')
+    d.text(280, 919, 'VersionEdit 是逻辑替换，不是磁盘原子写', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+def rocksdb_retirement():
+    d = Drawing('rocksdb-retirement', 893, '不再接待新读者，不代表可以销毁', '教学模型：无其他持有者 · 不画精确引用计数')
+    d.rect(32, 112, 496, 207, PEACH)
+    d.text(54, 153, '① 发布 V1；R 还在读取', size=25, weight=600)
+    d.card(54, 173, 452, 66, '当前入口 → V1 → S4', size=25)
+    d.text(280, 284, 'R → V0 → S1、S2、S3', size=25, color=RUST, anchor='middle')
+    d.arrow([(280, 327), (280, 365)], color='teal')
+    d.rect(32, 381, 496, 200, GREEN)
+    d.text(54, 422, '② R 关闭；所有旧持有者结束', size=24, weight=600)
+    d.card(54, 445, 452, 66, 'V0 不再存活', size=25)
+    d.text(280, 552, 'S1、S2、S3 满足回收条件', size=24, color=TEAL, anchor='middle')
+    d.arrow([(280, 589), (280, 627)], color='teal')
+    d.card(32, 643, 496, 90, '③ 清理工作实际删除旧文件', '满足条件与执行删除，可以相隔一段时间', size=24)
+    d.rule(768)
+    d.text(280, 810, '持久性保护：恢复不能依赖缺失文件', size=23, anchor='middle')
+    d.text(280, 850, '生命周期保护：活读者不能失去依赖', size=23, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
                 git_objects, git_refs, tcp_window, tcp_gap, bloom_insert, bloom_query,
                 snapshot_money, snapshot_marker, snapshot_order,
-                lsm_path, lsm_versions, lsm_delete]
+                lsm_path, lsm_versions, lsm_delete,
+                rocksdb_version_readers, rocksdb_publication_crash, rocksdb_retirement]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

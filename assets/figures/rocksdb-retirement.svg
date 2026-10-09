@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="893" viewBox="0 0 560 893" role="img" aria-labelledby="title desc">
+<title id="title">不再接待新读者，不代表可以销毁</title><desc id="desc">教学模型：无其他持有者 · 不画精确引用计数</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="893" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">不再接待新读者，不代表可以销毁</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型：无其他持有者 · 不画精确引用计数</text>
+<rect x="32" y="112" width="496" height="207" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="54" y="153" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">① 发布 V1；R 还在读取</text>
+<rect x="54" y="173" width="452" height="66" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="214.0" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">当前入口 → V1 → S4</text>
+<text x="280" y="284" fill="#a54426" font-size="25" font-weight="400" text-anchor="middle">R → V0 → S1、S2、S3</text>
+<path d="M 280 327 L 280 365" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="381" width="496" height="200" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="54" y="422" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">② R 关闭；所有旧持有者结束</text>
+<rect x="54" y="445" width="452" height="66" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="486.0" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">V0 不再存活</text>
+<text x="280" y="552" fill="#287467" font-size="24" font-weight="400" text-anchor="middle">S1、S2、S3 满足回收条件</text>
+<path d="M 280 589 L 280 627" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="643" width="496" height="90" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="677" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">③ 清理工作实际删除旧文件</text>
+<text x="280.0" y="708" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">满足条件与执行删除，可以相隔一段时间</text>
+<path d="M 32 768 H 528" stroke="#d9dfdc"/>
+<text x="280" y="810" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">持久性保护：恢复不能依赖缺失文件</text>
+<text x="280" y="850" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">生命周期保护：活读者不能失去依赖</text>
+</g>
+</svg>

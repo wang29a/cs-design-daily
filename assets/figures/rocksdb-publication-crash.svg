@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="945" viewBox="0 0 560 945" role="img" aria-labelledby="title desc">
+<title id="title">落盘的成员记录决定重启后用谁</title><desc id="desc">教学模型：正常同步成功 · 向下箭头表示顺序</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="945" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">落盘的成员记录决定重启后用谁</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型：正常同步成功 · 向下箭头表示顺序</text>
+<rect x="40" y="116" width="480" height="90" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="150" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">① 写完 S4，同步文件与目录</text>
+<text x="280.0" y="181" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">S4 内容：b@3=21，c@4=30</text>
+<path d="M 280 214 L 280 249" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="40" y="265" width="480" height="124" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280" y="305" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">断电 A：edit 尚未追加</text>
+<text x="280" y="342" fill="#a54426" font-size="24" font-weight="400" text-anchor="middle">恢复 V0 = {S1, S2, S3}</text>
+<text x="280" y="374" fill="#18283b" font-size="21" font-weight="400" text-anchor="middle">S4 存在，也尚未取得成员资格</text>
+<path d="M 280 397 L 280 433" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="40" y="449" width="480" height="90" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="483" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">② 完整 edit 追加并同步成功</text>
+<text x="280.0" y="514" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">移除 S1、S2、S3；加入 S4</text>
+<path d="M 280 547 L 280 582" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="40" y="598" width="480" height="110" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280" y="638" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">断电 B：尚未发布内存集合</text>
+<text x="280" y="678" fill="#287467" font-size="25" font-weight="400" text-anchor="middle">恢复 V1 = {S4}</text>
+<path d="M 280 716 L 280 752" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="40" y="768" width="480" height="66" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="809.0" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">③ 正常运行中发布 V1</text>
+<text x="280" y="882" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">追加后、同步结果未知：不在 A 的范围内</text>
+<text x="280" y="919" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">VersionEdit 是逻辑替换，不是磁盘原子写</text>
+</g>
+</svg>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="886" viewBox="0 0 560 886" role="img" aria-labelledby="title desc">
+<title id="title">入口切换了，旧读者仍有自己的路径</title><desc id="desc">教学模型：单列族 · 序号 5 · 箭头表示持有</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="886" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">入口切换了，旧读者仍有自己的路径</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型：单列族 · 序号 5 · 箭头表示持有</text>
+<rect x="32" y="112" width="496" height="280" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="54" y="150" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">旧迭代器 R：发布前创建，尚未关闭</text>
+<rect x="54" y="172" width="452" height="66" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="213.0" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">R → V0 = {S1, S2, S3}</text>
+<path d="M 280 246 L 280 273" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<text x="280" y="306" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">S1：a@1=10，b@2=20</text>
+<text x="280" y="342" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">S2：b@3=21，c@4=30</text>
+<text x="280" y="378" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">S3：a@5=DEL</text>
+<rect x="32" y="426" width="496" height="222" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="54" y="465" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">新请求 N：发布后取得当前集合</text>
+<rect x="54" y="487" width="452" height="66" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="528.0" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">N → V1 = {S4}</text>
+<path d="M 280 561 L 280 588" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="625" fill="#18283b" font-size="25" font-weight="400" text-anchor="middle">S4：b@3=21，c@4=30</text>
+<path d="M 32 690 H 528" stroke="#d9dfdc"/>
+<text x="280" y="733" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">两条读取路径：a 不存在，b=21，c=30</text>
+<text x="280" y="779" fill="#287467" font-size="25" font-weight="400" text-anchor="middle">旧文件集合 ≠ 旧修改序号</text>
+<text x="280" y="820" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">假设：无旧快照、无其他相关文件</text>
+<text x="280" y="855" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">图中省略 memtable 与 SuperVersion</text>
+</g>
+</svg>

@@ -80,6 +80,15 @@
       "source": "2026-10-09-rocksdb-lsm.md",
       "id": "2026-10-09-rocksdb-lsm",
       "insight": "用日志保障恢复，以有序批次承接更新，把维护旧布局的成本转交给受约束的后台合并。"
+    },
+    {
+      "date": "2026-10-10",
+      "title": "RocksDB：新文件写完，为什么还不能删旧文件",
+      "subtitle": "文件集合的发布、掉电恢复和旧读者的安全退出怎样配合",
+      "topic": "数据库与存储",
+      "source": "2026-10-10-rocksdb-file-publication.md",
+      "id": "2026-10-10-rocksdb-file-publication",
+      "insight": "持久化元数据决定恢复时承认哪个文件集合，受保护的持有关系决定旧文件何时能够回收。"
     }
   ]
 }
