@@ -541,6 +541,79 @@ def rocksdb_stall_recovery():
     d.save()
 
 
+def rocksdb_snapshot_views():
+    d = Drawing('rocksdb-snapshot-views', 1000, '边界固定，更新继续前进', '教学模型：单列族普通更新 · 向下为操作顺序')
+    rows = [(1, 'a = 10', ''), (2, 'b = 20', '登记 P2：边界 2'),
+            (3, 'b = 21', ''), (4, 'c = 30', '登记 P4：边界 4'),
+            (5, 'a = DEL', ''), (6, 'b = 22', ''), (7, 'b = 23', '观察最新视图')]
+    d.arrow([(58, 124), (58, 565)], color='teal')
+    for i, (seq, value, note) in enumerate(rows):
+        y = 108 + i * 66
+        d.rect(84, y, 444, 56, GREEN if seq in (2, 4) else WHITE)
+        d.text(100, y + 37, str(seq), size=25, weight=600)
+        d.text(145, y + 37, value, size=24)
+        if note:
+            d.text(512, y + 36, note, size=22, color=TEAL, anchor='end')
+    d.rule(588)
+    for y, title, values, fill in [
+        (615, 'P2：只考虑序号 ≤ 2', 'a=10，b=20，c 不存在', WHITE),
+        (727, 'P4：只考虑序号 ≤ 4', 'a=10，b=21，c=30', GREEN),
+        (839, '最新：本例更新止于序号 7', 'a 不存在，b=23，c=30', PEACH),
+    ]:
+        d.rect(32, y, 496, 96, fill)
+        d.text(54, y + 34, title, size=24, weight=600)
+        d.text(54, y + 73, values, size=24)
+    d.text(280, 975, 'DEL 是删除标记；序号不是墙钟时间', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+def rocksdb_snapshot_stripes():
+    d = Drawing('rocksdb-snapshot-stripes', 880, '留下答案，丢掉被遮住的中间值', '教学模型：P2、P4 活跃 · 同键按新到旧处理')
+    d.text(54, 129, '记录', size=23, weight=600)
+    d.text(282, 129, '所在区间 / 作用', size=23, weight=600)
+    rows = [(154, 'b@7 = 23', 'P4 之后：最新答案', GREEN, TEAL),
+            (230, 'b@6 = 22', 'P4 之后：被 7 遮住', PEACH, RUST),
+            (306, 'b@3 = 21', '(2, 4]：P4 的答案', WHITE, INK),
+            (382, 'b@2 = 20', '≤ 2：P2 的答案', WHITE, INK)]
+    for y, record, meaning, fill, color in rows:
+        d.rect(32, y, 496, 62, fill)
+        d.text(52, y + 40, record, size=25, color=color, weight=600)
+        d.text(286, y + 40, meaning, size=22, color=color)
+    d.text(280, 487, '没有 P6：无人需要 22 → 可以丢弃', size=24, color=RUST, anchor='middle')
+    d.rule(519)
+    d.text(32, 558, 'a 的旧值与删除必须配套留下', size=24, weight=600)
+    d.card(32, 583, 232, 100, 'a@5 = DEL', '最新视图：不存在', PEACH, RUST, size=25)
+    d.card(296, 583, 232, 100, 'a@1 = 10', 'P2、P4：都返回 10', GREEN, TEAL, size=25)
+    d.rect(32, 716, 496, 102, WHITE)
+    d.text(54, 751, '只删 DEL、留下旧值，会发生什么？', size=23, weight=600)
+    d.text(54, 791, '最新视图错误返回 10：旧值复活', size=24, color=RUST)
+    d.text(280, 855, '更换文件，不能更换受保护的读取答案', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+def rocksdb_snapshot_release():
+    d = Drawing('rocksdb-snapshot-release', 990, '释放边界，后续合并才有更多自由', '教学语义记录数 · 无新写入、无其他历史保护')
+    rows = [(112, '① P2、P4 都活跃：6 条',
+             ['a：DEL@5，10@1', 'b：23@7，21@3，20@2', 'c：30@4'], WHITE),
+            (394, '② 只剩 P4：5 条',
+             ['a：DEL@5，10@1', 'b：23@7，21@3', 'c：30@4'], GREEN),
+            (676, '③ 两者都释放：2 条',
+             ['a：删除与旧值一同清掉', 'b：23@7', 'c：30@4'], PEACH)]
+    for y, title, records, fill in rows:
+        d.rect(32, y, 496, 196, fill)
+        d.text(54, y + 37, title, size=25, weight=600)
+        for i, record in enumerate(records):
+            d.text(54, y + 83 + i * 40, record, size=25)
+    for y, text in [(324, '安全释放 P2 → 再次合并'),
+                    (606, '安全释放 P4 → 完整覆盖历史')]:
+        d.arrow([(58, y), (58, y + 54)], color='teal')
+        d.text(100, y + 32, text, size=24, color=TEAL)
+    d.text(280, 915, '最后一步还须：下层无遗漏旧值', size=23, anchor='middle')
+    d.text(280, 953, 'ReleaseSnapshot 不同步保证磁盘回收', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -548,7 +621,8 @@ def main():
                 snapshot_money, snapshot_marker, snapshot_order,
                 lsm_path, lsm_versions, lsm_delete,
                 rocksdb_version_readers, rocksdb_publication_crash, rocksdb_retirement,
-                rocksdb_pressure_loop, rocksdb_debt_budget, rocksdb_stall_recovery]
+                rocksdb_pressure_loop, rocksdb_debt_budget, rocksdb_stall_recovery,
+                rocksdb_snapshot_views, rocksdb_snapshot_stripes, rocksdb_snapshot_release]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

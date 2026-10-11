@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1000" viewBox="0 0 560 1000" role="img" aria-labelledby="title desc">
+<title id="title">边界固定，更新继续前进</title><desc id="desc">教学模型：单列族普通更新 · 向下为操作顺序</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1000" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">边界固定，更新继续前进</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型：单列族普通更新 · 向下为操作顺序</text>
+<path d="M 58 124 L 58 565" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="84" y="108" width="444" height="56" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="100" y="145" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">1</text>
+<text x="145" y="145" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">a = 10</text>
+<rect x="84" y="174" width="444" height="56" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="100" y="211" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">2</text>
+<text x="145" y="211" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">b = 20</text>
+<text x="512" y="210" fill="#287467" font-size="22" font-weight="400" text-anchor="end">登记 P2：边界 2</text>
+<rect x="84" y="240" width="444" height="56" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="100" y="277" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">3</text>
+<text x="145" y="277" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">b = 21</text>
+<rect x="84" y="306" width="444" height="56" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="100" y="343" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">4</text>
+<text x="145" y="343" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">c = 30</text>
+<text x="512" y="342" fill="#287467" font-size="22" font-weight="400" text-anchor="end">登记 P4：边界 4</text>
+<rect x="84" y="372" width="444" height="56" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="100" y="409" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">5</text>
+<text x="145" y="409" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">a = DEL</text>
+<rect x="84" y="438" width="444" height="56" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="100" y="475" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">6</text>
+<text x="145" y="475" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">b = 22</text>
+<rect x="84" y="504" width="444" height="56" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="100" y="541" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">7</text>
+<text x="145" y="541" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">b = 23</text>
+<text x="512" y="540" fill="#287467" font-size="22" font-weight="400" text-anchor="end">观察最新视图</text>
+<path d="M 32 588 H 528" stroke="#d9dfdc"/>
+<rect x="32" y="615" width="496" height="96" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="54" y="649" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">P2：只考虑序号 ≤ 2</text>
+<text x="54" y="688" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">a=10，b=20，c 不存在</text>
+<rect x="32" y="727" width="496" height="96" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="54" y="761" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">P4：只考虑序号 ≤ 4</text>
+<text x="54" y="800" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">a=10，b=21，c=30</text>
+<rect x="32" y="839" width="496" height="96" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="54" y="873" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">最新：本例更新止于序号 7</text>
+<text x="54" y="912" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">a 不存在，b=23，c=30</text>
+<text x="280" y="975" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">DEL 是删除标记；序号不是墙钟时间</text>
+</g>
+</svg>

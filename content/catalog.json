@@ -98,6 +98,15 @@
       "source": "2026-10-11-rocksdb-write-stalls.md",
       "id": "2026-10-11-rocksdb-write-stalls",
       "insight": "接受写入也会产生未来整理工作，入口必须根据积压反馈调整速度，有限缓冲才能长期运转。"
+    },
+    {
+      "date": "2026-10-12",
+      "title": "RocksDB：旧快照还在，哪些旧值就不能删",
+      "subtitle": "读者的可见边界怎样约束后台合并与历史回收",
+      "topic": "存储引擎",
+      "source": "2026-10-12-rocksdb-snapshot-retention.md",
+      "id": "2026-10-12-rocksdb-snapshot-retention",
+      "insight": "快照固定读取答案而非原文件，合并只需保留受保护视图仍会选中的历史，让物理布局继续前进。"
     }
   ]
 }

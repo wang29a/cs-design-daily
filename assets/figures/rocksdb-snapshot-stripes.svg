@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="880" viewBox="0 0 560 880" role="img" aria-labelledby="title desc">
+<title id="title">留下答案，丢掉被遮住的中间值</title><desc id="desc">教学模型：P2、P4 活跃 · 同键按新到旧处理</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="880" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">留下答案，丢掉被遮住的中间值</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型：P2、P4 活跃 · 同键按新到旧处理</text>
+<text x="54" y="129" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">记录</text>
+<text x="282" y="129" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">所在区间 / 作用</text>
+<rect x="32" y="154" width="496" height="62" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="194" fill="#287467" font-size="25" font-weight="600" text-anchor="start">b@7 = 23</text>
+<text x="286" y="194" fill="#287467" font-size="22" font-weight="400" text-anchor="start">P4 之后：最新答案</text>
+<rect x="32" y="230" width="496" height="62" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="270" fill="#a54426" font-size="25" font-weight="600" text-anchor="start">b@6 = 22</text>
+<text x="286" y="270" fill="#a54426" font-size="22" font-weight="400" text-anchor="start">P4 之后：被 7 遮住</text>
+<rect x="32" y="306" width="496" height="62" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="346" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">b@3 = 21</text>
+<text x="286" y="346" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">(2, 4]：P4 的答案</text>
+<rect x="32" y="382" width="496" height="62" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="422" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">b@2 = 20</text>
+<text x="286" y="422" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">≤ 2：P2 的答案</text>
+<text x="280" y="487" fill="#a54426" font-size="24" font-weight="400" text-anchor="middle">没有 P6：无人需要 22 → 可以丢弃</text>
+<path d="M 32 519 H 528" stroke="#d9dfdc"/>
+<text x="32" y="558" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">a 的旧值与删除必须配套留下</text>
+<rect x="32" y="583" width="232" height="100" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="148.0" y="617" fill="#a54426" font-size="25" font-weight="600" text-anchor="middle">a@5 = DEL</text>
+<text x="148.0" y="648" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">最新视图：不存在</text>
+<rect x="296" y="583" width="232" height="100" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="412.0" y="617" fill="#287467" font-size="25" font-weight="600" text-anchor="middle">a@1 = 10</text>
+<text x="412.0" y="648" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">P2、P4：都返回 10</text>
+<rect x="32" y="716" width="496" height="102" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="54" y="751" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">只删 DEL、留下旧值，会发生什么？</text>
+<text x="54" y="791" fill="#a54426" font-size="24" font-weight="400" text-anchor="start">最新视图错误返回 10：旧值复活</text>
+<text x="280" y="855" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">更换文件，不能更换受保护的读取答案</text>
+</g>
+</svg>

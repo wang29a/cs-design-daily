@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="990" viewBox="0 0 560 990" role="img" aria-labelledby="title desc">
+<title id="title">释放边界，后续合并才有更多自由</title><desc id="desc">教学语义记录数 · 无新写入、无其他历史保护</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="990" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">释放边界，后续合并才有更多自由</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学语义记录数 · 无新写入、无其他历史保护</text>
+<rect x="32" y="112" width="496" height="196" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="54" y="149" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">① P2、P4 都活跃：6 条</text>
+<text x="54" y="195" fill="#18283b" font-size="25" font-weight="400" text-anchor="start">a：DEL@5，10@1</text>
+<text x="54" y="235" fill="#18283b" font-size="25" font-weight="400" text-anchor="start">b：23@7，21@3，20@2</text>
+<text x="54" y="275" fill="#18283b" font-size="25" font-weight="400" text-anchor="start">c：30@4</text>
+<rect x="32" y="394" width="496" height="196" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="54" y="431" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">② 只剩 P4：5 条</text>
+<text x="54" y="477" fill="#18283b" font-size="25" font-weight="400" text-anchor="start">a：DEL@5，10@1</text>
+<text x="54" y="517" fill="#18283b" font-size="25" font-weight="400" text-anchor="start">b：23@7，21@3</text>
+<text x="54" y="557" fill="#18283b" font-size="25" font-weight="400" text-anchor="start">c：30@4</text>
+<rect x="32" y="676" width="496" height="196" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="54" y="713" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">③ 两者都释放：2 条</text>
+<text x="54" y="759" fill="#18283b" font-size="25" font-weight="400" text-anchor="start">a：删除与旧值一同清掉</text>
+<text x="54" y="799" fill="#18283b" font-size="25" font-weight="400" text-anchor="start">b：23@7</text>
+<text x="54" y="839" fill="#18283b" font-size="25" font-weight="400" text-anchor="start">c：30@4</text>
+<path d="M 58 324 L 58 378" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="100" y="356" fill="#287467" font-size="24" font-weight="400" text-anchor="start">安全释放 P2 → 再次合并</text>
+<path d="M 58 606 L 58 660" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="100" y="638" fill="#287467" font-size="24" font-weight="400" text-anchor="start">安全释放 P4 → 完整覆盖历史</text>
+<text x="280" y="915" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">最后一步还须：下层无遗漏旧值</text>
+<text x="280" y="953" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">ReleaseSnapshot 不同步保证磁盘回收</text>
+</g>
+</svg>
