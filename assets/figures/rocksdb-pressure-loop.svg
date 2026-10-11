@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="820" viewBox="0 0 560 820" role="img" aria-labelledby="title desc">
+<title id="title">后台压力，要能返回写入入口</title><desc id="desc">实线：工作推进 · 虚线：压力反馈 · 教学示意</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="820" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">后台压力，要能返回写入入口</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">实线：工作推进 · 虚线：压力反馈 · 教学示意</text>
+<rect x="40" y="116" width="480" height="90" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="150" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">写入入口：r 受压力约束</text>
+<text x="280.0" y="181" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">r 是获准进入的用户字节速率</text>
+<path d="M 280 214 L 280 248" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="40" y="264" width="480" height="90" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="298" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">memtable：接收更新，冻结后待刷</text>
+<text x="280.0" y="329" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">压力①：待刷缓冲</text>
+<path d="M 280 362 L 280 396" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="319" y="388" fill="#287467" font-size="22" font-weight="400" text-anchor="start">flush</text>
+<rect x="40" y="412" width="480" height="90" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="446" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">L0：刚刷出的 SST 文件</text>
+<text x="280.0" y="477" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">压力②：L0 文件数量</text>
+<path d="M 280 510 L 280 544" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="40" y="560" width="480" height="90" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="594" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">compaction：整理各层文件</text>
+<text x="280.0" y="625" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">压力③：估计待合并字节</text>
+<path d="M 40 605 L 16 605 L 16 161 L 32 161" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)" stroke-dasharray="7 5"/>
+<path d="M 40 309 L 16 309" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)" stroke-dasharray="7 5"/>
+<path d="M 40 457 L 16 457" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)" stroke-dasharray="7 5"/>
+<path d="M 32 693 H 528" stroke="#d9dfdc"/>
+<text x="280" y="734" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">不同部件，暴露不同的积压位置</text>
+<text x="280" y="775" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">WAL 另存恢复依据，不负责偿还整理工作</text>
+</g>
+</svg>

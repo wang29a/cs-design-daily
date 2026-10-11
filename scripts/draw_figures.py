@@ -472,13 +472,83 @@ def rocksdb_retirement():
     d.save()
 
 
+def rocksdb_pressure_loop():
+    d = Drawing('rocksdb-pressure-loop', 820, '后台压力，要能返回写入入口', '实线：工作推进 · 虚线：压力反馈 · 教学示意')
+    d.card(40, 116, 480, 90, '写入入口：r 受压力约束', 'r 是获准进入的用户字节速率', size=25)
+    d.arrow([(280, 214), (280, 248)], color='teal')
+    d.card(40, 264, 480, 90, 'memtable：接收更新，冻结后待刷', '压力①：待刷缓冲', size=23)
+    d.arrow([(280, 362), (280, 396)], color='teal')
+    d.text(319, 388, 'flush', size=22, color=TEAL)
+    d.card(40, 412, 480, 90, 'L0：刚刷出的 SST 文件', '压力②：L0 文件数量', size=25)
+    d.arrow([(280, 510), (280, 544)], color='teal')
+    d.card(40, 560, 480, 90, 'compaction：整理各层文件', '压力③：估计待合并字节', size=25)
+    d.arrow([(40, 605), (16, 605), (16, 161), (32, 161)], color='rust', dash=True)
+    d.arrow([(40, 309), (16, 309)], color='rust', dash=True)
+    d.arrow([(40, 457), (16, 457)], color='rust', dash=True)
+    d.rule(693)
+    d.text(280, 734, '不同部件，暴露不同的积压位置', size=25, weight=600, anchor='middle')
+    d.text(280, 775, 'WAL 另存恢复依据，不负责偿还整理工作', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+def rocksdb_debt_budget():
+    d = Drawing('rocksdb-debt-budget', 806, '缓冲买到时间，减速才能让欠账下降', '教学模型：1 MiB 用户更新 → 3 MiB 工作量')
+    d.text(32, 124, 'Q：等价工作量 / MiB', size=22)
+    xs = [100, 200, 300, 400, 500]
+    y_for = lambda q: 484 - 3 * q
+    for q in [0, 20, 40, 60, 80, 100]:
+        y = y_for(q)
+        color = RUST if q == 100 else (TEAL if q == 60 else LINE)
+        d.parts.append(f'<path d="M 82 {y} H 510" stroke="{color}" stroke-width="1" stroke-dasharray="4 5"/>')
+        d.text(67, y + 7, str(q), size=21, anchor='end')
+    d.arrow([(80, 484), (80, 146)])
+    d.arrow([(80, 484), (526, 484)])
+    for t, x in enumerate(xs):
+        d.text(x, 518, str(t), size=22, anchor='middle')
+    d.text(280, 558, '时间 / 秒（每秒末重新记账）', size=22, anchor='middle')
+    def line(qs, color, offset=0):
+        coords = ' '.join(f'{xs[i+offset]},{y_for(q)}' for i, q in enumerate(qs))
+        d.parts.append(f'<polyline points="{coords}" fill="none" stroke="{color}" stroke-width="4" stroke-linejoin="round"/>')
+        for i, q in enumerate(qs):
+            d.parts.append(f'<circle cx="{xs[i+offset]}" cy="{y_for(q)}" r="5" fill="{color}"/>')
+    line([20, 40, 60], INK)
+    line([60, 80, 100], RUST, 2)
+    line([60, 50, 40], TEAL, 2)
+    d.text(493, 173, '停止线 100', size=21, color=RUST, anchor='end')
+    d.text(510, 293, '减速线 60', size=21, color=TEAL, anchor='end')
+    d.card(32, 590, 240, 92, '放任：每秒 +20', 'r=20：新增60，完成40', PEACH, RUST, size=22)
+    d.card(288, 590, 240, 92, '减速：每秒 −10', 'r=10：新增30，完成40', GREEN, TEAL, size=22)
+    d.text(280, 723, '共同路径 Q：20 → 40 → 60', size=24, anchor='middle')
+    d.text(280, 763, '教学恢复线 40；不是 RocksDB 的配置项', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+def rocksdb_stall_recovery():
+    d = Drawing('rocksdb-stall-recovery', 927, '入口可以停，偿还工作不能停', '教学模型：后台一秒无推进后，Q 达到 100')
+    rows = [(116, '第5→6秒：停止接收', 'Q：100 → 60', 'r=0，μ=40：只消化积欠', PEACH, RUST),
+            (302, '第6→7秒：慢速接收', 'Q：60 → 50', 'r=10，μ=40：新增30，完成40', GREEN, TEAL),
+            (488, '第7→8秒：慢速接收', 'Q：50 → 40', 'r=10，μ=40：新增30，完成40', GREEN, TEAL),
+            (674, '第8→9秒：应用不再提交', 'Q：40 → 0', 'r=0，μ=40：本轮积欠排空', WHITE, INK)]
+    for y, title, state, detail, fill, color in rows:
+        d.rect(32, y, 496, 148, fill)
+        d.text(54, y + 35, title, size=24, weight=600)
+        d.text(280, y + 81, state, size=27, color=color, weight=600, anchor='middle')
+        d.text(280, y + 121, detail, size=22, anchor='middle')
+    for y in [272, 458, 644]:
+        d.arrow([(280, y), (280, y + 22)], color='teal')
+    d.text(280, 865, 'Q：MiB 工作量；μ：MiB 工作量/秒', size=22, anchor='middle')
+    d.text(280, 904, 'r：MiB 用户数据/秒；不计外部排队', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
                 git_objects, git_refs, tcp_window, tcp_gap, bloom_insert, bloom_query,
                 snapshot_money, snapshot_marker, snapshot_order,
                 lsm_path, lsm_versions, lsm_delete,
-                rocksdb_version_readers, rocksdb_publication_crash, rocksdb_retirement]
+                rocksdb_version_readers, rocksdb_publication_crash, rocksdb_retirement,
+                rocksdb_pressure_loop, rocksdb_debt_budget, rocksdb_stall_recovery]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')
