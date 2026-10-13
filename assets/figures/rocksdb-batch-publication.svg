@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1010" viewBox="0 0 560 1010" role="img" aria-labelledby="title desc">
+<title id="title">内部逐条安装，外部只取完整边界</title><desc id="desc">教学模型：甲、乙总量 140 · 下箭头表示步骤</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1010" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">内部逐条安装，外部只取完整边界</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型：甲、乙总量 140 · 下箭头表示步骤</text>
+<rect x="32" y="112" width="496" height="198" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="150" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">① 初始：V = 2</text>
+<text x="52" y="197" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">甲@1=100，乙@2=40</text>
+<text x="52" y="248" fill="#287467" font-size="23" font-weight="600" text-anchor="start">边界 2 的答案：(100, 40)</text>
+<rect x="32" y="378" width="496" height="198" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="416" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">② 仅安装甲@3=90：V 仍为 2</text>
+<text x="52" y="463" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">新甲在内存里，还不能对读者公布</text>
+<text x="52" y="514" fill="#287467" font-size="23" font-weight="600" text-anchor="start">跳过序号 3 → 仍读 (100, 40)</text>
+<text x="52" y="552" fill="#a54426" font-size="22" font-weight="400" text-anchor="start">V 不能提前公布为 3</text>
+<rect x="32" y="644" width="496" height="198" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="682" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">③ 两条安装完成：V 推进到 4</text>
+<text x="52" y="729" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">新记录：甲@3=90，乙@4=50</text>
+<text x="52" y="780" fill="#287467" font-size="23" font-weight="600" text-anchor="start">新边界 4 的答案：(90, 50)</text>
+<text x="52" y="818" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">旧 P2 仍读 (100, 40)</text>
+<path d="M 280 322 L 280 364" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 588 L 280 630" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 32 873 H 528" stroke="#d9dfdc"/>
+<text x="280" y="918" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">本例先完成 WAL 写入与要求的同步</text>
+<text x="280" y="958" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">再安装记录、发布边界、返回成功</text>
+<text x="280" y="991" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">物理位置变化，不必同时发生</text>
+</g>
+</svg>

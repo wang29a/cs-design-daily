@@ -107,6 +107,15 @@
       "source": "2026-10-12-rocksdb-snapshot-retention.md",
       "id": "2026-10-12-rocksdb-snapshot-retention",
       "insight": "快照固定读取答案而非原文件，合并只需保留受保护视图仍会选中的历史，让物理布局继续前进。"
+    },
+    {
+      "date": "2026-10-13",
+      "title": "RocksDB：两次修改，怎样一起对读者生效",
+      "subtitle": "逐条安装、整体发布与批次恢复怎样配合",
+      "topic": "存储引擎",
+      "source": "2026-10-13-rocksdb-write-batch.md",
+      "id": "2026-10-13-rocksdb-write-batch",
+      "insight": "允许内部逐条准备，却只公布完整的读取边界；日志封装保护恢复单位，应用仍须保护读取和计算依据。"
     }
   ]
 }

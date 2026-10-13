@@ -614,6 +614,55 @@ def rocksdb_snapshot_release():
 
 
 
+def rocksdb_batch_publication():
+    d = Drawing('rocksdb-batch-publication', 1010, '内部逐条安装，外部只取完整边界', '教学模型：甲、乙总量 140 · 下箭头表示步骤')
+    rows = [(112, '① 初始：V = 2', '甲@1=100，乙@2=40',
+             '边界 2 的答案：(100, 40)', WHITE),
+            (378, '② 仅安装甲@3=90：V 仍为 2', '新甲在内存里，还不能对读者公布',
+             '跳过序号 3 → 仍读 (100, 40)', PEACH),
+            (644, '③ 两条安装完成：V 推进到 4', '新记录：甲@3=90，乙@4=50',
+             '新边界 4 的答案：(90, 50)', GREEN)]
+    for y, title, detail, answer, fill in rows:
+        d.rect(32, y, 496, 198, fill)
+        d.text(52, y+38, title, size=24, weight=600)
+        d.text(52, y+85, detail, size=23)
+        d.text(52, y+136, answer, size=23, color=TEAL, weight=600)
+        if y == 378:
+            d.text(52, y+174, 'V 不能提前公布为 3', size=22, color=RUST)
+        elif y == 644:
+            d.text(52, y+174, '旧 P2 仍读 (100, 40)', size=22)
+    for y in [322, 588]:
+        d.arrow([(280,y),(280,y+42)], color='teal')
+    d.rule(873)
+    d.text(280, 918, '本例先完成 WAL 写入与要求的同步', size=23, anchor='middle')
+    d.text(280, 958, '再安装记录、发布边界、返回成功', size=23, anchor='middle')
+    d.text(280, 991, '物理位置变化，不必同时发生', size=21, color=MUTED, anchor='middle')
+    d.save()
+
+
+def rocksdb_batch_read_view():
+    d = Drawing('rocksdb-batch-read-view', 1030, '原子写入，还要配合一致的读取视图', '教学模型：批次前 (100,40)，批次后 (90,50)')
+    d.text(32, 124, '① 两次独立 Get：跨了两个时点', size=24, weight=600)
+    for y, title, fill in [(148, 'Get 甲 → 100（旧视图）', WHITE),
+                            (251, '完整批次公布 → V = 4', GREEN),
+                            (354, 'Get 乙 → 50（新视图）', WHITE)]:
+        d.card(80, y, 448, 73, title, fill=fill, size=24)
+    d.arrow([(54, 165), (54, 408)], color='rust')
+    d.text(280, 465, '拼出 100 + 50 = 150：不是一个视图', size=23, color=RUST, anchor='middle')
+    d.rule(499)
+    d.text(32, 540, '② 两次 Get 都使用同一个 P2', size=24, weight=600)
+    for y, title, fill in [(564, 'P2 下 Get 甲 → 100', WHITE),
+                            (667, '完整批次公布 → V = 4', GREEN),
+                            (770, 'P2 下 Get 乙 → 40', WHITE)]:
+        d.card(80, y, 448, 73, title, fill=fill, size=24)
+    d.arrow([(54, 581), (54, 824)], color='teal')
+    d.text(280, 882, '同一旧视图：100 + 40 = 140', size=24, color=TEAL, anchor='middle')
+    d.text(280, 940, 'P2 固定在 2，不跟随 V 推进', size=23, anchor='middle')
+    d.text(280, 990, '箭头表示调用顺序，不是运行追踪', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -622,7 +671,8 @@ def main():
                 lsm_path, lsm_versions, lsm_delete,
                 rocksdb_version_readers, rocksdb_publication_crash, rocksdb_retirement,
                 rocksdb_pressure_loop, rocksdb_debt_budget, rocksdb_stall_recovery,
-                rocksdb_snapshot_views, rocksdb_snapshot_stripes, rocksdb_snapshot_release]
+                rocksdb_snapshot_views, rocksdb_snapshot_stripes, rocksdb_snapshot_release,
+                rocksdb_batch_publication, rocksdb_batch_read_view]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')
