@@ -663,6 +663,49 @@ def rocksdb_batch_read_view():
 
 
 
+def rocksdb_txn_conflict():
+    d = Drawing('rocksdb-txn-conflict', 940, '旧答案仍可读，旧依据未必可提交', '实线：推进 · 虚线：T2 保留待提交状态')
+    d.card(32, 112, 496, 100, '两事务基准 = 2', '甲@1=100，乙@2=40', size=25)
+    d.card(32, 258, 232, 110, 'T1：转移 10', '暂存 (90, 50)', GREEN, TEAL, size=24)
+    d.card(296, 258, 232, 110, 'T2：转移 20', '暂存 (80, 60)', PEACH, RUST, size=24)
+    d.arrow([(148, 217), (148, 250)], color='teal')
+    d.arrow([(412, 217), (412, 250)], color='rust')
+    d.rect(32, 414, 496, 164, GREEN)
+    d.text(52, 451, '① T1 校验通过，完整写入生效', size=24, weight=600)
+    d.text(52, 496, '甲@3=90，乙@4=50', size=25, color=TEAL)
+    d.text(52, 541, '数据库现在是 (90, 50)', size=24)
+    d.arrow([(148, 374), (148, 407)], color='teal')
+    d.arrow([(412, 374), (544, 374), (544, 616), (412, 616), (412, 632)], color='rust', dash=True)
+    d.rect(32, 640, 496, 184, PEACH)
+    d.text(52, 677, '② T2 校验：修改已越过基准 2', size=24, weight=600)
+    d.text(52, 724, '甲：3 > 2；乙：4 > 2', size=25, color=RUST)
+    d.text(52, 767, '冲突 Busy → 不写入 (80, 60)', size=24, color=RUST)
+    d.text(52, 803, '数据库仍为 (90, 50)', size=23)
+    d.arrow([(280, 585), (280, 632)], color='rust')
+    d.text(280, 869, '假设内存修改历史足够，且没有其他错误', size=22, anchor='middle')
+    d.text(280, 908, 'T2 的旧读取视图与提交校验各有职责', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+def rocksdb_txn_retry():
+    d = Drawing('rocksdb-txn-retry', 962, '重试保留业务意图，重新取得依据', '教学时序：无进一步干扰 · 总量始终为 140')
+    rows = [(112, '① 终止失败的 T2 尝试', '旧基准 2、旧结果 (80,60) 均不复用', PEACH),
+            (298, '② 创建 T2′，新基准 = 4', '重新读取：甲=90，乙=50', WHITE),
+            (484, '③ 仍要从甲转给乙 20', '重新计算：(90−20, 50+20)=(70,70)', GREEN),
+            (670, '④ 新校验通过，完整生效', '甲@5=70，乙@6=70 → 两笔均完成', GREEN)]
+    for y, title, detail, fill in rows:
+        d.rect(32, y, 496, 136, fill)
+        d.text(52, y+38, title, size=24, weight=600)
+        d.text(52, y+91, detail, size=22)
+    for y in [256, 442, 628]:
+        d.arrow([(280,y),(280,y+31)], color='teal')
+    d.rule(840)
+    d.text(280, 888, '结束条件：T1 成功，T2′ 成功', size=24, anchor='middle')
+    d.text(280, 930, '反复提交旧结果，不会修复过时计算', size=22, color=RUST, anchor='middle')
+    d.save()
+
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -672,7 +715,8 @@ def main():
                 rocksdb_version_readers, rocksdb_publication_crash, rocksdb_retirement,
                 rocksdb_pressure_loop, rocksdb_debt_budget, rocksdb_stall_recovery,
                 rocksdb_snapshot_views, rocksdb_snapshot_stripes, rocksdb_snapshot_release,
-                rocksdb_batch_publication, rocksdb_batch_read_view]
+                rocksdb_batch_publication, rocksdb_batch_read_view,
+                rocksdb_txn_conflict, rocksdb_txn_retry]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

@@ -116,6 +116,15 @@
       "source": "2026-10-13-rocksdb-write-batch.md",
       "id": "2026-10-13-rocksdb-write-batch",
       "insight": "允许内部逐条准备，却只公布完整的读取边界；日志封装保护恢复单位，应用仍须保护读取和计算依据。"
+    },
+    {
+      "date": "2026-10-14",
+      "title": "RocksDB：读到稳定旧值，为什么提交仍可能失败",
+      "subtitle": "把读取依据变成提交前必须证明的条件",
+      "topic": "存储引擎",
+      "source": "2026-10-14-rocksdb-optimistic-transactions.md",
+      "id": "2026-10-14-rocksdb-optimistic-transactions",
+      "insight": "先并发准备，再在受保护的提交次序中核对依赖；快照保住旧答案，冲突检测决定旧依据还能否使用。"
     }
   ]
 }
