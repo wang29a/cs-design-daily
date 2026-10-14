@@ -125,6 +125,15 @@
       "source": "2026-10-14-rocksdb-optimistic-transactions.md",
       "id": "2026-10-14-rocksdb-optimistic-transactions",
       "insight": "先并发准备，再在受保护的提交次序中核对依赖；快照保住旧答案，冲突检测决定旧依据还能否使用。"
+    },
+    {
+      "date": "2026-10-15",
+      "title": "PostgreSQL：快照为什么不能只记一个序号",
+      "subtitle": "用行版本与未完成事务集合，固定并发世界里的可见历史",
+      "topic": "数据库",
+      "source": "2026-10-15-postgresql-mvcc-snapshot.md",
+      "id": "2026-10-15-postgresql-mvcc-snapshot",
+      "insight": "编号顺序不能代表完成顺序，快照用范围压缩历史、用未完成集合保留空洞，并结合事务状态解释行版本。"
     }
   ]
 }

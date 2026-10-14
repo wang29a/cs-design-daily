@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="920" viewBox="0 0 560 920" role="img" aria-labelledby="title desc">
+<title id="title">编号上界之内，也有未完成的空洞</title><desc id="desc">教学快照 S：101:103:101 · 顶层事务，无回绕</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="920" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">编号上界之内，也有未完成的空洞</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学快照 S：101:103:101 · 顶层事务，无回绕</text>
+<rect x="32" y="112" width="496" height="111" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="54" y="148" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">S.xmin = 101，S.xmax = 103</text>
+<text x="54" y="190" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">S.active = {101}：取快照时未完成</text>
+<rect x="32" y="257" width="496" height="105" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="54" y="293" fill="#18283b" font-size="26" font-weight="600" text-anchor="start">100 &lt; 101</text>
+<text x="54" y="335" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">取快照前已提交；不在进行中范围</text>
+<rect x="32" y="389" width="496" height="105" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="54" y="425" fill="#a54426" font-size="26" font-weight="600" text-anchor="start">101 ∈ {101}</text>
+<text x="54" y="467" fill="#a54426" font-size="22" font-weight="400" text-anchor="start">取快照时未完成；之后仍被 S 排除</text>
+<rect x="32" y="521" width="496" height="105" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="54" y="557" fill="#287467" font-size="26" font-weight="600" text-anchor="start">102 &lt; 103</text>
+<text x="54" y="599" fill="#287467" font-size="22" font-weight="400" text-anchor="start">不在集合，且已提交；可以使用</text>
+<rect x="32" y="653" width="496" height="105" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="54" y="689" fill="#5b6877" font-size="26" font-weight="600" text-anchor="start">编号 ≥ 103</text>
+<text x="54" y="731" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">相对 S 尚未完成；不纳入此次视图</text>
+<path d="M 32 793 H 528" stroke="#d9dfdc"/>
+<text x="280" y="836" fill="#18283b" font-size="24" font-weight="400" text-anchor="middle">快照时已结束 ≠ 现在已经结束</text>
+<text x="280" y="881" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">行是否可见，还要检查创建与替换事务</text>
+</g>
+</svg>

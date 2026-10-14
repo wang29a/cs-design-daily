@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="854" viewBox="0 0 560 854" role="img" aria-labelledby="title desc">
+<title id="title">更新生成新行，旧行暂时仍有用途</title><desc id="desc">教学模型：行标记是事务身份，不是提交顺序</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="854" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">更新生成新行，旧行暂时仍有用途</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型：行标记是事务身份，不是提交顺序</text>
+<text x="32" y="126" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">甲：T101 更新，尚未提交</text>
+<rect x="32" y="150" width="216" height="166" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="140" y="189" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">旧行：100</text>
+<text x="140" y="235" fill="#18283b" font-size="24" font-weight="400" text-anchor="middle">xmin = 100</text>
+<text x="140" y="281" fill="#18283b" font-size="24" font-weight="400" text-anchor="middle">xmax = 101</text>
+<rect x="312" y="150" width="216" height="166" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="420" y="189" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">新行：90</text>
+<text x="420" y="235" fill="#18283b" font-size="24" font-weight="400" text-anchor="middle">xmin = 101</text>
+<text x="420" y="281" fill="#18283b" font-size="24" font-weight="400" text-anchor="middle">xmax = 0</text>
+<path d="M 256 233 L 304 233" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<text x="280" y="349" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">创建者 / 替换者决定版本怎样被解释</text>
+<text x="32" y="398" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">乙：T101 更新，尚未提交</text>
+<rect x="32" y="422" width="216" height="166" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="140" y="461" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">旧行：40</text>
+<text x="140" y="507" fill="#18283b" font-size="24" font-weight="400" text-anchor="middle">xmin = 100</text>
+<text x="140" y="553" fill="#18283b" font-size="24" font-weight="400" text-anchor="middle">xmax = 101</text>
+<rect x="312" y="422" width="216" height="166" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="420" y="461" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">新行：50</text>
+<text x="420" y="507" fill="#18283b" font-size="24" font-weight="400" text-anchor="middle">xmin = 101</text>
+<text x="420" y="553" fill="#18283b" font-size="24" font-weight="400" text-anchor="middle">xmax = 0</text>
+<path d="M 256 505 L 304 505" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<text x="280" y="621" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">创建者 / 替换者决定版本怎样被解释</text>
+<path d="M 32 682 H 528" stroke="#d9dfdc"/>
+<text x="280" y="730" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">旧行创建于 T100，替换动作属于 T101</text>
+<text x="280" y="772" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">新行创建于 T101；xmax=0 表示尚无替换</text>
+<text x="280" y="822" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">箭头：生成新版本；省略索引与页面布局</text>
+</g>
+</svg>

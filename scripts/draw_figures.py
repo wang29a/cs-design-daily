@@ -706,6 +706,65 @@ def rocksdb_txn_retry():
 
 
 
+def pg_row_versions():
+    d = Drawing('pg-row-versions', 854, '更新生成新行，旧行暂时仍有用途', '教学模型：行标记是事务身份，不是提交顺序')
+    for y, key, old, new in [(126, '甲', '100', '90'), (398, '乙', '40', '50')]:
+        d.text(32, y, key + '：T101 更新，尚未提交', size=24, weight=600)
+        for x, title, xmin, xmax, fill in [(32, '旧行：' + old, '100', '101', WHITE),
+                                         (312, '新行：' + new, '101', '0', PEACH)]:
+            d.rect(x, y+24, 216, 166, fill)
+            d.text(x+108, y+63, title, size=25, weight=600, anchor='middle')
+            d.text(x+108, y+109, 'xmin = ' + xmin, size=24, anchor='middle')
+            d.text(x+108, y+155, 'xmax = ' + xmax, size=24, anchor='middle')
+        d.arrow([(256,y+107),(304,y+107)], color='rust')
+        d.text(280, y+223, '创建者 / 替换者决定版本怎样被解释', size=22, color=MUTED, anchor='middle')
+    d.rule(682)
+    d.text(280, 730, '旧行创建于 T100，替换动作属于 T101', size=23, anchor='middle')
+    d.text(280, 772, '新行创建于 T101；xmax=0 表示尚无替换', size=22, anchor='middle')
+    d.text(280, 822, '箭头：生成新版本；省略索引与页面布局', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+def pg_snapshot_hole():
+    d = Drawing('pg-snapshot-hole', 920, '编号上界之内，也有未完成的空洞', '教学快照 S：101:103:101 · 顶层事务，无回绕')
+    d.rect(32, 112, 496, 111, GREEN)
+    d.text(54, 148, 'S.xmin = 101，S.xmax = 103', size=25, weight=600)
+    d.text(54, 190, 'S.active = {101}：取快照时未完成', size=23)
+    rows = [(257, '100 < 101', '取快照前已提交；不在进行中范围', WHITE, INK),
+            (389, '101 ∈ {101}', '取快照时未完成；之后仍被 S 排除', PEACH, RUST),
+            (521, '102 < 103', '不在集合，且已提交；可以使用', GREEN, TEAL),
+            (653, '编号 ≥ 103', '相对 S 尚未完成；不纳入此次视图', WHITE, MUTED)]
+    for y, title, detail, fill, color in rows:
+        d.rect(32, y, 496, 105, fill)
+        d.text(54, y+36, title, size=26, weight=600, color=color)
+        d.text(54, y+78, detail, size=22, color=color)
+    d.rule(793)
+    d.text(280, 836, '快照时已结束 ≠ 现在已经结束', size=24, anchor='middle')
+    d.text(280, 881, '行是否可见，还要检查创建与替换事务', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+def pg_snapshot_readers():
+    d = Drawing('pg-snapshot-readers', 1030, '后来提交，不会重写旧快照的事实', '教学时序：R 只读 Repeatable Read · 下为时间')
+    rows = [(112, '① T101 更新额度，尚未提交', '甲、乙的新版本为 (90,50)', PEACH),
+            (278, '② T102 后取得编号，却先提交', '只把无关备注改成“已核”', GREEN),
+            (444, '③ R 第一次 SELECT，固定 S', 'S=101:103:101 → 额度 (100,40)', WHITE),
+            (610, '④ T101 提交两份额度更新', '当前已提交额度变成 (90,50)', GREEN)]
+    for y, title, detail, fill in rows:
+        d.rect(32, y, 496, 123, fill)
+        d.text(52, y+37, title, size=24, weight=600)
+        d.text(52, y+85, detail, size=23)
+    for y in [243, 409, 575, 741]:
+        d.arrow([(280,y),(280,y+26)], color='teal')
+    d.rect(32, 778, 496, 151, WHITE)
+    d.text(52, 815, '⑤ R 再查：仍为 (100,40)', size=24, weight=600)
+    d.text(52, 861, 'N 的新快照：得到 (90,50)', size=24, color=TEAL)
+    d.text(52, 904, 'R 的 S 不变；结束事务才退出旧视图', size=22)
+    d.text(280, 987, '100、101、102 是事务编号，不是时间', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -716,7 +775,8 @@ def main():
                 rocksdb_pressure_loop, rocksdb_debt_budget, rocksdb_stall_recovery,
                 rocksdb_snapshot_views, rocksdb_snapshot_stripes, rocksdb_snapshot_release,
                 rocksdb_batch_publication, rocksdb_batch_read_view,
-                rocksdb_txn_conflict, rocksdb_txn_retry]
+                rocksdb_txn_conflict, rocksdb_txn_retry,
+                pg_row_versions, pg_snapshot_hole, pg_snapshot_readers]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

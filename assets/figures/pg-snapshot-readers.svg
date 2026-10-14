@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1030" viewBox="0 0 560 1030" role="img" aria-labelledby="title desc">
+<title id="title">后来提交，不会重写旧快照的事实</title><desc id="desc">教学时序：R 只读 Repeatable Read · 下为时间</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1030" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">后来提交，不会重写旧快照的事实</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学时序：R 只读 Repeatable Read · 下为时间</text>
+<rect x="32" y="112" width="496" height="123" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="149" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">① T101 更新额度，尚未提交</text>
+<text x="52" y="197" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">甲、乙的新版本为 (90,50)</text>
+<rect x="32" y="278" width="496" height="123" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="315" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">② T102 后取得编号，却先提交</text>
+<text x="52" y="363" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">只把无关备注改成“已核”</text>
+<rect x="32" y="444" width="496" height="123" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="481" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">③ R 第一次 SELECT，固定 S</text>
+<text x="52" y="529" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">S=101:103:101 → 额度 (100,40)</text>
+<rect x="32" y="610" width="496" height="123" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="647" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">④ T101 提交两份额度更新</text>
+<text x="52" y="695" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">当前已提交额度变成 (90,50)</text>
+<path d="M 280 243 L 280 269" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 409 L 280 435" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 575 L 280 601" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 741 L 280 767" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="778" width="496" height="151" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="815" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">⑤ R 再查：仍为 (100,40)</text>
+<text x="52" y="861" fill="#287467" font-size="24" font-weight="400" text-anchor="start">N 的新快照：得到 (90,50)</text>
+<text x="52" y="904" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">R 的 S 不变；结束事务才退出旧视图</text>
+<text x="280" y="987" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">100、101、102 是事务编号，不是时间</text>
+</g>
+</svg>
