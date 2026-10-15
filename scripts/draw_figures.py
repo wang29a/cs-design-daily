@@ -765,6 +765,48 @@ def pg_snapshot_readers():
 
 
 
+def pg_hot_chain():
+    d = Drawing('pg-hot-chain', 1040, '入口不变，快照决定选哪个版本', '教学模型：同一表页 42 · 箭头表示引用或后继')
+    d.card(32, 112, 496, 88, 'B-tree：键 7 → TID (42,1)', '只有 id 索引；balance 没有索引', size=25)
+    d.arrow([(280,208),(280,244)], color='teal')
+    d.rect(32, 252, 496, 454, WHITE)
+    d.text(52, 290, '表页 42：新旧版本都在本页', size=25, weight=600)
+    d.rect(56, 316, 448, 142, WHITE)
+    d.text(76, 352, '槽位 1 → 旧行：id=7，额度 100', size=24, weight=600)
+    d.text(76, 394, 'xmin=100，xmax=101', size=24)
+    d.text(76, 435, 'HOT 后继：t_ctid=(42,4)', size=23, color=RUST)
+    d.arrow([(280,466),(280,510)], color='rust')
+    d.rect(56, 518, 448, 156, GREEN)
+    d.text(76, 555, '槽位 4 → 新行：id=7，额度 90', size=24, weight=600)
+    d.text(76, 599, 'xmin=101，xmax=0', size=24)
+    d.text(76, 643, 'heap-only：没有独立索引入口', size=23, color=TEAL)
+    d.text(32, 753, 'T101 提交后，两个读者都从槽位 1 进入', size=23, weight=600)
+    d.card(32, 782, 496, 88, 'R：旧快照 → 在旧行停下 → 100', fill=WHITE, size=24)
+    d.card(32, 893, 496, 88, 'N：新快照 → 沿链到新行 → 90', fill=GREEN, color=TEAL, size=24)
+    d.text(280, 1015, '槽位号不是行数据的字节偏移', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+def pg_hot_prune():
+    d = Drawing('pg-hot-prune', 1020, '旧数据可回收，外部入口还要保留', '教学模型：先保留旧版本，再满足回收条件')
+    for y, title, root, fill in [(112, '① 清理前：旧读者仍可能需要 100', '槽位 1 → 旧行 100 → 槽位 4', WHITE),
+                                 (533, '② 清理后：旧版本已无人需要', '槽位 1：LP_REDIRECT → 槽位 4', GREEN)]:
+        d.rect(32, y, 496, 320, fill)
+        d.text(52, y+37, title, size=24, weight=600)
+        d.text(52, y+88, '索引：键 7 → (42,1)　保持不变', size=23)
+        d.arrow([(280,y+103),(280,y+134)], color='teal')
+        d.rect(52, y+145, 456, 58, WHITE)
+        d.text(280, y+182, root, size=23, anchor='middle')
+        d.arrow([(280,y+211),(280,y+240)], color='teal')
+        d.text(280, y+278, '槽位 4 → 新行 90', size=25, color=TEAL, weight=600, anchor='middle')
+    d.text(280, 472, '旧快照结束，满足回收条件并取得同步', size=22, anchor='middle')
+    d.arrow([(280,484),(280,522)], color='rust')
+    d.text(280, 902, '可回收：旧行 100 的数据区域', size=24, color=TEAL, anchor='middle')
+    d.text(280, 949, '仍保留：索引引用的根槽位 1', size=24, color=RUST, anchor='middle')
+    d.text(280, 994, '清理并整理页内空间；不是运行追踪', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -776,7 +818,8 @@ def main():
                 rocksdb_snapshot_views, rocksdb_snapshot_stripes, rocksdb_snapshot_release,
                 rocksdb_batch_publication, rocksdb_batch_read_view,
                 rocksdb_txn_conflict, rocksdb_txn_retry,
-                pg_row_versions, pg_snapshot_hole, pg_snapshot_readers]
+                pg_row_versions, pg_snapshot_hole, pg_snapshot_readers,
+                pg_hot_chain, pg_hot_prune]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

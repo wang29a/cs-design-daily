@@ -134,6 +134,15 @@
       "source": "2026-10-15-postgresql-mvcc-snapshot.md",
       "id": "2026-10-15-postgresql-mvcc-snapshot",
       "insight": "编号顺序不能代表完成顺序，快照用范围压缩历史、用未完成集合保留空洞，并结合事务状态解释行版本。"
+    },
+    {
+      "date": "2026-10-16",
+      "title": "PostgreSQL：更新一行，为什么不必重写索引",
+      "subtitle": "同页版本链怎样让稳定索引入口与旧行回收同时成立",
+      "topic": "数据库",
+      "source": "2026-10-16-postgresql-hot-updates.md",
+      "id": "2026-10-16-postgresql-hot-updates",
+      "insight": "让索引引用稳定的页内入口，再由版本链与快照共同定位行，使旧数据回收与索引维护可以局部分离。"
     }
   ]
 }

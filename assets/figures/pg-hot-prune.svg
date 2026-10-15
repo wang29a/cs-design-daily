@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1020" viewBox="0 0 560 1020" role="img" aria-labelledby="title desc">
+<title id="title">旧数据可回收，外部入口还要保留</title><desc id="desc">教学模型：先保留旧版本，再满足回收条件</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1020" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">旧数据可回收，外部入口还要保留</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型：先保留旧版本，再满足回收条件</text>
+<rect x="32" y="112" width="496" height="320" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="149" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">① 清理前：旧读者仍可能需要 100</text>
+<text x="52" y="200" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">索引：键 7 → (42,1)　保持不变</text>
+<path d="M 280 215 L 280 246" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="52" y="257" width="456" height="58" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280" y="294" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">槽位 1 → 旧行 100 → 槽位 4</text>
+<path d="M 280 323 L 280 352" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="390" fill="#287467" font-size="25" font-weight="600" text-anchor="middle">槽位 4 → 新行 90</text>
+<rect x="32" y="533" width="496" height="320" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="570" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">② 清理后：旧版本已无人需要</text>
+<text x="52" y="621" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">索引：键 7 → (42,1)　保持不变</text>
+<path d="M 280 636 L 280 667" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="52" y="678" width="456" height="58" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280" y="715" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">槽位 1：LP_REDIRECT → 槽位 4</text>
+<path d="M 280 744 L 280 773" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="811" fill="#287467" font-size="25" font-weight="600" text-anchor="middle">槽位 4 → 新行 90</text>
+<text x="280" y="472" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">旧快照结束，满足回收条件并取得同步</text>
+<path d="M 280 484 L 280 522" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<text x="280" y="902" fill="#287467" font-size="24" font-weight="400" text-anchor="middle">可回收：旧行 100 的数据区域</text>
+<text x="280" y="949" fill="#a54426" font-size="24" font-weight="400" text-anchor="middle">仍保留：索引引用的根槽位 1</text>
+<text x="280" y="994" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">清理并整理页内空间；不是运行追踪</text>
+</g>
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1040" viewBox="0 0 560 1040" role="img" aria-labelledby="title desc">
+<title id="title">入口不变，快照决定选哪个版本</title><desc id="desc">教学模型：同一表页 42 · 箭头表示引用或后继</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1040" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">入口不变，快照决定选哪个版本</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型：同一表页 42 · 箭头表示引用或后继</text>
+<rect x="32" y="112" width="496" height="88" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="146" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">B-tree：键 7 → TID (42,1)</text>
+<text x="280.0" y="177" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">只有 id 索引；balance 没有索引</text>
+<path d="M 280 208 L 280 244" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="252" width="496" height="454" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="290" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">表页 42：新旧版本都在本页</text>
+<rect x="56" y="316" width="448" height="142" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="76" y="352" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">槽位 1 → 旧行：id=7，额度 100</text>
+<text x="76" y="394" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">xmin=100，xmax=101</text>
+<text x="76" y="435" fill="#a54426" font-size="23" font-weight="400" text-anchor="start">HOT 后继：t_ctid=(42,4)</text>
+<path d="M 280 466 L 280 510" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<rect x="56" y="518" width="448" height="156" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="76" y="555" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">槽位 4 → 新行：id=7，额度 90</text>
+<text x="76" y="599" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">xmin=101，xmax=0</text>
+<text x="76" y="643" fill="#287467" font-size="23" font-weight="400" text-anchor="start">heap-only：没有独立索引入口</text>
+<text x="32" y="753" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">T101 提交后，两个读者都从槽位 1 进入</text>
+<rect x="32" y="782" width="496" height="88" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="834.0" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">R：旧快照 → 在旧行停下 → 100</text>
+<rect x="32" y="893" width="496" height="88" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="945.0" fill="#287467" font-size="24" font-weight="600" text-anchor="middle">N：新快照 → 沿链到新行 → 90</text>
+<text x="280" y="1015" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">槽位号不是行数据的字节偏移</text>
+</g>
+</svg>
