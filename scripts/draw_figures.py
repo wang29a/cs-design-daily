@@ -807,6 +807,42 @@ def pg_hot_prune():
     d.save()
 
 
+def pg_ios_candidates():
+    d = Drawing('pg-ios-candidates', 1020, '数值在索引里，能否使用仍要判断', '教学模型：T101 已提交，旧快照 R 仍在')
+    d.text(32, 124, '同一个 id=7，暂存两份索引候选', size=25, weight=600)
+    d.card(32, 150, 496, 86, '额度 100 → TID (42,1)', fill=WHITE, size=25)
+    d.card(32, 256, 496, 86, '额度 90 → TID (42,4)', fill=PEACH, size=25)
+    d.arrow([(280,350),(280,390)], color='rust')
+    d.card(32, 398, 496, 100, 'V[42] = 0：没有整页保证', '0 不等于不可见；必须检查表行', PEACH, RUST, size=25)
+    d.arrow([(280,506),(280,548)], color='rust')
+    d.rect(32, 556, 496, 240, WHITE)
+    d.text(52, 597, '访问表页 42，按各自快照判断', size=24, weight=600)
+    d.text(52, 652, 'R：接受旧版本，排除新版本', size=24)
+    d.text(52, 704, 'N：排除旧版本，接受新版本', size=24, color=TEAL)
+    d.text(52, 757, '候选检查顺序不按本图固定', size=22, color=MUTED)
+    d.arrow([(280,804),(280,846)], color='teal')
+    d.card(32, 854, 496, 90, '从通过检查的索引项取值', 'R → 100；N → 90；各返回一行', GREEN, TEAL, size=25)
+    d.text(280, 991, '箭头：检查流程 · 未运行数据库', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+def pg_ios_lifecycle():
+    d = Drawing('pg-ios-lifecycle', 1050, '撤销保证要及时，重建保证要有依据', '教学时序：页 42 · 向下表示事件先后')
+    rows = [(112, '① 初始已确认：V[42] = 1', '索引中的 100 可直接返回', '表页此前满足全部可见条件', GREEN),
+            (344, '② T101 更新：V[42] = 0', '额度 100 → 90，建立新索引项', '新入口发布前，先撤销整页保证', PEACH),
+            (576, '③ T101 提交：V[42] 仍为 0', '旧快照 R 还要 100；N 要 90', '提交不等于对所有快照可见', WHITE),
+            (808, '④ 条件满足，VACUUM → V = 1', '清旧行、旧索引项，核对整页', '此后新查询可直接采用索引的 90', GREEN)]
+    for y, title, detail, condition, fill in rows:
+        d.rect(32, y, 496, 177, fill)
+        d.text(52, y+38, title, size=24, weight=600)
+        d.text(52, y+91, detail, size=23)
+        d.text(52, y+143, condition, size=22, color=MUTED)
+    for y in [297,529,761]:
+        d.arrow([(280,y),(280,y+37)], color='teal')
+    d.text(280, 1022, '④ 还要求 R 结束且其他保护条件允许', size=22, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -819,7 +855,7 @@ def main():
                 rocksdb_batch_publication, rocksdb_batch_read_view,
                 rocksdb_txn_conflict, rocksdb_txn_retry,
                 pg_row_versions, pg_snapshot_hole, pg_snapshot_readers,
-                pg_hot_chain, pg_hot_prune]
+                pg_hot_chain, pg_hot_prune, pg_ios_candidates, pg_ios_lifecycle]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

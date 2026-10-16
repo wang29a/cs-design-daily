@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1020" viewBox="0 0 560 1020" role="img" aria-labelledby="title desc">
+<title id="title">数值在索引里，能否使用仍要判断</title><desc id="desc">教学模型：T101 已提交，旧快照 R 仍在</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1020" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">数值在索引里，能否使用仍要判断</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型：T101 已提交，旧快照 R 仍在</text>
+<text x="32" y="124" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">同一个 id=7，暂存两份索引候选</text>
+<rect x="32" y="150" width="496" height="86" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="201.0" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">额度 100 → TID (42,1)</text>
+<rect x="32" y="256" width="496" height="86" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="307.0" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">额度 90 → TID (42,4)</text>
+<path d="M 280 350 L 280 390" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<rect x="32" y="398" width="496" height="100" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="432" fill="#a54426" font-size="25" font-weight="600" text-anchor="middle">V[42] = 0：没有整页保证</text>
+<text x="280.0" y="463" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">0 不等于不可见；必须检查表行</text>
+<path d="M 280 506 L 280 548" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<rect x="32" y="556" width="496" height="240" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="597" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">访问表页 42，按各自快照判断</text>
+<text x="52" y="652" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">R：接受旧版本，排除新版本</text>
+<text x="52" y="704" fill="#287467" font-size="24" font-weight="400" text-anchor="start">N：排除旧版本，接受新版本</text>
+<text x="52" y="757" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">候选检查顺序不按本图固定</text>
+<path d="M 280 804 L 280 846" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="854" width="496" height="90" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="888" fill="#287467" font-size="25" font-weight="600" text-anchor="middle">从通过检查的索引项取值</text>
+<text x="280.0" y="919" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">R → 100；N → 90；各返回一行</text>
+<text x="280" y="991" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">箭头：检查流程 · 未运行数据库</text>
+</g>
+</svg>

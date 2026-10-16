@@ -143,6 +143,15 @@
       "source": "2026-10-16-postgresql-hot-updates.md",
       "id": "2026-10-16-postgresql-hot-updates",
       "insight": "让索引引用稳定的页内入口，再由版本链与快照共同定位行，使旧数据回收与索引维护可以局部分离。"
+    },
+    {
+      "date": "2026-10-17",
+      "title": "PostgreSQL：索引里明明有答案，为什么还要回表",
+      "subtitle": "一张小地图怎样让可见性检查安全地跳过，又在更新时退回精确判断",
+      "topic": "数据库",
+      "source": "2026-10-17-postgresql-index-only-scan.md",
+      "id": "2026-10-17-postgresql-index-only-scan",
+      "insight": "用整页可见的充分条件替代部分逐行检查，写入及时撤销保证、清理确认后再重建，不确定时仍沿原路径求证。"
     }
   ]
 }

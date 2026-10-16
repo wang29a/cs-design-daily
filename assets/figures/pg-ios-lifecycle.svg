@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1050" viewBox="0 0 560 1050" role="img" aria-labelledby="title desc">
+<title id="title">撤销保证要及时，重建保证要有依据</title><desc id="desc">教学时序：页 42 · 向下表示事件先后</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1050" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">撤销保证要及时，重建保证要有依据</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学时序：页 42 · 向下表示事件先后</text>
+<rect x="32" y="112" width="496" height="177" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="150" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">① 初始已确认：V[42] = 1</text>
+<text x="52" y="203" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">索引中的 100 可直接返回</text>
+<text x="52" y="255" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">表页此前满足全部可见条件</text>
+<rect x="32" y="344" width="496" height="177" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="382" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">② T101 更新：V[42] = 0</text>
+<text x="52" y="435" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">额度 100 → 90，建立新索引项</text>
+<text x="52" y="487" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">新入口发布前，先撤销整页保证</text>
+<rect x="32" y="576" width="496" height="177" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="614" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">③ T101 提交：V[42] 仍为 0</text>
+<text x="52" y="667" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">旧快照 R 还要 100；N 要 90</text>
+<text x="52" y="719" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">提交不等于对所有快照可见</text>
+<rect x="32" y="808" width="496" height="177" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="846" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">④ 条件满足，VACUUM → V = 1</text>
+<text x="52" y="899" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">清旧行、旧索引项，核对整页</text>
+<text x="52" y="951" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">此后新查询可直接采用索引的 90</text>
+<path d="M 280 297 L 280 334" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 529 L 280 566" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 761 L 280 798" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="1022" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">④ 还要求 R 结束且其他保护条件允许</text>
+</g>
+</svg>
