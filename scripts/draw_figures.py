@@ -843,6 +843,59 @@ def pg_ios_lifecycle():
     d.save()
 
 
+def pg_ssi_write_skew():
+    d = Drawing('pg-ssi-write-skew', 936, '各自保留旧视图，仍可能一起做错', '教学模型：Repeatable Read · 向下为事件推进')
+    d.card(32, 112, 496, 92, '初始：甲在岗，乙在岗', '业务不变量：人数至少为 1', GREEN, TEAL, size=25)
+    d.arrow([(280,212),(280,253)], color='teal')
+    d.rect(32, 261, 496, 158, WHITE)
+    d.text(52, 300, 'A 读人数 → 2，批准甲下班', size=24, weight=600)
+    d.text(52, 352, 'B 读人数 → 2，批准乙下班', size=24, weight=600)
+    d.text(52, 395, '两次读取都在任何更新之前', size=22, color=MUTED)
+    d.arrow([(280,427),(280,468)], color='rust')
+    d.rect(32, 476, 496, 158, PEACH)
+    d.text(52, 515, 'A：只修改甲 → 离岗', size=25)
+    d.text(52, 566, 'B：只修改乙 → 离岗', size=25)
+    d.text(52, 610, '没有同一行的写写冲突', size=22, color=RUST)
+    d.arrow([(280,642),(280,683)], color='rust')
+    d.card(32, 691, 496, 112, '两笔都可提交 → 在岗人数 0', '快照稳定，业务规则仍被破坏', PEACH, RUST, size=25)
+    d.text(280, 863, 'A：甲的申请；B：乙的申请', size=23, anchor='middle')
+    d.text(280, 907, '这不是脏读，也不是覆盖同一行', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+def pg_ssi_dependencies():
+    d = Drawing('pg-ssi-dependencies', 848, '两条顺序要求，无法同时满足', 'rw 箭头：读者 → 改变其读取依据的写者')
+    d.card(32, 112, 496, 110, 'A：甲申请下班', '读乙在岗；写甲离岗', WHITE, size=26)
+    d.card(32, 496, 496, 110, 'B：乙申请下班', '读甲在岗；写乙离岗', WHITE, size=26)
+    d.arrow([(72,230),(72,488)], color='rust')
+    d.arrow([(488,488),(488,230)], color='teal')
+    d.text(280, 315, 'A → B：A 读旧乙，B 改乙', size=24, color=RUST, anchor='middle')
+    d.text(280, 369, 'B → A：B 读旧甲，A 改甲', size=24, color=TEAL, anchor='middle')
+    d.text(280, 433, '要求 A 在 B 前，也要求 B 在 A 前', size=23, anchor='middle')
+    d.rule(654)
+    d.text(280, 703, '这是依赖环，不是线程等待图', size=24, weight=600, anchor='middle')
+    d.text(280, 755, '不表示消息方向或实际提交顺序', size=23, color=MUTED, anchor='middle')
+    d.text(280, 807, '图用于解释异常，不是完整 SSI 算法', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+def pg_ssi_retry():
+    d = Drawing('pg-ssi-retry', 1010, '重做判断，才能得到合法的业务结果', '教学结局之一：A 成功，B 失败 · 向下为步骤')
+    rows = [(112, '① A 提交：甲离岗，乙仍在岗', 'B 的旧尝试失败并回滚：40001', PEACH),
+            (318, '② B′：开始新的 Serializable 事务', '重读人数 → 1，放弃旧的批准依据', WHITE),
+            (524, '③ 业务判断：拒绝乙下班', '不把乙改成离岗，正常结束事务', GREEN),
+            (730, '④ 最终：甲离岗，乙继续值班', '在岗人数 = 1，规则仍成立', GREEN)]
+    for y, title, detail, fill in rows:
+        d.rect(32, y, 496, 145, fill)
+        d.text(52, y+40, title, size=23, weight=600)
+        d.text(52, y+100, detail, size=23)
+    for y in [265,471,677]:
+        d.arrow([(280,y),(280,y+43)], color='teal')
+    d.text(280, 928, '冲突回滚 ≠ 业务拒绝下班', size=24, anchor='middle')
+    d.text(280, 975, '不承诺固定失败者或固定报错时机', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -855,7 +908,8 @@ def main():
                 rocksdb_batch_publication, rocksdb_batch_read_view,
                 rocksdb_txn_conflict, rocksdb_txn_retry,
                 pg_row_versions, pg_snapshot_hole, pg_snapshot_readers,
-                pg_hot_chain, pg_hot_prune, pg_ios_candidates, pg_ios_lifecycle]
+                pg_hot_chain, pg_hot_prune, pg_ios_candidates, pg_ios_lifecycle,
+                pg_ssi_write_skew, pg_ssi_dependencies, pg_ssi_retry]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

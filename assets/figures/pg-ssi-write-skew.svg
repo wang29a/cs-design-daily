@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="936" viewBox="0 0 560 936" role="img" aria-labelledby="title desc">
+<title id="title">各自保留旧视图，仍可能一起做错</title><desc id="desc">教学模型：Repeatable Read · 向下为事件推进</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="936" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">各自保留旧视图，仍可能一起做错</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型：Repeatable Read · 向下为事件推进</text>
+<rect x="32" y="112" width="496" height="92" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="146" fill="#287467" font-size="25" font-weight="600" text-anchor="middle">初始：甲在岗，乙在岗</text>
+<text x="280.0" y="177" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">业务不变量：人数至少为 1</text>
+<path d="M 280 212 L 280 253" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="261" width="496" height="158" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="300" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">A 读人数 → 2，批准甲下班</text>
+<text x="52" y="352" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">B 读人数 → 2，批准乙下班</text>
+<text x="52" y="395" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">两次读取都在任何更新之前</text>
+<path d="M 280 427 L 280 468" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<rect x="32" y="476" width="496" height="158" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="515" fill="#18283b" font-size="25" font-weight="400" text-anchor="start">A：只修改甲 → 离岗</text>
+<text x="52" y="566" fill="#18283b" font-size="25" font-weight="400" text-anchor="start">B：只修改乙 → 离岗</text>
+<text x="52" y="610" fill="#a54426" font-size="22" font-weight="400" text-anchor="start">没有同一行的写写冲突</text>
+<path d="M 280 642 L 280 683" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<rect x="32" y="691" width="496" height="112" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="725" fill="#a54426" font-size="25" font-weight="600" text-anchor="middle">两笔都可提交 → 在岗人数 0</text>
+<text x="280.0" y="756" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">快照稳定，业务规则仍被破坏</text>
+<text x="280" y="863" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">A：甲的申请；B：乙的申请</text>
+<text x="280" y="907" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">这不是脏读，也不是覆盖同一行</text>
+</g>
+</svg>

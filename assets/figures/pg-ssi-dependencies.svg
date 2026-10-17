@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="848" viewBox="0 0 560 848" role="img" aria-labelledby="title desc">
+<title id="title">两条顺序要求，无法同时满足</title><desc id="desc">rw 箭头：读者 → 改变其读取依据的写者</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="848" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">两条顺序要求，无法同时满足</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">rw 箭头：读者 → 改变其读取依据的写者</text>
+<rect x="32" y="112" width="496" height="110" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="146" fill="#18283b" font-size="26" font-weight="600" text-anchor="middle">A：甲申请下班</text>
+<text x="280.0" y="177" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">读乙在岗；写甲离岗</text>
+<rect x="32" y="496" width="496" height="110" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="530" fill="#18283b" font-size="26" font-weight="600" text-anchor="middle">B：乙申请下班</text>
+<text x="280.0" y="561" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">读甲在岗；写乙离岗</text>
+<path d="M 72 230 L 72 488" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<path d="M 488 488 L 488 230" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="315" fill="#a54426" font-size="24" font-weight="400" text-anchor="middle">A → B：A 读旧乙，B 改乙</text>
+<text x="280" y="369" fill="#287467" font-size="24" font-weight="400" text-anchor="middle">B → A：B 读旧甲，A 改甲</text>
+<text x="280" y="433" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">要求 A 在 B 前，也要求 B 在 A 前</text>
+<path d="M 32 654 H 528" stroke="#d9dfdc"/>
+<text x="280" y="703" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">这是依赖环，不是线程等待图</text>
+<text x="280" y="755" fill="#5b6877" font-size="23" font-weight="400" text-anchor="middle">不表示消息方向或实际提交顺序</text>
+<text x="280" y="807" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">图用于解释异常，不是完整 SSI 算法</text>
+</g>
+</svg>

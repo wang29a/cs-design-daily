@@ -152,6 +152,15 @@
       "source": "2026-10-17-postgresql-index-only-scan.md",
       "id": "2026-10-17-postgresql-index-only-scan",
       "insight": "用整页可见的充分条件替代部分逐行检查，写入及时撤销保证、清理确认后再重建，不确定时仍沿原路径求证。"
+    },
+    {
+      "date": "2026-10-18",
+      "title": "PostgreSQL：两笔事务各自都没错，为什么一起提交会出错",
+      "subtitle": "从值班人数的写偏斜，理解稳定快照之外的依赖检测与完整重试",
+      "topic": "数据库",
+      "source": "2026-10-18-postgresql-serializable-dependencies.md",
+      "id": "2026-10-18-postgresql-serializable-dependencies",
+      "insight": "稳定视图保住旧答案，依赖检测要求成功事务能共同解释为某个串行顺序；失败重试必须重做业务判断。"
     }
   ]
 }
