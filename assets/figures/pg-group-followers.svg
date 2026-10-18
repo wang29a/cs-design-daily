@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1040" viewBox="0 0 560 1040" role="img" aria-labelledby="title desc">
+<title id="title">等别人完成后，先重查自己的条件</title><desc id="desc">教学时序：位置单位 KiB · 向下表示事件推进</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1040" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">等别人完成后，先重查自己的条件</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学时序：位置单位 KiB · 向下表示事件推进</text>
+<rect x="32" y="112" width="496" height="152" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="154" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">① A 请求刷新到 160，F=120</text>
+<text x="52" y="217" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">准备 I/O 时，完整日志前缀已到 240</text>
+<rect x="32" y="330" width="496" height="152" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="372" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">② A 负责一次写出与同步</text>
+<text x="52" y="435" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">B、C 等待；完成后公布 F=240</text>
+<rect x="32" y="548" width="496" height="152" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="590" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">③ B、C 重检目标 200、240</text>
+<text x="52" y="653" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">条件已满足 → 跳过重复同步</text>
+<rect x="32" y="766" width="496" height="152" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="808" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">④ 后来的 D：目标 280</text>
+<text x="52" y="871" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">240 &lt; 280 → 仍要等后续刷新</text>
+<path d="M 280 272 L 280 319" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 490 L 280 537" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 708 L 280 755" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="970" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">共享 I/O；A、B、C 仍是独立事务</text>
+<text x="280" y="1014" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">不保证固定领头者、批量或响应先后</text>
+</g>
+</svg>

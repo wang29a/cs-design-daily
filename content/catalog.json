@@ -161,6 +161,15 @@
       "source": "2026-10-18-postgresql-serializable-dependencies.md",
       "id": "2026-10-18-postgresql-serializable-dependencies",
       "insight": "稳定视图保住旧答案，依赖检测要求成功事务能共同解释为某个串行顺序；失败重试必须重做业务判断。"
+    },
+    {
+      "date": "2026-10-19",
+      "title": "PostgreSQL：怎样让多笔事务共用一次磁盘同步",
+      "subtitle": "共享 WAL 持久化前沿，逐笔核对提交义务",
+      "topic": "数据库",
+      "source": "2026-10-19-postgresql-group-commit.md",
+      "id": "2026-10-19-postgresql-group-commit",
+      "insight": "把亲自执行同步改成等待共享持久化前沿覆盖自己的目标，让多笔事务复用一次 I/O，同时分别核对完成条件。"
     }
   ]
 }

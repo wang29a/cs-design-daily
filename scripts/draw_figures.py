@@ -896,6 +896,44 @@ def pg_ssi_retry():
     d.save()
 
 
+def pg_group_frontier():
+    d = Drawing('pg-group-frontier', 1010, '写出到 240，还不等于持久化到 240', '教学位置：KiB · 省略共同基址与实际记录布局')
+    d.card(32, 112, 496, 100, '提交目标：A=160，B=200，C=240', '目标是提交记录结束位置，不是事务号', size=24)
+    d.rect(32, 260, 496, 240, PEACH)
+    d.text(52, 303, '① 已写出：W=240，F=120', size=25, weight=600)
+    d.text(52, 360, '日志可能仍在易失缓存里', size=24)
+    d.text(52, 414, '120 < 160、200、240', size=25, color=RUST)
+    d.text(52, 468, '三笔的本地持久化义务均未满足', size=23, color=RUST)
+    d.arrow([(500,508),(500,566)], color='teal')
+    d.text(52, 548, '完成所选方法要求的同步', size=22)
+    d.rect(32, 574, 496, 240, GREEN)
+    d.text(52, 617, '② 已可靠刷新：F=240', size=25, weight=600)
+    d.text(52, 674, '240 ≥ 160；240 ≥ 200；240 ≥ 240', size=23)
+    d.text(52, 728, '一份连续前缀，覆盖三个目标', size=24, color=TEAL)
+    d.text(52, 782, '各自继续完成事务结束与响应', size=23, color=TEAL)
+    d.rule(857)
+    d.text(280, 904, 'W：写出前沿；F：已持久化前沿', size=23, anchor='middle')
+    d.text(280, 957, '假设写出与同步可区分；不是运行追踪', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+def pg_group_followers():
+    d = Drawing('pg-group-followers', 1040, '等别人完成后，先重查自己的条件', '教学时序：位置单位 KiB · 向下表示事件推进')
+    rows = [(112, '① A 请求刷新到 160，F=120', '准备 I/O 时，完整日志前缀已到 240', WHITE),
+            (330, '② A 负责一次写出与同步', 'B、C 等待；完成后公布 F=240', GREEN),
+            (548, '③ B、C 重检目标 200、240', '条件已满足 → 跳过重复同步', GREEN),
+            (766, '④ 后来的 D：目标 280', '240 < 280 → 仍要等后续刷新', PEACH)]
+    for y, title, detail, fill in rows:
+        d.rect(32, y, 496, 152, fill)
+        d.text(52, y+42, title, size=24, weight=600)
+        d.text(52, y+105, detail, size=23)
+    for y in [272,490,708]:
+        d.arrow([(280,y),(280,y+47)], color='teal')
+    d.text(280, 970, '共享 I/O；A、B、C 仍是独立事务', size=23, anchor='middle')
+    d.text(280, 1014, '不保证固定领头者、批量或响应先后', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -909,7 +947,8 @@ def main():
                 rocksdb_txn_conflict, rocksdb_txn_retry,
                 pg_row_versions, pg_snapshot_hole, pg_snapshot_readers,
                 pg_hot_chain, pg_hot_prune, pg_ios_candidates, pg_ios_lifecycle,
-                pg_ssi_write_skew, pg_ssi_dependencies, pg_ssi_retry]
+                pg_ssi_write_skew, pg_ssi_dependencies, pg_ssi_retry,
+                pg_group_frontier, pg_group_followers]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')
