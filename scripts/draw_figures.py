@@ -934,6 +934,63 @@ def pg_group_followers():
     d.save()
 
 
+def pg_checkpoint_moving_pages():
+    d = Drawing('pg-checkpoint-moving-pages', 1060, '各页陆续写回，不必同时最新', '教学时序 · 向下为时间 · 位置单位 KiB')
+    rows = [(112, '① 开始前：内存 A80、B60', '磁盘 A0、B0；旧修改日志已可靠保存', WHITE),
+            (270, '② 建立重做起点 R=100', '固定本轮需要承接的旧历史', GREEN),
+            (428, '③ A 更新到 120，再写回 A120', '磁盘 A120、B0', WHITE),
+            (586, '④ B 更新到 140；A 又更新到 160', '内存 A160、B140；磁盘 A120、B0', PEACH),
+            (744, '⑤ 写回 B140，完成必要同步', '磁盘 A120、B140；A160 仍脏', GREEN)]
+    for y, title, detail, fill in rows:
+        d.rect(32,y,496,120,fill)
+        d.text(50,y+38,title,size=23,weight=600)
+        d.text(50,y+87,detail,size=22)
+    for y in [239,397,555,713]:
+        d.arrow([(280,y),(280,y+22)], color='teal')
+    d.rule(904)
+    d.text(280,948,'旧历史已承接 ≠ 内存再无脏页',size=25,anchor='middle')
+    d.text(280,995,'A160 可由 R 之后的 WAL 补齐',size=24,color=TEAL,anchor='middle')
+    d.text(280,1035,'省略其他页、提交记录与真实日志布局',size=21,color=MUTED,anchor='middle')
+    d.save()
+
+
+def pg_checkpoint_redo_start():
+    d = Drawing('pg-checkpoint-redo-start', 950, '完成记录的位置，不是重做起点', '教学对照 · 假设相关事务均已同步提交')
+    d.card(32,112,496,104,'完成记录 C=200，内含 redo=100', '崩溃后磁盘：A120、B140',size=24)
+    d.rect(32,265,496,245,GREEN)
+    d.text(52,309,'正确：从 R=100 开始扫描',size=25,weight=600)
+    d.text(52,369,'解释 120、140、160 等后续记录',size=23)
+    d.text(52,428,'找到尚未落盘的 A160 修改',size=24,color=TEAL)
+    d.text(52,484,'最终：A160、B140',size=25,color=TEAL,weight=600)
+    d.rect(32,557,496,245,PEACH)
+    d.text(52,601,'错误：从 C=200 开始扫描',size=25,weight=600)
+    d.text(52,661,'跳过 160，日志补齐路线被切断',size=23)
+    d.text(52,720,'磁盘仍是 A120，内存 A160 已丢',size=23,color=RUST)
+    d.text(52,776,'已确认的修改无法恢复',size=25,color=RUST,weight=600)
+    d.rule(845)
+    d.text(280,889,'保留扫描范围，才能容许数据页落后',size=23,anchor='middle')
+    d.text(280,931,'不是重放业务 SQL，也不是实际恢复追踪',size=21,color=MUTED,anchor='middle')
+    d.save()
+
+
+def pg_checkpoint_publication():
+    d = Drawing('pg-checkpoint-publication', 970, '先完成承接，再发布恢复入口', '教学顺序 · 两个故障点只取明确的持久化边界')
+    d.card(32,112,496,110,'① 可靠保存本轮必需数据与状态', '不能只有 write 返回；还需必要同步',fill=WHITE,size=24)
+    d.text(52,269,'此时若尚未写新完成记录就崩溃：',size=22)
+    d.text(52,310,'仍使用此前已发布的检查点',size=24,color=RUST)
+    d.arrow([(500,230),(500,348)],color='teal')
+    d.card(32,364,496,110,'② 写并刷新完整的完成记录', 'C=200；记录内保存 R=100',fill=GREEN,size=24)
+    d.arrow([(280,485),(280,533)],color='teal')
+    d.card(32,550,496,110,'③ 持久更新 pg_control 指向 C', '启动由 C 找到 R，再从 R 扫描',fill=GREEN,size=24)
+    d.text(52,715,'此步可靠完成后若崩溃：',size=23)
+    d.text(52,762,'采用新入口，从 R=100 恢复',size=24,color=TEAL)
+    d.rule(810)
+    d.text(280,853,'仅建立 R，不代表本轮检查点已完成',size=23,anchor='middle')
+    d.text(280,900,'不推断控制文件写入途中或损坏的结果',size=21,color=MUTED,anchor='middle')
+    d.text(280,943,'完整协议还包括其他持久状态的协调',size=21,color=MUTED,anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -948,7 +1005,8 @@ def main():
                 pg_row_versions, pg_snapshot_hole, pg_snapshot_readers,
                 pg_hot_chain, pg_hot_prune, pg_ios_candidates, pg_ios_lifecycle,
                 pg_ssi_write_skew, pg_ssi_dependencies, pg_ssi_retry,
-                pg_group_frontier, pg_group_followers]
+                pg_group_frontier, pg_group_followers,
+                pg_checkpoint_moving_pages, pg_checkpoint_redo_start, pg_checkpoint_publication]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

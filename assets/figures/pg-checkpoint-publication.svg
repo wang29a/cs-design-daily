@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="970" viewBox="0 0 560 970" role="img" aria-labelledby="title desc">
+<title id="title">先完成承接，再发布恢复入口</title><desc id="desc">教学顺序 · 两个故障点只取明确的持久化边界</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="970" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">先完成承接，再发布恢复入口</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学顺序 · 两个故障点只取明确的持久化边界</text>
+<rect x="32" y="112" width="496" height="110" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="146" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">① 可靠保存本轮必需数据与状态</text>
+<text x="280.0" y="177" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">不能只有 write 返回；还需必要同步</text>
+<text x="52" y="269" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">此时若尚未写新完成记录就崩溃：</text>
+<text x="52" y="310" fill="#a54426" font-size="24" font-weight="400" text-anchor="start">仍使用此前已发布的检查点</text>
+<path d="M 500 230 L 500 348" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="364" width="496" height="110" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="398" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">② 写并刷新完整的完成记录</text>
+<text x="280.0" y="429" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">C=200；记录内保存 R=100</text>
+<path d="M 280 485 L 280 533" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="550" width="496" height="110" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="584" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">③ 持久更新 pg_control 指向 C</text>
+<text x="280.0" y="615" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">启动由 C 找到 R，再从 R 扫描</text>
+<text x="52" y="715" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">此步可靠完成后若崩溃：</text>
+<text x="52" y="762" fill="#287467" font-size="24" font-weight="400" text-anchor="start">采用新入口，从 R=100 恢复</text>
+<path d="M 32 810 H 528" stroke="#d9dfdc"/>
+<text x="280" y="853" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">仅建立 R，不代表本轮检查点已完成</text>
+<text x="280" y="900" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">不推断控制文件写入途中或损坏的结果</text>
+<text x="280" y="943" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">完整协议还包括其他持久状态的协调</text>
+</g>
+</svg>

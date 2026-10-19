@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1060" viewBox="0 0 560 1060" role="img" aria-labelledby="title desc">
+<title id="title">各页陆续写回，不必同时最新</title><desc id="desc">教学时序 · 向下为时间 · 位置单位 KiB</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1060" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">各页陆续写回，不必同时最新</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学时序 · 向下为时间 · 位置单位 KiB</text>
+<rect x="32" y="112" width="496" height="120" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="150" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">① 开始前：内存 A80、B60</text>
+<text x="50" y="199" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">磁盘 A0、B0；旧修改日志已可靠保存</text>
+<rect x="32" y="270" width="496" height="120" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="308" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">② 建立重做起点 R=100</text>
+<text x="50" y="357" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">固定本轮需要承接的旧历史</text>
+<rect x="32" y="428" width="496" height="120" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="466" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">③ A 更新到 120，再写回 A120</text>
+<text x="50" y="515" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">磁盘 A120、B0</text>
+<rect x="32" y="586" width="496" height="120" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="624" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">④ B 更新到 140；A 又更新到 160</text>
+<text x="50" y="673" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">内存 A160、B140；磁盘 A120、B0</text>
+<rect x="32" y="744" width="496" height="120" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="782" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">⑤ 写回 B140，完成必要同步</text>
+<text x="50" y="831" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">磁盘 A120、B140；A160 仍脏</text>
+<path d="M 280 239 L 280 261" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 397 L 280 419" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 555 L 280 577" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 713 L 280 735" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 32 904 H 528" stroke="#d9dfdc"/>
+<text x="280" y="948" fill="#18283b" font-size="25" font-weight="400" text-anchor="middle">旧历史已承接 ≠ 内存再无脏页</text>
+<text x="280" y="995" fill="#287467" font-size="24" font-weight="400" text-anchor="middle">A160 可由 R 之后的 WAL 补齐</text>
+<text x="280" y="1035" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">省略其他页、提交记录与真实日志布局</text>
+</g>
+</svg>

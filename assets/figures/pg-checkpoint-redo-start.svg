@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="950" viewBox="0 0 560 950" role="img" aria-labelledby="title desc">
+<title id="title">完成记录的位置，不是重做起点</title><desc id="desc">教学对照 · 假设相关事务均已同步提交</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="950" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">完成记录的位置，不是重做起点</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学对照 · 假设相关事务均已同步提交</text>
+<rect x="32" y="112" width="496" height="104" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="146" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">完成记录 C=200，内含 redo=100</text>
+<text x="280.0" y="177" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">崩溃后磁盘：A120、B140</text>
+<rect x="32" y="265" width="496" height="245" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="309" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">正确：从 R=100 开始扫描</text>
+<text x="52" y="369" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">解释 120、140、160 等后续记录</text>
+<text x="52" y="428" fill="#287467" font-size="24" font-weight="400" text-anchor="start">找到尚未落盘的 A160 修改</text>
+<text x="52" y="484" fill="#287467" font-size="25" font-weight="600" text-anchor="start">最终：A160、B140</text>
+<rect x="32" y="557" width="496" height="245" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="601" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">错误：从 C=200 开始扫描</text>
+<text x="52" y="661" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">跳过 160，日志补齐路线被切断</text>
+<text x="52" y="720" fill="#a54426" font-size="23" font-weight="400" text-anchor="start">磁盘仍是 A120，内存 A160 已丢</text>
+<text x="52" y="776" fill="#a54426" font-size="25" font-weight="600" text-anchor="start">已确认的修改无法恢复</text>
+<path d="M 32 845 H 528" stroke="#d9dfdc"/>
+<text x="280" y="889" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">保留扫描范围，才能容许数据页落后</text>
+<text x="280" y="931" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">不是重放业务 SQL，也不是实际恢复追踪</text>
+</g>
+</svg>
