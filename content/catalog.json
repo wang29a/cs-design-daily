@@ -179,6 +179,15 @@
       "source": "2026-10-20-postgresql-online-checkpoint.md",
       "id": "2026-10-20-postgresql-online-checkpoint",
       "insight": "固定需要承接的旧历史，让各页陆续写回，再发布包含较早重做起点的完成记录，后续缺口由日志补齐。"
+    },
+    {
+      "date": "2026-10-21",
+      "title": "Linux：文件名删掉了，为什么已经打开的程序还能继续读",
+      "subtitle": "沿读取、删除与重建，理解名称、文件身份和打开状态的分工",
+      "topic": "操作系统",
+      "source": "2026-10-21-linux-vfs-open-files.md",
+      "id": "2026-10-21-linux-vfs-open-files",
+      "insight": "名称负责发现对象，打开状态负责延续使用；把查找入口与持有关系分开，目录变化就不必打断既有操作。"
     }
   ]
 }

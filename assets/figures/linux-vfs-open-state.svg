@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="970" viewBox="0 0 560 970" role="img" aria-labelledby="title desc">
+<title id="title">共享数据，不等于共享读取进度</title><desc id="desc">教学引用图 · 箭头表示关联或持有关系</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="970" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">共享数据，不等于共享读取进度</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学引用图 · 箭头表示关联或持有关系</text>
+<rect x="32" y="112" width="496" height="80" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="160.0" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">目录中的名字：app.log</text>
+<path d="M 280 202 L 280 240" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="252" width="496" height="104" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="286" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">文件身份 I17</text>
+<text x="280.0" y="317" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">内容：ABCDEF（没有复制数据）</text>
+<rect x="32" y="450" width="236" height="110" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="150.0" y="484" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">打开对象 X</text>
+<text x="150.0" y="515" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">偏移 = 4</text>
+<rect x="292" y="450" width="236" height="110" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="410.0" y="484" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">打开对象 Y</text>
+<text x="410.0" y="515" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">偏移 = 2</text>
+<path d="M 150 440 L 150 366" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 410 440 L 410 366" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="690" width="144" height="76" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="104.0" y="736.0" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">fd 3</text>
+<rect x="208" y="690" width="144" height="76" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="736.0" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">fd 4</text>
+<rect x="384" y="690" width="144" height="76" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="456.0" y="736.0" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">fd 5</text>
+<path d="M 104 680 L 104 615 L 150 615 L 150 570" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 680 L 280 595 L 220 595 L 220 570" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 456 680 L 456 615 L 410 615 L 410 570" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="818" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">3 读 AB；4 接着读 CD；5 独立读 AB</text>
+<path d="M 32 850 H 528" stroke="#d9dfdc"/>
+<text x="280" y="894" fill="#18283b" font-size="24" font-weight="400" text-anchor="middle">dup 共享 X；再次 open 新建 Y</text>
+<text x="280" y="940" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">省略 dentry、挂载与其他内核中间结构</text>
+</g>
+</svg>

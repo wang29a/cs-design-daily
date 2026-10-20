@@ -991,6 +991,50 @@ def pg_checkpoint_publication():
     d.save()
 
 
+def linux_vfs_open_state():
+    d = Drawing('linux-vfs-open-state', 970, '共享数据，不等于共享读取进度', '教学引用图 · 箭头表示关联或持有关系')
+    d.card(32,112,496,80,'目录中的名字：app.log',size=25)
+    d.arrow([(280,202),(280,240)],color='teal')
+    d.card(32,252,496,104,'文件身份 I17', '内容：ABCDEF（没有复制数据）',fill=GREEN,size=25)
+    d.card(32,450,236,110,'打开对象 X', '偏移 = 4',size=24)
+    d.card(292,450,236,110,'打开对象 Y', '偏移 = 2',size=24)
+    d.arrow([(150,440),(150,366)],color='teal')
+    d.arrow([(410,440),(410,366)],color='teal')
+    for x,title in [(32,'fd 3'),(208,'fd 4'),(384,'fd 5')]:
+        d.card(x,690,144,76,title,size=25)
+    d.arrow([(104,680),(104,615),(150,615),(150,570)],color='teal')
+    d.arrow([(280,680),(280,595),(220,595),(220,570)],color='teal')
+    d.arrow([(456,680),(456,615),(410,615),(410,570)],color='teal')
+    d.text(280,818,'3 读 AB；4 接着读 CD；5 独立读 AB',size=23,anchor='middle')
+    d.rule(850)
+    d.text(280,894,'dup 共享 X；再次 open 新建 Y',size=24,anchor='middle')
+    d.text(280,940,'省略 dentry、挂载与其他内核中间结构',size=21,color=MUTED,anchor='middle')
+    d.save()
+
+
+def linux_vfs_unlink_lifetime():
+    d = Drawing('linux-vfs-unlink-lifetime', 1070, '同名新文件，不会接管旧描述符', '教学时序 · 向下为时间 · 旧对象无其他持有者')
+    rows = [(112,'① unlink，再创建同名 app.log','新名字 → I23，内容 XYZ；新 fd 6',GREEN),
+            (314,'② 旧引用仍通往 I17：ABCDEF','3、4 → X，偏移 4；5 → Y，偏移 2',PEACH),
+            (516,'③ 沿各自对象继续读取','各自推进打开对象里的偏移',WHITE),
+            (718,'④ 关闭 3、4，仍有 5 引用 Y','再关闭 5 → I17 才满足回收条件',GREEN)]
+    for y,title,detail,fill in rows:
+        d.rect(32,y,496,140,fill)
+        d.text(50,y+42,title,size=23,weight=600)
+        if y == 516:
+            d.text(50,y+80,'4 读 EF → X 偏移 6',size=22)
+            d.text(50,y+118,'6 读 XYZ → Z 偏移 3',size=22)
+        else:
+            d.text(50,y+103,detail,size=22)
+    for y in [263,465,667]:
+        d.arrow([(280,y),(280,y+38)],color='teal')
+    d.rule(902)
+    d.text(280,949,'I17 硬链接数为 0，仍可被打开引用持有',size=23,anchor='middle')
+    d.text(280,995,'名称、打开引用、偏移：三种不同状态',size=24,anchor='middle')
+    d.text(280,1043,'图中排除其他硬链接、映射与后台持有关系',size=21,color=MUTED,anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -1006,7 +1050,8 @@ def main():
                 pg_hot_chain, pg_hot_prune, pg_ios_candidates, pg_ios_lifecycle,
                 pg_ssi_write_skew, pg_ssi_dependencies, pg_ssi_retry,
                 pg_group_frontier, pg_group_followers,
-                pg_checkpoint_moving_pages, pg_checkpoint_redo_start, pg_checkpoint_publication]
+                pg_checkpoint_moving_pages, pg_checkpoint_redo_start, pg_checkpoint_publication,
+                linux_vfs_open_state, linux_vfs_unlink_lifetime]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')
