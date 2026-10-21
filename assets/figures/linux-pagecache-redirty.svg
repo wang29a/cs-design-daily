@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1080" viewBox="0 0 560 1080" role="img" aria-labelledby="title desc">
+<title id="title">旧写回结束，不能抹掉新修改</title><desc id="desc">教学时序 · 向下为时间 · D：脏，W：写回中</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1080" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">旧写回结束，不能抹掉新修改</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学时序 · 向下为时间 · D：脏，W：写回中</text>
+<rect x="32" y="112" width="496" height="125" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="151" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">① write 返回 2；缓存 XY</text>
+<text x="50" y="206" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">D=1，W=0：有待写回工作</text>
+<rect x="32" y="279" width="496" height="125" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="318" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">② 本轮接手 XY，I/O 尚未结束</text>
+<text x="50" y="373" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">D=0，W=1：不代表已经持久化</text>
+<rect x="32" y="446" width="496" height="125" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="485" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">③ 再改 Y → Z；缓存变成 XZ</text>
+<text x="50" y="540" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">D=1，W=1：新旧两份责任并存</text>
+<rect x="32" y="613" width="496" height="125" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="652" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">④ 旧轮完成：只结束 W</text>
+<text x="50" y="707" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">D=1，W=0：XZ 仍需再次写回</text>
+<rect x="32" y="780" width="496" height="125" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="819" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">⑤ 下一轮写回 XZ，期间不再修改</text>
+<text x="50" y="874" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">D=0，W=0：本轮也已结束</text>
+<path d="M 280 245 L 280 270" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 412 L 280 437" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 579 L 280 604" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 746 L 280 771" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 32 944 H 528" stroke="#d9dfdc"/>
+<text x="280" y="985" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">选定旧轮只携带 XY，不承诺写回快照</text>
+<text x="280" y="1027" fill="#a54426" font-size="24" font-weight="400" text-anchor="middle">D=0、W=0 不等于 fsync 已成功</text>
+<text x="280" y="1065" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">省略块级标记、索引标签与同步保护</text>
+</g>
+</svg>

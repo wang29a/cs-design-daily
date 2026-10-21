@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="960" viewBox="0 0 560 960" role="img" aria-labelledby="title desc">
+<title id="title">独立打开状态，共用文件缓存</title><desc id="desc">教学模型 · 实线：关联 · 虚线：稍后写回路径</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="960" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">独立打开状态，共用文件缓存</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型 · 实线：关联 · 虚线：稍后写回路径</text>
+<rect x="32" y="112" width="236" height="108" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="150.0" y="146" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">写者 fd 3</text>
+<text x="150.0" y="177" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">偏移 100 写 XY</text>
+<rect x="292" y="112" width="236" height="108" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="410.0" y="146" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">读者 fd 5</text>
+<text x="410.0" y="177" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">偏移 100 读得 XY</text>
+<path d="M 150 230 L 150 287 L 240 287 L 240 338" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 410 230 L 410 287 L 320 287 L 320 338" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="350" width="496" height="198" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="392" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">I17 的共享页缓存 P0</text>
+<text x="52" y="448" fill="#18283b" font-size="25" font-weight="400" text-anchor="start">字节 100、101：XY</text>
+<text x="52" y="509" fill="#287467" font-size="23" font-weight="400" text-anchor="start">D=1：待写回；W=0：尚未接手</text>
+<path d="M 280 560 L 280 651" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)" stroke-dasharray="7 5"/>
+<rect x="32" y="665" width="496" height="110" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="699" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">设备稳定存储：仍是 AB</text>
+<text x="280.0" y="730" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">write 返回 2，尚未要求 fsync</text>
+<path d="M 32 820 H 528" stroke="#d9dfdc"/>
+<text x="280" y="865" fill="#18283b" font-size="24" font-weight="400" text-anchor="middle">读者可见 ≠ 已获得断电持久化保证</text>
+<text x="280" y="910" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">P0 大小按 4096 字节设定，非磁盘扇区</text>
+<text x="280" y="944" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">仅标出字节 100、101；其余内容不变</text>
+</g>
+</svg>

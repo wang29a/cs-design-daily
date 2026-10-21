@@ -1035,6 +1035,45 @@ def linux_vfs_unlink_lifetime():
     d.save()
 
 
+def linux_pagecache_shared():
+    d = Drawing('linux-pagecache-shared', 960, '独立打开状态，共用文件缓存', '教学模型 · 实线：关联 · 虚线：稍后写回路径')
+    d.card(32,112,236,108,'写者 fd 3', '偏移 100 写 XY',size=24)
+    d.card(292,112,236,108,'读者 fd 5', '偏移 100 读得 XY',size=24)
+    d.arrow([(150,230),(150,287),(240,287),(240,338)],color='teal')
+    d.arrow([(410,230),(410,287),(320,287),(320,338)],color='teal')
+    d.rect(32,350,496,198,GREEN)
+    d.text(52,392,'I17 的共享页缓存 P0',size=25,weight=600)
+    d.text(52,448,'字节 100、101：XY',size=25)
+    d.text(52,509,'D=1：待写回；W=0：尚未接手',size=23,color=TEAL)
+    d.arrow([(280,560),(280,651)],color='rust',dash=True)
+    d.card(32,665,496,110,'设备稳定存储：仍是 AB', 'write 返回 2，尚未要求 fsync',fill=PEACH,size=25)
+    d.rule(820)
+    d.text(280,865,'读者可见 ≠ 已获得断电持久化保证',size=24,anchor='middle')
+    d.text(280,910,'P0 大小按 4096 字节设定，非磁盘扇区',size=21,color=MUTED,anchor='middle')
+    d.text(280,944,'仅标出字节 100、101；其余内容不变',size=21,color=MUTED,anchor='middle')
+    d.save()
+
+
+def linux_pagecache_redirty():
+    d = Drawing('linux-pagecache-redirty', 1080, '旧写回结束，不能抹掉新修改', '教学时序 · 向下为时间 · D：脏，W：写回中')
+    rows = [(112,'① write 返回 2；缓存 XY','D=1，W=0：有待写回工作',WHITE),
+            (279,'② 本轮接手 XY，I/O 尚未结束','D=0，W=1：不代表已经持久化',WHITE),
+            (446,'③ 再改 Y → Z；缓存变成 XZ','D=1，W=1：新旧两份责任并存',PEACH),
+            (613,'④ 旧轮完成：只结束 W','D=1，W=0：XZ 仍需再次写回',GREEN),
+            (780,'⑤ 下一轮写回 XZ，期间不再修改','D=0，W=0：本轮也已结束',GREEN)]
+    for y,title,detail,fill in rows:
+        d.rect(32,y,496,125,fill)
+        d.text(50,y+39,title,size=23,weight=600)
+        d.text(50,y+94,detail,size=23)
+    for y in [245,412,579,746]:
+        d.arrow([(280,y),(280,y+25)],color='teal')
+    d.rule(944)
+    d.text(280,985,'选定旧轮只携带 XY，不承诺写回快照',size=22,anchor='middle')
+    d.text(280,1027,'D=0、W=0 不等于 fsync 已成功',size=24,color=RUST,anchor='middle')
+    d.text(280,1065,'省略块级标记、索引标签与同步保护',size=21,color=MUTED,anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -1051,7 +1090,8 @@ def main():
                 pg_ssi_write_skew, pg_ssi_dependencies, pg_ssi_retry,
                 pg_group_frontier, pg_group_followers,
                 pg_checkpoint_moving_pages, pg_checkpoint_redo_start, pg_checkpoint_publication,
-                linux_vfs_open_state, linux_vfs_unlink_lifetime]
+                linux_vfs_open_state, linux_vfs_unlink_lifetime,
+                linux_pagecache_shared, linux_pagecache_redirty]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

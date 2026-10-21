@@ -188,6 +188,15 @@
       "source": "2026-10-21-linux-vfs-open-files.md",
       "id": "2026-10-21-linux-vfs-open-files",
       "insight": "名称负责发现对象，打开状态负责延续使用；把查找入口与持有关系分开，目录变化就不必打断既有操作。"
+    },
+    {
+      "date": "2026-10-22",
+      "title": "Linux：write 已经返回，内核怎样继续替你把数据写回磁盘",
+      "subtitle": "共享页缓存、后台写回与并发修改怎样共同守住完成边界",
+      "topic": "操作系统",
+      "source": "2026-10-22-linux-page-cache-writeback.md",
+      "id": "2026-10-22-linux-page-cache-writeback",
+      "insight": "由共享页缓存承接前台数据，再分别追踪待写回与正在写回的责任，让旧完成事件不能注销新修改。"
     }
   ]
 }
