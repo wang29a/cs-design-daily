@@ -1074,6 +1074,53 @@ def linux_pagecache_redirty():
     d.save()
 
 
+def linux_mmap_fault():
+    d = Drawing('linux-mmap-fault', 1050, '映射成功以后，缺页才兑现具体数据', '教学模型：4096 字节一页 · 冷缓存的一条成功路径')
+    rows = [
+        (112, '① 建立映射区域 VMA', 'a = 0x40000000，映射文件偏移 4096', '权限：只读；目标页表项：尚未建立', WHITE),
+        (284, '② 读取 a + 0x34 → 缺页', '文件偏移 = 0x1000 + 0x34', '= 0x1034：P1 内偏移 52 的字节', PEACH),
+        (456, '③ 取得文件页 P1 的有效数据', '缓存原先没有 P1：读取，可能等待', '教学物理页 F42：页内偏移 52 是 K', WHITE),
+        (628, '④ 建立只读页表项', '甲的虚拟页 → P1 / F42', '文件、偏移、权限与数据有效性须一致', GREEN),
+        (800, '⑤ 重试原来的内存读取', 'CPU 翻译到 F42，读取页内偏移 52', '甲得到 K，继续执行索引器', GREEN),
+    ]
+    for y, title, first, second, fill in rows:
+        d.rect(32, y, 496, 140, fill)
+        d.text(50, y + 36, title, size=25, weight=600)
+        d.text(50, y + 78, first, size=22)
+        d.text(50, y + 116, second, size=22, color=MUTED)
+    for y in [252, 424, 596, 768]:
+        d.arrow([(280, y + 5), (280, y + 26)], color='teal')
+    d.rule(968)
+    d.text(280, 1006, '省略预读与重试；箭头不是设备请求计数', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+def linux_mmap_sharing():
+    d = Drawing('linux-mmap-sharing', 1080, '不同的虚拟地址，接到同一份文件页', '教学模型：同一文件 I17、同一偏移、P1 保持驻留')
+    for x, name, addr in [(32, '进程甲', '0x40000034'), (298, '进程乙', '0x70000034')]:
+        d.rect(x, 114, 230, 182)
+        d.text(x + 115, 151, name, size=26, weight=600, anchor='middle')
+        d.text(x + 115, 194, addr, size=23, anchor='middle')
+        d.text(x + 115, 233, '各自的只读页表项', size=22, anchor='middle')
+        d.text(x + 115, 272, '页内偏移 52', size=22, color=MUTED, anchor='middle')
+    d.arrow([(147, 302), (147, 334), (225, 388)], color='teal')
+    d.arrow([(413, 302), (413, 334), (335, 388)], color='teal')
+    d.text(280, 362, '地址翻译', size=22, color=TEAL, anchor='middle')
+    d.card(80, 396, 400, 100, '同一个缓存页 P1 / F42', '页内偏移 52 的字节：K', GREEN, size=25)
+    d.arrow([(280, 504), (280, 554)], dash=True)
+    d.card(80, 568, 400, 100, '文件 I17 的第二页 P1', '文件偏移 4096—8191', size=25)
+    d.text(280, 711, '虚线：文件页的身份关系', size=22, color=MUTED, anchor='middle')
+    d.rule(744)
+    d.text(32, 789, '随后，甲解除自己的映射', size=26, weight=600)
+    d.card(32, 814, 230, 100, '甲：映射已撤销', 'a 不再提供该访问', PEACH, RUST, size=24)
+    d.card(298, 814, 230, 100, '乙：仍有映射', 'b 仍可以读到 K', GREEN, size=24)
+    d.arrow([(413, 922), (413, 959), (350, 959)], color='teal')
+    d.card(80, 930, 268, 58, 'P1 / F42 仍被引用', fill=GREEN, size=23)
+    d.text(280, 1034, '全部解除映射，也不要求立即清空页缓存', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -1091,7 +1138,8 @@ def main():
                 pg_group_frontier, pg_group_followers,
                 pg_checkpoint_moving_pages, pg_checkpoint_redo_start, pg_checkpoint_publication,
                 linux_vfs_open_state, linux_vfs_unlink_lifetime,
-                linux_pagecache_shared, linux_pagecache_redirty]
+                linux_pagecache_shared, linux_pagecache_redirty,
+                linux_mmap_fault, linux_mmap_sharing]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

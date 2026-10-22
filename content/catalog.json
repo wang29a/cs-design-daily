@@ -197,6 +197,15 @@
       "source": "2026-10-22-linux-page-cache-writeback.md",
       "id": "2026-10-22-linux-page-cache-writeback",
       "insight": "由共享页缓存承接前台数据，再分别追踪待写回与正在写回的责任，让旧完成事件不能注销新修改。"
+    },
+    {
+      "date": "2026-10-23",
+      "title": "Linux：文件怎样变成一段可以直接读取的内存",
+      "subtitle": "VMA、页表与共享页缓存，怎样按需兑现一次内存读取",
+      "topic": "操作系统",
+      "source": "2026-10-23-linux-mmap-file-pages.md",
+      "id": "2026-10-23-linux-mmap-file-pages",
+      "insight": "先用区域记录地址与文件的约定，再按需把共享缓存页接入各自的页表；免去用户副本的代价是缺页、翻译维护与生命周期管理。"
     }
   ]
 }

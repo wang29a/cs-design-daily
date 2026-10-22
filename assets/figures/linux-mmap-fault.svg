@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1050" viewBox="0 0 560 1050" role="img" aria-labelledby="title desc">
+<title id="title">映射成功以后，缺页才兑现具体数据</title><desc id="desc">教学模型：4096 字节一页 · 冷缓存的一条成功路径</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1050" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">映射成功以后，缺页才兑现具体数据</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型：4096 字节一页 · 冷缓存的一条成功路径</text>
+<rect x="32" y="112" width="496" height="140" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="148" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">① 建立映射区域 VMA</text>
+<text x="50" y="190" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">a = 0x40000000，映射文件偏移 4096</text>
+<text x="50" y="228" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">权限：只读；目标页表项：尚未建立</text>
+<rect x="32" y="284" width="496" height="140" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="320" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">② 读取 a + 0x34 → 缺页</text>
+<text x="50" y="362" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">文件偏移 = 0x1000 + 0x34</text>
+<text x="50" y="400" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">= 0x1034：P1 内偏移 52 的字节</text>
+<rect x="32" y="456" width="496" height="140" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="492" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">③ 取得文件页 P1 的有效数据</text>
+<text x="50" y="534" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">缓存原先没有 P1：读取，可能等待</text>
+<text x="50" y="572" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">教学物理页 F42：页内偏移 52 是 K</text>
+<rect x="32" y="628" width="496" height="140" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="664" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">④ 建立只读页表项</text>
+<text x="50" y="706" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">甲的虚拟页 → P1 / F42</text>
+<text x="50" y="744" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">文件、偏移、权限与数据有效性须一致</text>
+<rect x="32" y="800" width="496" height="140" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="836" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">⑤ 重试原来的内存读取</text>
+<text x="50" y="878" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">CPU 翻译到 F42，读取页内偏移 52</text>
+<text x="50" y="916" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">甲得到 K，继续执行索引器</text>
+<path d="M 280 257 L 280 278" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 429 L 280 450" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 601 L 280 622" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 773 L 280 794" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 32 968 H 528" stroke="#d9dfdc"/>
+<text x="280" y="1006" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">省略预读与重试；箭头不是设备请求计数</text>
+</g>
+</svg>

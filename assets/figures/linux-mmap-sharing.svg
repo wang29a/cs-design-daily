@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1080" viewBox="0 0 560 1080" role="img" aria-labelledby="title desc">
+<title id="title">不同的虚拟地址，接到同一份文件页</title><desc id="desc">教学模型：同一文件 I17、同一偏移、P1 保持驻留</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1080" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">不同的虚拟地址，接到同一份文件页</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型：同一文件 I17、同一偏移、P1 保持驻留</text>
+<rect x="32" y="114" width="230" height="182" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="147" y="151" fill="#18283b" font-size="26" font-weight="600" text-anchor="middle">进程甲</text>
+<text x="147" y="194" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">0x40000034</text>
+<text x="147" y="233" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">各自的只读页表项</text>
+<text x="147" y="272" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">页内偏移 52</text>
+<rect x="298" y="114" width="230" height="182" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="413" y="151" fill="#18283b" font-size="26" font-weight="600" text-anchor="middle">进程乙</text>
+<text x="413" y="194" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">0x70000034</text>
+<text x="413" y="233" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">各自的只读页表项</text>
+<text x="413" y="272" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">页内偏移 52</text>
+<path d="M 147 302 L 147 334 L 225 388" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 413 302 L 413 334 L 335 388" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="362" fill="#287467" font-size="22" font-weight="400" text-anchor="middle">地址翻译</text>
+<rect x="80" y="396" width="400" height="100" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="430" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">同一个缓存页 P1 / F42</text>
+<text x="280.0" y="461" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">页内偏移 52 的字节：K</text>
+<path d="M 280 504 L 280 554" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)" stroke-dasharray="7 5"/>
+<rect x="80" y="568" width="400" height="100" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="602" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">文件 I17 的第二页 P1</text>
+<text x="280.0" y="633" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">文件偏移 4096—8191</text>
+<text x="280" y="711" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">虚线：文件页的身份关系</text>
+<path d="M 32 744 H 528" stroke="#d9dfdc"/>
+<text x="32" y="789" fill="#18283b" font-size="26" font-weight="600" text-anchor="start">随后，甲解除自己的映射</text>
+<rect x="32" y="814" width="230" height="100" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="147.0" y="848" fill="#a54426" font-size="24" font-weight="600" text-anchor="middle">甲：映射已撤销</text>
+<text x="147.0" y="879" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">a 不再提供该访问</text>
+<rect x="298" y="814" width="230" height="100" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="413.0" y="848" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">乙：仍有映射</text>
+<text x="413.0" y="879" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">b 仍可以读到 K</text>
+<path d="M 413 922 L 413 959 L 350 959" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="80" y="930" width="268" height="58" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="214.0" y="967.0" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">P1 / F42 仍被引用</text>
+<text x="280" y="1034" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">全部解除映射，也不要求立即清空页缓存</text>
+</g>
+</svg>
