@@ -1121,6 +1121,48 @@ def linux_mmap_sharing():
 
 
 
+def linux_epoll_ready():
+    d = Drawing('linux-epoll-ready', 1040, '长期登记不变，只有就绪线索进入本轮', '教学模型：A=fd 7，B=fd 8，C=fd 9 · 默认水平触发')
+    d.card(32, 112, 496, 90, '应用 → E：登记 A、B、C 的 EPOLLIN', 'epoll_ctl(ADD) 建立持续的关注关系', size=23)
+    for x, name in [(32, 'A / fd 7'), (204, 'B / fd 8'), (376, 'C / fd 9')]:
+        d.arrow([(x + 76, 210), (x + 76, 250)], dash=True)
+        d.card(x, 262, 152, 88, name, '登记保留', size=23)
+    d.arrow([(280, 358), (280, 399)], color='teal')
+    d.card(56, 410, 448, 100, 'B 的接收缓冲：Hi', 'A、C 仍为空；对端均未关闭', PEACH, size=25)
+    d.arrow([(280, 518), (280, 552)], color='teal')
+    d.card(56, 562, 448, 100, '对象唤醒 → epoll 回调', '把 B 接入就绪候选，唤醒等待者', size=25)
+    d.arrow([(280, 670), (280, 704)], color='teal')
+    d.card(56, 714, 448, 100, 'epoll_wait：复查后报告 B', '返回标记 B 与 EPOLLIN，不搬走 Hi', GREEN, size=25)
+    d.rule(850)
+    d.text(280, 895, '虚线：持续登记；实线：本次处理顺序', size=22, color=MUTED, anchor='middle')
+    d.text(280, 939, '重复通知可以合并，不是数据包日志', size=24, weight=600, anchor='middle')
+    d.text(280, 987, '登记时也检查已就绪状态，避免只等新变化', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+def linux_epoll_level():
+    d = Drawing('linux-epoll-level', 1070, '缓冲是否有数据，与候选是否保留分开看', '教学时序：只有 B 收到 Hi；A、C 为空且未关闭')
+    rows = [
+        (112, '① B 收到 Hi', '接收缓冲：Hi；就绪候选：B', '长期关注 A、B、C 的登记仍存在', PEACH),
+        (282, '② 第一次 wait 报告 B；应用读 H', '接收缓冲：i；就绪候选：B', '水平触发交付时，B 已重新排队', GREEN),
+        (452, '③ 第二次 wait 仍报告 B；应用读 i', '接收缓冲：空；就绪候选：B', '读取不会直接同步删除候选项', GREEN),
+        (622, '④ 第三次 wait 重新检查 B', 'B 已无可报告条件 → 移出候选', '候选为空，但 A、B、C 仍受关注', WHITE),
+        (792, '⑤ 受保护地复查并建立等待', '没有事件时，线程才可以睡眠', '后续 C 到来：候选与唤醒协议接手', WHITE),
+    ]
+    for y, title, first, second, fill in rows:
+        d.rect(32, y, 496, 140, fill)
+        d.text(48, y + 35, title, size=23, weight=600)
+        d.text(48, y + 78, first, size=23)
+        d.text(48, y + 116, second, size=22, color=MUTED)
+    for y in [252, 422, 592, 762]:
+        d.arrow([(280, y + 4), (280, y + 24)], color='teal')
+    d.rule(962)
+    d.text(280, 1003, '时间向下推进 · 此图省略并发与错误分支', size=22, color=MUTED, anchor='middle')
+    d.text(280, 1040, '候选是复查责任，不是缓冲状态快照', size=24, color=TEAL, anchor='middle')
+    d.save()
+
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -1139,7 +1181,8 @@ def main():
                 pg_checkpoint_moving_pages, pg_checkpoint_redo_start, pg_checkpoint_publication,
                 linux_vfs_open_state, linux_vfs_unlink_lifetime,
                 linux_pagecache_shared, linux_pagecache_redirty,
-                linux_mmap_fault, linux_mmap_sharing]
+                linux_mmap_fault, linux_mmap_sharing,
+                linux_epoll_ready, linux_epoll_level]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

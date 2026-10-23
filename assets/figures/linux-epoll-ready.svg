@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1040" viewBox="0 0 560 1040" role="img" aria-labelledby="title desc">
+<title id="title">长期登记不变，只有就绪线索进入本轮</title><desc id="desc">教学模型：A=fd 7，B=fd 8，C=fd 9 · 默认水平触发</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1040" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">长期登记不变，只有就绪线索进入本轮</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型：A=fd 7，B=fd 8，C=fd 9 · 默认水平触发</text>
+<rect x="32" y="112" width="496" height="90" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="146" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">应用 → E：登记 A、B、C 的 EPOLLIN</text>
+<text x="280.0" y="177" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">epoll_ctl(ADD) 建立持续的关注关系</text>
+<path d="M 108 210 L 108 250" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)" stroke-dasharray="7 5"/>
+<rect x="32" y="262" width="152" height="88" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="108.0" y="296" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">A / fd 7</text>
+<text x="108.0" y="327" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">登记保留</text>
+<path d="M 280 210 L 280 250" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)" stroke-dasharray="7 5"/>
+<rect x="204" y="262" width="152" height="88" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="296" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">B / fd 8</text>
+<text x="280.0" y="327" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">登记保留</text>
+<path d="M 452 210 L 452 250" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)" stroke-dasharray="7 5"/>
+<rect x="376" y="262" width="152" height="88" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="452.0" y="296" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">C / fd 9</text>
+<text x="452.0" y="327" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">登记保留</text>
+<path d="M 280 358 L 280 399" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="56" y="410" width="448" height="100" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="444" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">B 的接收缓冲：Hi</text>
+<text x="280.0" y="475" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">A、C 仍为空；对端均未关闭</text>
+<path d="M 280 518 L 280 552" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="56" y="562" width="448" height="100" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="596" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">对象唤醒 → epoll 回调</text>
+<text x="280.0" y="627" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">把 B 接入就绪候选，唤醒等待者</text>
+<path d="M 280 670 L 280 704" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="56" y="714" width="448" height="100" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="748" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">epoll_wait：复查后报告 B</text>
+<text x="280.0" y="779" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">返回标记 B 与 EPOLLIN，不搬走 Hi</text>
+<path d="M 32 850 H 528" stroke="#d9dfdc"/>
+<text x="280" y="895" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">虚线：持续登记；实线：本次处理顺序</text>
+<text x="280" y="939" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">重复通知可以合并，不是数据包日志</text>
+<text x="280" y="987" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">登记时也检查已就绪状态，避免只等新变化</text>
+</g>
+</svg>

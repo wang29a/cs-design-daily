@@ -206,6 +206,15 @@
       "source": "2026-10-23-linux-mmap-file-pages.md",
       "id": "2026-10-23-linux-mmap-file-pages",
       "insight": "先用区域记录地址与文件的约定，再按需把共享缓存页接入各自的页表；免去用户副本的代价是缺页、翻译维护与生命周期管理。"
+    },
+    {
+      "date": "2026-10-24",
+      "title": "Linux：连接大多在等待，怎样避免反复检查所有连接",
+      "subtitle": "epoll 的长期登记、就绪复查与可靠唤醒怎样配合",
+      "topic": "操作系统",
+      "source": "2026-10-24-linux-epoll-readiness.md",
+      "id": "2026-10-24-linux-epoll-readiness",
+      "insight": "保留长期关注关系，由对象通知产生待复查的就绪线索，再用受保护的等待协议衔接状态变化与线程推进。"
     }
   ]
 }

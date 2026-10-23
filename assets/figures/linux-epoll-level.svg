@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1070" viewBox="0 0 560 1070" role="img" aria-labelledby="title desc">
+<title id="title">缓冲是否有数据，与候选是否保留分开看</title><desc id="desc">教学时序：只有 B 收到 Hi；A、C 为空且未关闭</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1070" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">缓冲是否有数据，与候选是否保留分开看</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学时序：只有 B 收到 Hi；A、C 为空且未关闭</text>
+<rect x="32" y="112" width="496" height="140" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="147" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">① B 收到 Hi</text>
+<text x="48" y="190" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">接收缓冲：Hi；就绪候选：B</text>
+<text x="48" y="228" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">长期关注 A、B、C 的登记仍存在</text>
+<rect x="32" y="282" width="496" height="140" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="317" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">② 第一次 wait 报告 B；应用读 H</text>
+<text x="48" y="360" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">接收缓冲：i；就绪候选：B</text>
+<text x="48" y="398" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">水平触发交付时，B 已重新排队</text>
+<rect x="32" y="452" width="496" height="140" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="487" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">③ 第二次 wait 仍报告 B；应用读 i</text>
+<text x="48" y="530" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">接收缓冲：空；就绪候选：B</text>
+<text x="48" y="568" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">读取不会直接同步删除候选项</text>
+<rect x="32" y="622" width="496" height="140" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="657" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">④ 第三次 wait 重新检查 B</text>
+<text x="48" y="700" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">B 已无可报告条件 → 移出候选</text>
+<text x="48" y="738" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">候选为空，但 A、B、C 仍受关注</text>
+<rect x="32" y="792" width="496" height="140" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="827" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">⑤ 受保护地复查并建立等待</text>
+<text x="48" y="870" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">没有事件时，线程才可以睡眠</text>
+<text x="48" y="908" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">后续 C 到来：候选与唤醒协议接手</text>
+<path d="M 280 256 L 280 276" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 426 L 280 446" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 596 L 280 616" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 766 L 280 786" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 32 962 H 528" stroke="#d9dfdc"/>
+<text x="280" y="1003" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">时间向下推进 · 此图省略并发与错误分支</text>
+<text x="280" y="1040" fill="#287467" font-size="24" font-weight="400" text-anchor="middle">候选是复查责任，不是缓冲状态快照</text>
+</g>
+</svg>
