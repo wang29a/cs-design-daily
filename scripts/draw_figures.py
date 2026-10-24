@@ -1163,6 +1163,50 @@ def linux_epoll_level():
 
 
 
+def linux_futex_handoff():
+    d = Drawing('linux-futex-handoff', 1070, '所有权靠原子操作取得，等待交给内核', '教学模型：同进程 A、B · 锁字 L 初始 0，计数 X 初始 0')
+    rows = [
+        (112, '① A：CAS 把 L 从 0 改成 1', '成功取得锁；X 目前为 0', '无竞争获取：只需用户态原子操作', GREEN),
+        (282, '② B：CAS 失败，exchange 1 → 2', 'A 仍持锁；B 标记竞争后 WAIT(2)', '选定此时序：B 已经入队等待', PEACH),
+        (452, '③ A：X 加到 1，释放 L：2 → 0', '旧值是 2 → 发起 WAKE，最多唤醒 1 人', 'B 获得再次竞争的机会，尚未持锁', WHITE),
+        (622, '④ B：exchange 读到 0，写入 2', '这次才取得锁；读取 X=1，再加到 2', '保留 2：不丢弃可能仍有的唤醒责任', GREEN),
+        (792, '⑤ B：释放 L：2 → 0，再 WAKE', '无其他等待者：唤醒数量可以为 0', '本次结束：L=0，X=2', GREEN),
+    ]
+    for y, title, first, second, fill in rows:
+        d.rect(32, y, 496, 140, fill)
+        d.text(48, y + 35, title, size=23, weight=600)
+        d.text(48, y + 78, first, size=22)
+        d.text(48, y + 116, second, size=22, color=MUTED)
+    for y in [252, 422, 592, 762]:
+        d.arrow([(280, y + 4), (280, y + 24)], color='teal')
+    d.rule(962)
+    d.text(280, 1003, '箭头表示时间推进，不是实测线程轨迹', size=22, color=MUTED, anchor='middle')
+    d.text(280, 1040, 'L=2 不是人数，也不等于刚被唤醒者持锁', size=23, color=TEAL, anchor='middle')
+    d.save()
+
+
+def linux_futex_check_sleep():
+    d = Drawing('linux-futex-check-sleep', 910, '唤醒先到，不代表后来就该直接睡下', '另一条教学时序：释放早于 WAIT 检查 · 无新增竞争者')
+    rows = [
+        (112, '① B 标记 L：1 → 2', '知道 A 仍持锁，准备执行 WAIT(2)', '此刻 B 尚未进入内核等待队列', PEACH),
+        (282, '② A 先释放 L：2 → 0，再 WAKE', '队列中没有 B，唤醒数量为 0', 'L 已经改变，不能再按旧判断入睡', WHITE),
+        (452, '③ B 进入 WAIT：期望 L=2', '内核检查到 L=0，与期望值不同', '返回 EAGAIN，不把 B 留在队列里睡眠', GREEN),
+        (622, '④ B 重试 exchange：旧值为 0', '原子地把 L 改为 2，成功取得锁', '由用户态继续推进，不再等待旧通知', GREEN),
+    ]
+    for y, title, first, second, fill in rows:
+        d.rect(32, y, 496, 140, fill)
+        d.text(48, y + 35, title, size=23, weight=600)
+        d.text(48, y + 78, first, size=22)
+        d.text(48, y + 116, second, size=22, color=MUTED)
+    for y in [252, 422, 592]:
+        d.arrow([(280, y + 4), (280, y + 24)], color='teal')
+    d.rule(796)
+    d.text(280, 837, '比较与阻塞必须衔接，避免双方都错过', size=24, color=TEAL, anchor='middle')
+    d.text(280, 878, '若 B 先建立等待，就由后续 WAKE 接住它', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -1182,7 +1226,8 @@ def main():
                 linux_vfs_open_state, linux_vfs_unlink_lifetime,
                 linux_pagecache_shared, linux_pagecache_redirty,
                 linux_mmap_fault, linux_mmap_sharing,
-                linux_epoll_ready, linux_epoll_level]
+                linux_epoll_ready, linux_epoll_level,
+                linux_futex_handoff, linux_futex_check_sleep]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

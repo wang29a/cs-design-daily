@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="910" viewBox="0 0 560 910" role="img" aria-labelledby="title desc">
+<title id="title">唤醒先到，不代表后来就该直接睡下</title><desc id="desc">另一条教学时序：释放早于 WAIT 检查 · 无新增竞争者</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="910" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">唤醒先到，不代表后来就该直接睡下</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">另一条教学时序：释放早于 WAIT 检查 · 无新增竞争者</text>
+<rect x="32" y="112" width="496" height="140" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="147" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">① B 标记 L：1 → 2</text>
+<text x="48" y="190" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">知道 A 仍持锁，准备执行 WAIT(2)</text>
+<text x="48" y="228" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">此刻 B 尚未进入内核等待队列</text>
+<rect x="32" y="282" width="496" height="140" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="317" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">② A 先释放 L：2 → 0，再 WAKE</text>
+<text x="48" y="360" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">队列中没有 B，唤醒数量为 0</text>
+<text x="48" y="398" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">L 已经改变，不能再按旧判断入睡</text>
+<rect x="32" y="452" width="496" height="140" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="487" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">③ B 进入 WAIT：期望 L=2</text>
+<text x="48" y="530" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">内核检查到 L=0，与期望值不同</text>
+<text x="48" y="568" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">返回 EAGAIN，不把 B 留在队列里睡眠</text>
+<rect x="32" y="622" width="496" height="140" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="657" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">④ B 重试 exchange：旧值为 0</text>
+<text x="48" y="700" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">原子地把 L 改为 2，成功取得锁</text>
+<text x="48" y="738" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">由用户态继续推进，不再等待旧通知</text>
+<path d="M 280 256 L 280 276" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 426 L 280 446" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 596 L 280 616" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 32 796 H 528" stroke="#d9dfdc"/>
+<text x="280" y="837" fill="#287467" font-size="24" font-weight="400" text-anchor="middle">比较与阻塞必须衔接，避免双方都错过</text>
+<text x="280" y="878" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">若 B 先建立等待，就由后续 WAKE 接住它</text>
+</g>
+</svg>

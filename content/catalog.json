@@ -215,6 +215,15 @@
       "source": "2026-10-24-linux-epoll-readiness.md",
       "id": "2026-10-24-linux-epoll-readiness",
       "insight": "保留长期关注关系，由对象通知产生待复查的就绪线索，再用受保护的等待协议衔接状态变化与线程推进。"
+    },
+    {
+      "date": "2026-10-25",
+      "title": "Linux：锁大多没人争，为什么还需要内核",
+      "subtitle": "用户态原子操作与 futex 等待，怎样一起守住所有权和唤醒责任",
+      "topic": "操作系统",
+      "source": "2026-10-25-linux-futex-mutex.md",
+      "id": "2026-10-25-linux-futex-mutex",
+      "insight": "用户态决定谁取得所有权，内核比较并建立等待关系；用保守的唤醒责任连接两条路径，避免漏掉竞争者。"
     }
   ]
 }
