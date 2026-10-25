@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1050" viewBox="0 0 560 1050" role="img" aria-labelledby="title desc">
+<title id="title">局部 PID 1，把创建与结束组织起来</title><desc id="desc">教学模型：P → I → W 是父子关系 · 下方两栏互斥</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1050" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">局部 PID 1，把创建与结束组织起来</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型：P → I → W 是父子关系 · 下方两栏互斥</text>
+<rect x="32" y="112" width="496" height="100" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="146" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">P 创建 N1 中第一个进程 I</text>
+<text x="280.0" y="177" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">I 的编号：N0 中 4201，N1 中 1</text>
+<path d="M 280 220 L 280 250" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="262" width="496" height="100" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="296" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">I 再 fork 工作进程 W</text>
+<text x="280.0" y="327" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">W 的编号：N0 中 4202，N1 中 2</text>
+<path d="M 280 370 L 280 398 L 147 425 L 147 452" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 398 L 413 425 L 413 452" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<rect x="32" y="464" width="230" height="414" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="147" y="504" fill="#287467" font-size="26" font-weight="600" text-anchor="middle">正常结束</text>
+<rect x="298" y="464" width="230" height="414" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="413" y="504" fill="#a54426" font-size="26" font-weight="600" text-anchor="middle">I 提前退出</text>
+<text x="147" y="550" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">① W 先退出</text>
+<text x="147" y="590" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">I 等待 PID 2</text>
+<text x="147" y="626" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">并回收 W</text>
+<text x="147" y="684" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">② I 再退出</text>
+<text x="147" y="724" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">P 等待 PID 4201</text>
+<text x="147" y="760" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">并回收 I</text>
+<text x="147" y="830" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">内外各用自己的编号</text>
+<text x="413" y="550" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">① I 退出时</text>
+<text x="413" y="590" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">W 仍在运行</text>
+<text x="413" y="636" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">② 内核终止 W</text>
+<text x="413" y="672" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">并等待清理</text>
+<text x="413" y="724" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">③ P 等待 4201</text>
+<text x="413" y="760" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">回收 I</text>
+<text x="413" y="830" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">原 N1 不能重新开工</text>
+<path d="M 32 920 H 528" stroke="#d9dfdc"/>
+<text x="280" y="963" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">两栏是不同结束顺序，不能先左后右</text>
+<text x="280" y="1010" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">省略其他子进程、信号处理与收养规则</text>
+</g>
+</svg>

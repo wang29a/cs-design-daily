@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="860" viewBox="0 0 560 860" role="img" aria-labelledby="title desc">
+<title id="title">同一进程，可以有两套 PID 表示</title><desc id="desc">教学模型：N1 是 N0 的子命名空间 · 不复制进程</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="860" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">同一进程，可以有两套 PID 表示</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型：N1 是 N0 的子命名空间 · 不复制进程</text>
+<text x="147" y="132" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">外层视图 N0</text>
+<text x="413" y="132" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">内层视图 N1</text>
+<rect x="32" y="160" width="230" height="112" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="147.0" y="194" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">P：4200</text>
+<text x="147.0" y="225" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">监督者只属于 N0</text>
+<rect x="298" y="160" width="230" height="112" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="413.0" y="194" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">P：没有对应 PID</text>
+<text x="413.0" y="225" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">不能用外层编号寻找 P</text>
+<text x="280" y="223" fill="#a54426" font-size="25" font-weight="400" text-anchor="middle">×</text>
+<rect x="32" y="340" width="230" height="112" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="147.0" y="374" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">I：4201</text>
+<text x="147.0" y="405" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">同一个初始化进程 I</text>
+<rect x="298" y="340" width="230" height="112" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="413.0" y="374" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">I：1</text>
+<text x="413.0" y="405" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">同一个初始化进程 I</text>
+<path d="M 269 394 L 291 394" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="520" width="230" height="112" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="147.0" y="554" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">W：4202</text>
+<text x="147.0" y="585" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">同一个工作进程 W</text>
+<rect x="298" y="520" width="230" height="112" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="413.0" y="554" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">W：2</text>
+<text x="413.0" y="585" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">同一个工作进程 W</text>
+<path d="M 269 574 L 291 574" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 32 680 H 528" stroke="#d9dfdc"/>
+<text x="280" y="724" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">查找目标需要：命名空间 + 该处的编号</text>
+<text x="280" y="770" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">箭头仅表示编号对应，不表示复制或父子关系</text>
+<text x="280" y="817" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">4200、4201、4202、1、2 均为教学假设</text>
+</g>
+</svg>

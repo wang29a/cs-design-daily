@@ -1207,6 +1207,54 @@ def linux_futex_check_sleep():
 
 
 
+def linux_pidns_views():
+    d = Drawing('linux-pidns-views', 860, '同一进程，可以有两套 PID 表示', '教学模型：N1 是 N0 的子命名空间 · 不复制进程')
+    d.text(147, 132, '外层视图 N0', size=25, weight=600, anchor='middle')
+    d.text(413, 132, '内层视图 N1', size=25, weight=600, anchor='middle')
+    rows = [
+        (160, 'P：4200', '监督者只属于 N0', 'P：没有对应 PID', '不能用外层编号寻找 P', WHITE, PEACH),
+        (340, 'I：4201', '同一个初始化进程 I', 'I：1', '同一个初始化进程 I', GREEN, GREEN),
+        (520, 'W：4202', '同一个工作进程 W', 'W：2', '同一个工作进程 W', WHITE, WHITE),
+    ]
+    for y, left, ld, right, rd, lf, rf in rows:
+        d.card(32, y, 230, 112, left, ld, lf, size=24)
+        d.card(298, y, 230, 112, right, rd, rf, size=24)
+        if y != 160:
+            d.arrow([(269, y + 54), (291, y + 54)], color='teal')
+        else:
+            d.text(280, y + 63, '×', size=25, color=RUST, anchor='middle')
+    d.rule(680)
+    d.text(280, 724, '查找目标需要：命名空间 + 该处的编号', size=24, weight=600, anchor='middle')
+    d.text(280, 770, '箭头仅表示编号对应，不表示复制或父子关系', size=22, color=MUTED, anchor='middle')
+    d.text(280, 817, '4200、4201、4202、1、2 均为教学假设', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+def linux_pidns_lifecycle():
+    d = Drawing('linux-pidns-lifecycle', 1050, '局部 PID 1，把创建与结束组织起来', '教学模型：P → I → W 是父子关系 · 下方两栏互斥')
+    d.card(32, 112, 496, 100, 'P 创建 N1 中第一个进程 I', 'I 的编号：N0 中 4201，N1 中 1', size=25)
+    d.arrow([(280, 220), (280, 250)], color='teal')
+    d.card(32, 262, 496, 100, 'I 再 fork 工作进程 W', 'W 的编号：N0 中 4202，N1 中 2', size=25)
+    d.arrow([(280, 370), (280, 398), (147, 425), (147, 452)], color='teal')
+    d.arrow([(280, 398), (413, 425), (413, 452)], color='rust')
+    for x, title, fill, color in [(32, '正常结束', GREEN, TEAL), (298, 'I 提前退出', PEACH, RUST)]:
+        d.rect(x, 464, 230, 414, fill)
+        d.text(x + 115, 504, title, size=26, weight=600, color=color, anchor='middle')
+    for x, lines in [
+        (147, [(550, '① W 先退出'), (590, 'I 等待 PID 2'), (626, '并回收 W'),
+               (684, '② I 再退出'), (724, 'P 等待 PID 4201'), (760, '并回收 I'), (830, '内外各用自己的编号')]),
+        (413, [(550, '① I 退出时'), (590, 'W 仍在运行'), (636, '② 内核终止 W'),
+               (672, '并等待清理'), (724, '③ P 等待 4201'), (760, '回收 I'), (830, '原 N1 不能重新开工')]),
+    ]:
+        for y, value in lines:
+            d.text(x, y, value, size=22, anchor='middle')
+    d.rule(920)
+    d.text(280, 963, '两栏是不同结束顺序，不能先左后右', size=24, weight=600, anchor='middle')
+    d.text(280, 1010, '省略其他子进程、信号处理与收养规则', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -1227,7 +1275,8 @@ def main():
                 linux_pagecache_shared, linux_pagecache_redirty,
                 linux_mmap_fault, linux_mmap_sharing,
                 linux_epoll_ready, linux_epoll_level,
-                linux_futex_handoff, linux_futex_check_sleep]
+                linux_futex_handoff, linux_futex_check_sleep,
+                linux_pidns_views, linux_pidns_lifecycle]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')
