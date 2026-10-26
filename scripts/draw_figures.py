@@ -1255,6 +1255,44 @@ def linux_pidns_lifecycle():
 
 
 
+def linux_cgroup_budget():
+    d = Drawing('linux-cgroup-budget', 870, '多个执行者，共用一份组预算', '教学模型：G · Q=50 CPU·ms · T=100 ms')
+    d.card(32, 112, 496, 112, '服务组 G：每周期共 50 CPU·ms', '额度属于组，不属于某个线程或 CPU', GREEN, size=25)
+    d.text(280, 269, '按需分批分配运行额度', size=23, color=MUTED, anchor='middle')
+    d.arrow([(280, 287), (280, 310), (147, 310), (147, 348)], color='teal')
+    d.arrow([(280, 310), (413, 310), (413, 348)], color='teal')
+    for x, cpu, thread in [(32, 'CPU 0', '线程 A'), (298, 'CPU 1', '线程 B')]:
+        d.card(x, 360, 230, 108, cpu + ' 的组队列', '持有分到的本地额度', size=23)
+        d.arrow([(x + 115, 478), (x + 115, 534)], color='teal')
+        d.card(x, 546, 230, 108, thread, '实际执行，扣本地账', GREEN, size=25)
+    d.rule(696)
+    d.text(280, 737, 'A 用 25 + B 用 25 = G 用 50 CPU·ms', size=23, weight=600, anchor='middle')
+    d.text(280, 783, '不能给每颗 CPU 各复制一份 50', size=24, color=RUST, anchor='middle')
+    d.text(280, 831, '箭头：额度分配 · 省略祖先与其他服务', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+def linux_cgroup_throttle():
+    d = Drawing('linux-cgroup-throttle', 1090, '能继续做事，不等于还有执行额度', '教学模型：两个 CPU 同时运行 · 时间自上而下')
+    rows = [
+        (112, '① 0—25 ms：两颗 CPU 同时运行', 'A、B 各执行 25，共用 50 CPU·ms', 'R：50 → 0；两项各剩 15 CPU·ms', GREEN),
+        (334, '② 25—100 ms：额度耗尽，暂停', '两项各剩 15 CPU·ms，但不能继续', '等待补充；其他有资格的任务仍可运行', PEACH),
+        (556, '③ t=100 ms：进入下一周期', '组额度补充，重新取得运行资格', 'R=50；不代表真实系统会立即调度', WHITE),
+        (778, '④ 100—115 ms：继续并完成', 'A、B 各执行剩余 15，共用 30', 'R=20；两项均完成，不必用光额度', GREEN),
+    ]
+    for y, title, first, second, fill in rows:
+        d.rect(32, y, 496, 180, fill)
+        d.text(48, y + 38, title, size=23, weight=600)
+        d.text(48, y + 89, first, size=22)
+        d.text(48, y + 139, second, size=22, color=MUTED)
+    for y in [292, 514, 736]:
+        d.arrow([(280, y + 8), (280, y + 32)], color='teal')
+    d.rule(994)
+    d.text(280, 1034, 'R 是教学总余额，单位 CPU·ms', size=23, anchor='middle')
+    d.text(280, 1070, '省略调度与记账细节，不是测量轨迹', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -1276,7 +1314,8 @@ def main():
                 linux_mmap_fault, linux_mmap_sharing,
                 linux_epoll_ready, linux_epoll_level,
                 linux_futex_handoff, linux_futex_check_sleep,
-                linux_pidns_views, linux_pidns_lifecycle]
+                linux_pidns_views, linux_pidns_lifecycle,
+                linux_cgroup_budget, linux_cgroup_throttle]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

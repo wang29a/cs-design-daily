@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1090" viewBox="0 0 560 1090" role="img" aria-labelledby="title desc">
+<title id="title">能继续做事，不等于还有执行额度</title><desc id="desc">教学模型：两个 CPU 同时运行 · 时间自上而下</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1090" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">能继续做事，不等于还有执行额度</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型：两个 CPU 同时运行 · 时间自上而下</text>
+<rect x="32" y="112" width="496" height="180" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="150" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">① 0—25 ms：两颗 CPU 同时运行</text>
+<text x="48" y="201" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">A、B 各执行 25，共用 50 CPU·ms</text>
+<text x="48" y="251" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">R：50 → 0；两项各剩 15 CPU·ms</text>
+<rect x="32" y="334" width="496" height="180" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="372" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">② 25—100 ms：额度耗尽，暂停</text>
+<text x="48" y="423" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">两项各剩 15 CPU·ms，但不能继续</text>
+<text x="48" y="473" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">等待补充；其他有资格的任务仍可运行</text>
+<rect x="32" y="556" width="496" height="180" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="594" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">③ t=100 ms：进入下一周期</text>
+<text x="48" y="645" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">组额度补充，重新取得运行资格</text>
+<text x="48" y="695" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">R=50；不代表真实系统会立即调度</text>
+<rect x="32" y="778" width="496" height="180" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="816" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">④ 100—115 ms：继续并完成</text>
+<text x="48" y="867" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">A、B 各执行剩余 15，共用 30</text>
+<text x="48" y="917" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">R=20；两项均完成，不必用光额度</text>
+<path d="M 280 300 L 280 324" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 522 L 280 546" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 744 L 280 768" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 32 994 H 528" stroke="#d9dfdc"/>
+<text x="280" y="1034" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">R 是教学总余额，单位 CPU·ms</text>
+<text x="280" y="1070" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">省略调度与记账细节，不是测量轨迹</text>
+</g>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="870" viewBox="0 0 560 870" role="img" aria-labelledby="title desc">
+<title id="title">多个执行者，共用一份组预算</title><desc id="desc">教学模型：G · Q=50 CPU·ms · T=100 ms</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="870" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">多个执行者，共用一份组预算</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型：G · Q=50 CPU·ms · T=100 ms</text>
+<rect x="32" y="112" width="496" height="112" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="146" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">服务组 G：每周期共 50 CPU·ms</text>
+<text x="280.0" y="177" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">额度属于组，不属于某个线程或 CPU</text>
+<text x="280" y="269" fill="#5b6877" font-size="23" font-weight="400" text-anchor="middle">按需分批分配运行额度</text>
+<path d="M 280 287 L 280 310 L 147 310 L 147 348" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 310 L 413 310 L 413 348" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="360" width="230" height="108" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="147.0" y="394" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">CPU 0 的组队列</text>
+<text x="147.0" y="425" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">持有分到的本地额度</text>
+<path d="M 147 478 L 147 534" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="546" width="230" height="108" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="147.0" y="580" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">线程 A</text>
+<text x="147.0" y="611" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">实际执行，扣本地账</text>
+<rect x="298" y="360" width="230" height="108" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="413.0" y="394" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">CPU 1 的组队列</text>
+<text x="413.0" y="425" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">持有分到的本地额度</text>
+<path d="M 413 478 L 413 534" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="298" y="546" width="230" height="108" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="413.0" y="580" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">线程 B</text>
+<text x="413.0" y="611" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">实际执行，扣本地账</text>
+<path d="M 32 696 H 528" stroke="#d9dfdc"/>
+<text x="280" y="737" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">A 用 25 + B 用 25 = G 用 50 CPU·ms</text>
+<text x="280" y="783" fill="#a54426" font-size="24" font-weight="400" text-anchor="middle">不能给每颗 CPU 各复制一份 50</text>
+<text x="280" y="831" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">箭头：额度分配 · 省略祖先与其他服务</text>
+</g>
+</svg>

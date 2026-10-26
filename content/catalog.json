@@ -233,6 +233,15 @@
       "source": "2026-10-26-linux-pid-namespaces.md",
       "id": "2026-10-26-linux-pid-namespaces",
       "insight": "把进程对象与视图中的编号分开，让局部命名和外层管理共存，再用 PID 1 的生命周期责任维持局部进程世界。"
+    },
+    {
+      "date": "2026-10-27",
+      "title": "Linux：容器开了多个线程，为什么仍只能用半个 CPU",
+      "subtitle": "共同预算、并行消耗与周期补充怎样约束整项服务",
+      "topic": "操作系统",
+      "source": "2026-10-27-linux-cgroup-cpu-bandwidth.md",
+      "id": "2026-10-27-linux-cgroup-cpu-bandwidth",
+      "insight": "把执行者归入同一资源账户，按累计运行时间扣减共同额度，让并行方式可以变化而服务的带宽责任仍然统一。"
     }
   ]
 }
