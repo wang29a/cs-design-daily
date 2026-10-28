@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1090" viewBox="0 0 560 1090" role="img" aria-labelledby="title desc">
+<title id="title">无可回收空间时，还需要最终边界</title><desc id="desc">教学故障分支：无 swap · 无可丢弃缓存</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1090" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">无可回收空间时，还需要最终边界</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学故障分支：无 swap · 无可丢弃缓存</text>
+<rect x="32" y="112" width="496" height="180" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="150" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">① 使用 128 MiB，仍在 high 之上</text>
+<text x="48" y="201" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">全部是仍需保留的匿名页</text>
+<text x="48" y="251" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">max=128 MiB；重复回收也无空间</text>
+<rect x="32" y="334" width="496" height="180" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="372" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">② 再申请一页 4 KiB</text>
+<text x="48" y="423" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">触及 max 压力，先尝试回收与重试</text>
+<text x="48" y="473" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">本例始终无法得到所需空间</text>
+<rect x="32" y="556" width="496" height="180" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="594" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">③ 选定：进入 G 内 OOM 处理</text>
+<text x="48" y="645" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">本例假定选中工作进程 W</text>
+<text x="48" y="695" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">不是所有触线或分配都走这一分支</text>
+<rect x="32" y="778" width="496" height="180" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="816" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">④ W 退出，原匿名页被释放</text>
+<text x="48" y="867" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">组内占用下降，资源得以让出</text>
+<text x="48" y="917" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">但本次业务没有交出正常结果</text>
+<path d="M 280 300 L 280 324" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<path d="M 280 522 L 280 546" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<path d="M 280 744 L 280 768" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<path d="M 32 994 H 528" stroke="#d9dfdc"/>
+<text x="280" y="1034" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">箭头：选定故障过程，不是运行追踪</text>
+<text x="280" y="1070" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">不承诺被杀对象、处理时延或全组一起退出</text>
+</g>
+</svg>

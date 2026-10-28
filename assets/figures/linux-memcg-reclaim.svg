@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="980" viewBox="0 0 560 980" role="img" aria-labelledby="title desc">
+<title id="title">腾出缓存，给新数据让位置</title><desc id="desc">教学汇总账：high=96 MiB · max=128 MiB</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="980" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">腾出缓存，给新数据让位置</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学汇总账：high=96 MiB · max=128 MiB</text>
+<rect x="32" y="112" width="496" height="214" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280" y="151" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">起点：G 共用 80 MiB</text>
+<rect x="48" y="178" width="224" height="108" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="160.0" y="212" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">匿名页 64 MiB</text>
+<text x="160.0" y="243" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">业务仍需保留</text>
+<rect x="288" y="178" width="224" height="108" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="400.0" y="212" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">干净缓存 16 MiB</text>
+<text x="400.0" y="243" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">已有磁盘副本</text>
+<path d="M 280 338 L 280 370" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="382" width="496" height="126" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5" stroke-dasharray="7 5"/>
+<text x="280" y="423" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">新输入需要 32 MiB 匿名页</text>
+<text x="280" y="470" fill="#5b6877" font-size="23" font-weight="400" text-anchor="middle">若保留全部缓存，需求是 112 MiB</text>
+<path d="M 280 520 L 280 560" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="600" fill="#287467" font-size="24" font-weight="600" text-anchor="middle">申请途中：回收 16 MiB 干净缓存</text>
+<rect x="32" y="634" width="496" height="214" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280" y="673" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">本轮结束：G 共用 96 MiB</text>
+<rect x="48" y="700" width="224" height="108" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="160.0" y="734" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">匿名页 96 MiB</text>
+<text x="160.0" y="765" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">原 64 + 新增 32</text>
+<rect x="288" y="700" width="224" height="108" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="400.0" y="734" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">文件缓存 0</text>
+<text x="400.0" y="765" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">下次需要时再读取</text>
+<path d="M 32 882 H 528" stroke="#d9dfdc"/>
+<text x="280" y="919" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">112 是保留缓存的需求，不是实测峰值</text>
+<text x="280" y="957" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">箭头：工作与账本变化 · 省略逐页交错</text>
+</g>
+</svg>

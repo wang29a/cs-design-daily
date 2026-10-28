@@ -1293,6 +1293,49 @@ def linux_cgroup_throttle():
     d.save()
 
 
+def linux_memcg_reclaim():
+    d = Drawing('linux-memcg-reclaim', 980, '腾出缓存，给新数据让位置', '教学汇总账：high=96 MiB · max=128 MiB')
+    d.rect(32, 112, 496, 214, WHITE)
+    d.text(280, 151, '起点：G 共用 80 MiB', size=25, weight=600, anchor='middle')
+    d.card(48, 178, 224, 108, '匿名页 64 MiB', '业务仍需保留', GREEN, size=24)
+    d.card(288, 178, 224, 108, '干净缓存 16 MiB', '已有磁盘副本', PEACH, size=23)
+    d.arrow([(280, 338), (280, 370)], color='teal')
+    d.rect(32, 382, 496, 126, WHITE, dash=True)
+    d.text(280, 423, '新输入需要 32 MiB 匿名页', size=25, weight=600, anchor='middle')
+    d.text(280, 470, '若保留全部缓存，需求是 112 MiB', size=23, color=MUTED, anchor='middle')
+    d.arrow([(280, 520), (280, 560)], color='teal')
+    d.text(280, 600, '申请途中：回收 16 MiB 干净缓存', size=24, color=TEAL, weight=600, anchor='middle')
+    d.rect(32, 634, 496, 214, GREEN)
+    d.text(280, 673, '本轮结束：G 共用 96 MiB', size=25, weight=600, anchor='middle')
+    d.card(48, 700, 224, 108, '匿名页 96 MiB', '原 64 + 新增 32', WHITE, size=24)
+    d.card(288, 700, 224, 108, '文件缓存 0', '下次需要时再读取', WHITE, size=24)
+    d.rule(882)
+    d.text(280, 919, '112 是保留缓存的需求，不是实测峰值', size=22, anchor='middle')
+    d.text(280, 957, '箭头：工作与账本变化 · 省略逐页交错', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+def linux_memcg_max():
+    d = Drawing('linux-memcg-max', 1090, '无可回收空间时，还需要最终边界', '教学故障分支：无 swap · 无可丢弃缓存')
+    rows = [
+        (112, '① 使用 128 MiB，仍在 high 之上', '全部是仍需保留的匿名页', 'max=128 MiB；重复回收也无空间', WHITE),
+        (334, '② 再申请一页 4 KiB', '触及 max 压力，先尝试回收与重试', '本例始终无法得到所需空间', PEACH),
+        (556, '③ 选定：进入 G 内 OOM 处理', '本例假定选中工作进程 W', '不是所有触线或分配都走这一分支', PEACH),
+        (778, '④ W 退出，原匿名页被释放', '组内占用下降，资源得以让出', '但本次业务没有交出正常结果', GREEN),
+    ]
+    for y, title, first, second, fill in rows:
+        d.rect(32, y, 496, 180, fill)
+        d.text(48, y + 38, title, size=23, weight=600)
+        d.text(48, y + 89, first, size=22)
+        d.text(48, y + 139, second, size=22, color=MUTED)
+    for y in [292, 514, 736]:
+        d.arrow([(280, y + 8), (280, y + 32)], color='rust')
+    d.rule(994)
+    d.text(280, 1034, '箭头：选定故障过程，不是运行追踪', size=23, anchor='middle')
+    d.text(280, 1070, '不承诺被杀对象、处理时延或全组一起退出', size=21, color=MUTED, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -1315,7 +1358,8 @@ def main():
                 linux_epoll_ready, linux_epoll_level,
                 linux_futex_handoff, linux_futex_check_sleep,
                 linux_pidns_views, linux_pidns_lifecycle,
-                linux_cgroup_budget, linux_cgroup_throttle]
+                linux_cgroup_budget, linux_cgroup_throttle,
+                linux_memcg_reclaim, linux_memcg_max]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

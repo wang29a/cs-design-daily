@@ -242,6 +242,15 @@
       "source": "2026-10-27-linux-cgroup-cpu-bandwidth.md",
       "id": "2026-10-27-linux-cgroup-cpu-bandwidth",
       "insight": "把执行者归入同一资源账户，按累计运行时间扣减共同额度，让并行方式可以变化而服务的带宽责任仍然统一。"
+    },
+    {
+      "date": "2026-10-28",
+      "title": "Linux：容器内存越线后，为什么先变慢而不是立刻被杀",
+      "subtitle": "回收压力、分配边界与组内 OOM 怎样配合",
+      "topic": "操作系统",
+      "source": "2026-10-28-linux-memcg-high-max.md",
+      "id": "2026-10-28-linux-memcg-high-max",
+      "insight": "把增长的回收代价接回申请者，再用独立的最终边界约束外溢，使可回收缓存与必须保留的数据得到不同处理。"
     }
   ]
 }
