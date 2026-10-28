@@ -251,6 +251,15 @@
       "source": "2026-10-28-linux-memcg-high-max.md",
       "id": "2026-10-28-linux-memcg-high-max",
       "insight": "把增长的回收代价接回申请者，再用独立的最终边界约束外溢，使可回收缓存与必须保留的数据得到不同处理。"
+    },
+    {
+      "date": "2026-10-29",
+      "title": "Go：一个请求在等网络，为什么不必占住一条系统线程",
+      "subtitle": "任务状态、线程复用与网络就绪怎样接成一条推进路径",
+      "topic": "语言运行时",
+      "source": "2026-10-29-go-netpoll-goroutines.md",
+      "id": "2026-10-29-go-netpoll-goroutines",
+      "insight": "由运行时保留任务的等待与恢复状态，让系统线程先推进其他任务，再把网络就绪接回可运行资格。"
     }
   ]
 }

@@ -1336,6 +1336,47 @@ def linux_memcg_max():
     d.save()
 
 
+def go_netpoll_handoff():
+    d = Drawing('go-netpoll-handoff', 890, '任务保留状态，线程继续做事', '教学模型：GOMAXPROCS=1 · 只画两项业务任务')
+    for y, heading, a, ad, b, bd, foot, af, bf in [
+        (112, '① GA 正在运行', 'GA：Running', '正在读取连接 A', 'GB：Runnable', '输入已齐，等待安排', 'M1 持有 P0，当前执行 GA', GREEN, WHITE),
+        (472, '② GA 等待，改为推进 GB', 'GA：Waiting', '保留栈与等待关系', 'GB：Running', '计算本地结果 B', '同一个 M1 继续持有 P0，执行 GB', PEACH, GREEN),
+    ]:
+        d.rect(32, y, 496, 266, WHITE)
+        d.text(52, y + 39, heading, size=25, weight=600)
+        d.card(48, y + 64, 224, 104, a, ad, af, size=24)
+        d.card(288, y + 64, 224, 104, b, bd, bf, size=24)
+        d.text(280, y + 222, foot, size=23, anchor='middle')
+    d.arrow([(280, 390), (280, 426)], color='teal')
+    d.text(280, 457, '读取暂无数据，建立等待并挂起 GA', size=22, color=MUTED, anchor='middle')
+    d.rule(778)
+    d.text(280, 818, 'M 是系统线程；P 是运行时调度资源', size=23, anchor='middle')
+    d.text(280, 859, '箭头表示状态推进，不是创建新线程', size=22, color=MUTED, anchor='middle')
+    d.save()
+
+
+def go_netpoll_resume():
+    d = Drawing('go-netpoll-resume', 1170, '通知只恢复资格，读取才取得字节', '选定时序 · GOMAXPROCS=1 · 时间自上而下')
+    rows = [
+        (112, '① GA：读取 1 字节，暂无数据', 'fd 7 的非阻塞 read 得到 EAGAIN', '标准库转入等待，不向业务直接返回它', WHITE),
+        (304, '② GA 等待，M1 + P0 执行 GB', 'GA 的调用尚未结束，状态仍保留', 'GB 有完整输入，可以继续计算', GREEN),
+        (496, '③ GB 运行期间，fd 7 收到 Q', '字节先在内核接收路径中', '没有直接写入 GA 的 Go 缓冲区', PEACH),
+        (688, '④ GB 完成后，运行时取得就绪', '找到等待读取的 GA，转为 Runnable', '这时还未承诺 GA 已经取得字节', WHITE),
+        (880, '⑤ M1 + P0 再执行 GA', '重试 read：n=1、err=nil，取得 Q', 'GA 计算结果 A；两项本地工作结束', GREEN),
+    ]
+    for y, title, first, second, fill in rows:
+        d.rect(32, y, 496, 150, fill)
+        d.text(48, y + 35, title, size=23, weight=600)
+        d.text(48, y + 81, first, size=22)
+        d.text(48, y + 124, second, size=22, color=MUTED)
+    for y in [262, 454, 646, 838]:
+        d.arrow([(280, y + 8), (280, y + 32)], color='teal')
+    d.rule(1070)
+    d.text(280, 1111, '可读 ≠ 已调度 ≠ 请求已完成', size=25, weight=600, anchor='middle')
+    d.text(280, 1149, '省略超时、关闭与其他任务；不是运行轨迹', size=21, color=MUTED, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -1359,7 +1400,8 @@ def main():
                 linux_futex_handoff, linux_futex_check_sleep,
                 linux_pidns_views, linux_pidns_lifecycle,
                 linux_cgroup_budget, linux_cgroup_throttle,
-                linux_memcg_reclaim, linux_memcg_max]
+                linux_memcg_reclaim, linux_memcg_max,
+                go_netpoll_handoff, go_netpoll_resume]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')
