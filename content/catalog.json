@@ -260,6 +260,15 @@
       "source": "2026-10-29-go-netpoll-goroutines.md",
       "id": "2026-10-29-go-netpoll-goroutines",
       "insight": "由运行时保留任务的等待与恢复状态，让系统线程先推进其他任务，再把网络就绪接回可运行资格。"
+    },
+    {
+      "date": "2026-10-30",
+      "title": "Go：goroutine 的栈为什么能搬家，局部变量的引用却仍然有效",
+      "subtitle": "小栈、入口检查与引用修复怎样共同维持调用状态",
+      "topic": "语言运行时",
+      "source": "2026-10-30-go-stack-growth.md",
+      "id": "2026-10-30-go-stack-growth",
+      "insight": "让栈按需扩展，依靠编译器掌握引用与运行时安全搬迁，在改变地址时保留对象关系。"
     }
   ]
 }

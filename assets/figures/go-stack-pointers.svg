@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="868" viewBox="0 0 560 868" role="img" aria-labelledby="title desc">
+<title id="title">槽位搬了，指向关系也要保留</title><desc id="desc">教学模型 · 横向箭头表示指针引用 · Δ=0x11000</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="868" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">槽位搬了，指向关系也要保留</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型 · 横向箭头表示指针引用 · Δ=0x11000</text>
+<rect x="32" y="112" width="496" height="252" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="148" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">① 搬迁前</text>
+<rect x="48" y="172" width="210" height="84" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="153.0" y="206" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">p @ 0x10E00</text>
+<text x="153.0" y="237" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">内容 0x10F00</text>
+<rect x="306" y="172" width="206" height="84" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="409.0" y="206" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">x @ 0x10F00</text>
+<text x="409.0" y="237" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">值为 7</text>
+<path d="M 264 215 L 300 215" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="52" y="299" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">普通整数 n = 0x10F00</text>
+<text x="52" y="339" fill="#5b6877" font-size="23" font-weight="400" text-anchor="start">n 没有指针语义，数值不加 Δ</text>
+<rect x="32" y="494" width="496" height="252" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="530" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">② 复制并修复后</text>
+<rect x="48" y="554" width="210" height="84" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="153.0" y="588" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">p @ 0x21E00</text>
+<text x="153.0" y="619" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">内容 0x21F00</text>
+<rect x="306" y="554" width="206" height="84" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="409.0" y="588" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">x @ 0x21F00</text>
+<text x="409.0" y="619" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">值为 7</text>
+<path d="M 264 597 L 300 597" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="52" y="681" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">普通整数 n = 0x10F00</text>
+<text x="52" y="721" fill="#5b6877" font-size="23" font-weight="400" text-anchor="start">n 没有指针语义，数值不加 Δ</text>
+<path d="M 280 376 L 280 412" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="448" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">识别指针槽，再调整指入旧栈的引用</text>
+<path d="M 32 774 H 528" stroke="#d9dfdc"/>
+<text x="280" y="814" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">随后 *p = 8，改到新位置的同一个 x</text>
+<text x="280" y="851" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">省略其他帧与运行时引用；不是运行证据</text>
+</g>
+</svg>

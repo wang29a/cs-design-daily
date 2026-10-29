@@ -1377,6 +1377,49 @@ def go_netpoll_resume():
     d.save()
 
 
+def go_stack_copy():
+    d = Drawing('go-stack-copy', 936, '栈变大，活动内容仍贴着高端', '教学地址 · 4 KiB → 8 KiB · 栈向低地址增长')
+    for y, title, hi, sp, lo, free, fill in [
+        (112, '① 旧栈：4 KiB', '0x11000', '0x10C00', '0x10000', '下面余 3 KiB：新调用装不下', PEACH),
+        (532, '② 新栈：8 KiB', '0x22000', '0x21C00', '0x20000', '下面余 7 KiB：可继续本例调用', GREEN),
+    ]:
+        d.rect(32, y, 496, 288, WHITE)
+        d.text(52, y + 35, title, size=25, weight=600)
+        d.text(52, y + 73, '高端 hi = ' + hi, size=23)
+        d.rect(48, y + 89, 464, 62, fill)
+        d.text(280, y + 129, '活动 1 KiB：复制后内容仍在这里', size=23, anchor='middle')
+        d.text(52, y + 184, 'SP = ' + sp, size=24, color=TEAL, weight=600)
+        d.text(52, y + 225, free, size=23)
+        d.text(52, y + 267, '低端 lo = ' + lo, size=23)
+    d.arrow([(280, 413), (280, 452)], color='teal')
+    d.text(280, 486, '位移 Δ = new.hi − old.hi = 0x11000', size=23, anchor='middle')
+    d.rule(845)
+    d.text(280, 881, 'SP 离高端始终为 0x400 字节', size=24, anchor='middle')
+    d.text(280, 919, '图不按容量比例绘制；箭头表示状态推进', size=21, color=MUTED, anchor='middle')
+    d.save()
+
+
+def go_stack_pointers():
+    d = Drawing('go-stack-pointers', 868, '槽位搬了，指向关系也要保留', '教学模型 · 横向箭头表示指针引用 · Δ=0x11000')
+    for y, title, pslot, pvalue, xaddr, fill in [
+        (112, '① 搬迁前', '0x10E00', '0x10F00', '0x10F00', PEACH),
+        (494, '② 复制并修复后', '0x21E00', '0x21F00', '0x21F00', GREEN),
+    ]:
+        d.rect(32, y, 496, 252, WHITE)
+        d.text(52, y + 36, title, size=25, weight=600)
+        d.card(48, y + 60, 210, 84, 'p @ ' + pslot, '内容 ' + pvalue, fill, size=23)
+        d.card(306, y + 60, 206, 84, 'x @ ' + xaddr, '值为 7', fill, size=23)
+        d.arrow([(264, y + 103), (300, y + 103)], color='teal')
+        d.text(52, y + 187, '普通整数 n = 0x10F00', size=24)
+        d.text(52, y + 227, 'n 没有指针语义，数值不加 Δ', size=23, color=MUTED)
+    d.arrow([(280, 376), (280, 412)], color='teal')
+    d.text(280, 448, '识别指针槽，再调整指入旧栈的引用', size=23, anchor='middle')
+    d.rule(774)
+    d.text(280, 814, '随后 *p = 8，改到新位置的同一个 x', size=23, anchor='middle')
+    d.text(280, 851, '省略其他帧与运行时引用；不是运行证据', size=21, color=MUTED, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -1401,7 +1444,8 @@ def main():
                 linux_pidns_views, linux_pidns_lifecycle,
                 linux_cgroup_budget, linux_cgroup_throttle,
                 linux_memcg_reclaim, linux_memcg_max,
-                go_netpoll_handoff, go_netpoll_resume]
+                go_netpoll_handoff, go_netpoll_resume,
+                go_stack_copy, go_stack_pointers]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')
