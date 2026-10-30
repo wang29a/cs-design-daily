@@ -1420,6 +1420,59 @@ def go_stack_pointers():
     d.save()
 
 
+def go_gc_deletion():
+    d = Drawing('go-gc-deletion', 1150, '旧引用删掉前，先接住扫描责任', '独立推演 A · GA 栈已扫描 · C 初值 7')
+    grey = '#e3e7ec'
+    for y, title, stack, hc, hd, cc, cf, refs in [
+        (112, '① H 等待扫描，C 尚未发现', '已扫 GA 栈：h→H；p=nil', '灰', 'next→C', '白', WHITE, False),
+        (442, '② 记录旧 C，再清空 H.next', '已扫 GA 栈：h→H；p→C', '灰', 'next=nil', '灰', grey, True),
+        (772, '③ GC 处理待办，C 得到保留', '已扫 GA 栈：h→H；p→C', '黑', 'next=nil', '黑', GREEN, True),
+    ]:
+        d.rect(32, y, 496, 268, WHITE)
+        d.text(48, y + 35, title, size=24, weight=600)
+        d.card(48, y + 54, 464, 48, stack, size=23)
+        d.card(48, y + 138, 204, 80, 'H：' + hc, hd, grey if hc == '灰' else GREEN, size=24)
+        d.card(308, y + 138, 204, 80, 'C：' + cc, 'value=7', cf, size=24)
+        d.arrow([(150, y + 107), (150, y + 132)], color='teal')
+        if refs:
+            d.arrow([(410, y + 107), (410, y + 132)], color='teal')
+        else:
+            d.arrow([(258, y + 178), (302, y + 178)], color='teal')
+        d.text(280, y + 251, '保留的是 C 的发现责任，不是 H.next 这条边' if refs else 'H 已发现；内部 next 还未被扫描', size=20, color=MUTED, anchor='middle')
+    for y in [380, 710]:
+        d.arrow([(280, y + 14), (280, y + 47)], color='rust')
+    d.rule(1060)
+    d.text(280, 1097, '白：未发现 · 灰：待扫描 · 黑：已扫描', size=22, anchor='middle')
+    d.text(280, 1133, '简化：记录与标记合并；框间箭头为步骤', size=21, color=MUTED, anchor='middle')
+    d.save()
+
+
+def go_gc_insertion():
+    d = Drawing('go-gc-insertion', 1150, '新引用装进去，也要保留扫描责任', '独立推演 B · GA 栈未扫描 · B 已扫描')
+    grey = '#e3e7ec'
+    for y, title, stack, bd, cc, cf, from_stack in [
+        (112, '① C 只在尚未扫描的栈上', '未扫 GA 栈：p→C', 'next=nil', '白', WHITE, True),
+        (442, '② 记录新 C，再写入 B.next', '未扫 GA 栈：p→C', 'next→C', '灰', grey, True),
+        (772, '③ p 清空，GC 仍完成 C 的扫描', 'GA 栈：p=nil', 'next→C', '黑', GREEN, False),
+    ]:
+        d.rect(32, y, 496, 268, WHITE)
+        d.text(48, y + 35, title, size=24, weight=600)
+        d.card(48, y + 54, 464, 48, stack, size=23)
+        d.card(48, y + 138, 204, 80, 'B：黑', bd, GREEN, size=24)
+        d.card(308, y + 138, 204, 80, 'C：' + cc, 'value=7', cf, size=24)
+        if from_stack:
+            d.arrow([(410, y + 107), (410, y + 132)], color='teal')
+        if bd == 'next→C':
+            d.arrow([(258, y + 178), (302, y + 178)], color='teal')
+        d.text(280, y + 251, 'B 由已处理的全局根可达；省略该根' if y == 112 else 'C 已登记，不依赖稍后从 p 再次发现', size=20, color=MUTED, anchor='middle')
+    for y in [380, 710]:
+        d.arrow([(280, y + 14), (280, y + 47)], color='rust')
+    d.rule(1060)
+    d.text(280, 1097, '白：未发现 · 灰：待扫描 · 黑：已扫描', size=22, anchor='middle')
+    d.text(280, 1133, '简化：记录与标记合并；框内箭头为引用', size=21, color=MUTED, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -1445,7 +1498,8 @@ def main():
                 linux_cgroup_budget, linux_cgroup_throttle,
                 linux_memcg_reclaim, linux_memcg_max,
                 go_netpoll_handoff, go_netpoll_resume,
-                go_stack_copy, go_stack_pointers]
+                go_stack_copy, go_stack_pointers,
+                go_gc_deletion, go_gc_insertion]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1150" viewBox="0 0 560 1150" role="img" aria-labelledby="title desc">
+<title id="title">旧引用删掉前，先接住扫描责任</title><desc id="desc">独立推演 A · GA 栈已扫描 · C 初值 7</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1150" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">旧引用删掉前，先接住扫描责任</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">独立推演 A · GA 栈已扫描 · C 初值 7</text>
+<rect x="32" y="112" width="496" height="268" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="147" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">① H 等待扫描，C 尚未发现</text>
+<rect x="48" y="166" width="464" height="48" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="198.0" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">已扫 GA 栈：h→H；p=nil</text>
+<rect x="48" y="250" width="204" height="80" rx="10" fill="#e3e7ec" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="150.0" y="284" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">H：灰</text>
+<text x="150.0" y="315" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">next→C</text>
+<rect x="308" y="250" width="204" height="80" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="410.0" y="284" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">C：白</text>
+<text x="410.0" y="315" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">value=7</text>
+<path d="M 150 219 L 150 244" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 258 290 L 302 290" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="363" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">H 已发现；内部 next 还未被扫描</text>
+<rect x="32" y="442" width="496" height="268" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="477" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">② 记录旧 C，再清空 H.next</text>
+<rect x="48" y="496" width="464" height="48" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="528.0" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">已扫 GA 栈：h→H；p→C</text>
+<rect x="48" y="580" width="204" height="80" rx="10" fill="#e3e7ec" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="150.0" y="614" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">H：灰</text>
+<text x="150.0" y="645" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">next=nil</text>
+<rect x="308" y="580" width="204" height="80" rx="10" fill="#e3e7ec" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="410.0" y="614" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">C：灰</text>
+<text x="410.0" y="645" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">value=7</text>
+<path d="M 150 549 L 150 574" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 410 549 L 410 574" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="693" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">保留的是 C 的发现责任，不是 H.next 这条边</text>
+<rect x="32" y="772" width="496" height="268" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="807" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">③ GC 处理待办，C 得到保留</text>
+<rect x="48" y="826" width="464" height="48" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="858.0" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">已扫 GA 栈：h→H；p→C</text>
+<rect x="48" y="910" width="204" height="80" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="150.0" y="944" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">H：黑</text>
+<text x="150.0" y="975" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">next=nil</text>
+<rect x="308" y="910" width="204" height="80" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="410.0" y="944" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">C：黑</text>
+<text x="410.0" y="975" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">value=7</text>
+<path d="M 150 879 L 150 904" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 410 879 L 410 904" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="1023" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">保留的是 C 的发现责任，不是 H.next 这条边</text>
+<path d="M 280 394 L 280 427" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<path d="M 280 724 L 280 757" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<path d="M 32 1060 H 528" stroke="#d9dfdc"/>
+<text x="280" y="1097" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">白：未发现 · 灰：待扫描 · 黑：已扫描</text>
+<text x="280" y="1133" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">简化：记录与标记合并；框间箭头为步骤</text>
+</g>
+</svg>
