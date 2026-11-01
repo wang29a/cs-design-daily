@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1112" viewBox="0 0 560 1112" role="img" aria-labelledby="title desc">
+<title id="title">抄到任务，不等于取得执行权</title><desc id="desc">独立竞争分支 · h 为队头序号，t 为队尾序号</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1112" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">抄到任务，不等于取得执行权</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">独立竞争分支 · h 为队头序号，t 为队尾序号</text>
+<rect x="32" y="112" width="496" height="256" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="149" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">① P1 读到旧范围，还没有领取</text>
+<text x="48" y="203" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">P0：h=0，t=4；队列 A B C D</text>
+<text x="48" y="263" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">P1 未公布槽：A、B</text>
+<text x="48" y="328" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">仅是指针副本，还不能运行</text>
+<rect x="32" y="432" width="496" height="256" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="469" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">② P0 先消费队头 A</text>
+<text x="48" y="523" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">CAS：h 仍为 0 → 改为 1，成功</text>
+<text x="48" y="583" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">P0 取得 A；有效队列 B C D</text>
+<text x="48" y="648" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">h=1，t=4；X 已在此分支结束</text>
+<rect x="32" y="752" width="496" height="256" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="789" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">③ P1 的旧提交必须失败</text>
+<text x="48" y="843" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">尝试 CAS：期待 h=0，改为 2</text>
+<text x="48" y="903" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">实际 h=1 → 失败，不能领 A、B</text>
+<text x="48" y="968" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">重新读取范围，再决定下一批</text>
+<path d="M 280 382 L 280 415" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<path d="M 280 702 L 280 735" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<path d="M 32 1030 H 528" stroke="#d9dfdc"/>
+<text x="280" y="1069" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">成功消费位置，才交接这一份排队记录</text>
+<text x="280" y="1100" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">箭头表示动作先后；不是机器时间测量</text>
+</g>
+</svg>

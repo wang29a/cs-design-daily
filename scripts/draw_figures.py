@@ -1473,6 +1473,45 @@ def go_gc_insertion():
     d.save()
 
 
+def go_scheduler_steal():
+    d = Drawing('go-scheduler-steal', 1006, '局部队列留在原地，待办可以转移', '教学交错 · GOMAXPROCS=2 · runnext 为空')
+    for y, title, sourceq, target, targetq, fill in [
+        (112, '① 转移前：一边有队列，一边找工作', 'A → B → C → D', '寻找工作', '空', PEACH),
+        (578, '② 转移并开始执行后', 'C → D', '运行 B', 'A', GREEN),
+    ]:
+        d.rect(32, y, 496, 328, WHITE)
+        d.text(48, y + 37, title, size=24, weight=600)
+        d.card(48, y + 60, 464, 104, 'M0 + P0：运行 X', '普通队列：' + sourceq, WHITE, size=25)
+        d.card(48, y + 196, 464, 104, 'M1 + P1：' + target, '普通队列：' + targetq, fill, size=25)
+    d.arrow([(280, 457), (280, 500)], color='teal')
+    d.text(280, 540, '接走 A、B；B 返回给调度器先运行', size=23, anchor='middle')
+    d.rule(930)
+    d.text(280, 967, '队列箭头：从头到尾；框间箭头：状态推进', size=21, anchor='middle')
+    d.text(280, 996, '转移待运行的 G；正在执行的 X 没有被拆开', size=21, color=MUTED, anchor='middle')
+    d.save()
+
+
+def go_scheduler_claim():
+    d = Drawing('go-scheduler-claim', 1112, '抄到任务，不等于取得执行权', '独立竞争分支 · h 为队头序号，t 为队尾序号')
+    rows = [
+        (112, '① P1 读到旧范围，还没有领取', 'P0：h=0，t=4；队列 A B C D', 'P1 未公布槽：A、B', '仅是指针副本，还不能运行', WHITE),
+        (432, '② P0 先消费队头 A', 'CAS：h 仍为 0 → 改为 1，成功', 'P0 取得 A；有效队列 B C D', 'h=1，t=4；X 已在此分支结束', GREEN),
+        (752, '③ P1 的旧提交必须失败', '尝试 CAS：期待 h=0，改为 2', '实际 h=1 → 失败，不能领 A、B', '重新读取范围，再决定下一批', PEACH),
+    ]
+    for y, title, a, b, c, fill in rows:
+        d.rect(32, y, 496, 256, fill)
+        d.text(48, y + 37, title, size=24, weight=600)
+        d.text(48, y + 91, a, size=23)
+        d.text(48, y + 151, b, size=23)
+        d.text(48, y + 216, c, size=22, color=MUTED)
+    for y in [368, 688]:
+        d.arrow([(280, y + 14), (280, y + 47)], color='rust')
+    d.rule(1030)
+    d.text(280, 1069, '成功消费位置，才交接这一份排队记录', size=23, anchor='middle')
+    d.text(280, 1100, '箭头表示动作先后；不是机器时间测量', size=21, color=MUTED, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -1499,7 +1538,8 @@ def main():
                 linux_memcg_reclaim, linux_memcg_max,
                 go_netpoll_handoff, go_netpoll_resume,
                 go_stack_copy, go_stack_pointers,
-                go_gc_deletion, go_gc_insertion]
+                go_gc_deletion, go_gc_insertion,
+                go_scheduler_steal, go_scheduler_claim]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

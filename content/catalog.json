@@ -278,6 +278,15 @@
       "source": "2026-10-31-go-gc-write-barrier.md",
       "id": "2026-10-31-go-gc-write-barrier",
       "insight": "让引用修改者在覆盖旧值与安装新值时接住发现责任，使并发扫描不必依赖一次静止的对象关系。"
+    },
+    {
+      "date": "2026-11-01",
+      "title": "Go：任务集中在一边，其他线程怎样接过工作",
+      "subtitle": "局部队列、批量领取与全局调度怎样配合",
+      "topic": "语言运行时",
+      "source": "2026-11-01-go-scheduler-work-stealing.md",
+      "id": "2026-11-01-go-scheduler-work-stealing",
+      "insight": "让常见操作留在局部，缺工作时再批量转移待办，并以原子消费交接唯一的执行资格。"
     }
   ]
 }
