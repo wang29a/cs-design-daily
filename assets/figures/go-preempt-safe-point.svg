@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="850" viewBox="0 0 560 850" role="img" aria-labelledby="title desc">
+<title id="title">信号送达，还需核对暂停条件</title><desc id="desc">Linux/amd64 · 普通调度抢占分支 · 教学流程</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="850" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">信号送达，还需核对暂停条件</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">Linux/amd64 · 普通调度抢占分支 · 教学流程</text>
+<rect x="32" y="112" width="496" height="88" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="146" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">① SIGURG 到达 M0</text>
+<text x="280.0" y="177" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">当前用户 G 是否仍需抢占？</text>
+<path d="M 280 213 L 280 244" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="254" width="496" height="200" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="52" y="292" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">② 核对可暂停条件</text>
+<text x="52" y="340" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">运行时状态允许切走吗？</text>
+<text x="52" y="386" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">栈余量足够放下抢占入口吗？</text>
+<text x="52" y="431" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">编译器与运行时允许在此 PC 暂停吗？</text>
+<path d="M 280 466 L 280 493 L 148 493 L 148 531" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<path d="M 280 466 L 280 493 L 412 493 L 412 531" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="105" y="523" fill="#a54426" font-size="24" font-weight="600" text-anchor="start">否</text>
+<text x="452" y="523" fill="#287467" font-size="24" font-weight="600" text-anchor="start">是</text>
+<rect x="32" y="544" width="232" height="172" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="148" y="584" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">本次不注入</text>
+<text x="148" y="632" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">继续原代码</text>
+<text x="148" y="682" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">不是切换完成</text>
+<rect x="296" y="544" width="232" height="172" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="412" y="584" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">改写恢复上下文</text>
+<text x="412" y="632" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">信号返回后进入</text>
+<text x="412" y="682" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">asyncPreempt</text>
+<path d="M 32 748 H 528" stroke="#d9dfdc"/>
+<text x="280" y="789" fill="#18283b" font-size="24" font-weight="400" text-anchor="middle">请求、可暂停、已切换，是不同阶段</text>
+<text x="280" y="832" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">箭头为判定流程；后续仍可重试或同步响应</text>
+</g>
+</svg>

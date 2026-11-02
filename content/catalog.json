@@ -287,6 +287,15 @@
       "source": "2026-11-01-go-scheduler-work-stealing.md",
       "id": "2026-11-01-go-scheduler-work-stealing",
       "insight": "让常见操作留在局部，缺工作时再批量转移待办，并以原子消费交接唯一的执行资格。"
+    },
+    {
+      "date": "2026-11-02",
+      "title": "Go：长循环不主动让出，其他任务怎样获得运行机会",
+      "subtitle": "抢占请求、安全点检查与机器状态恢复怎样共同维持执行语义",
+      "topic": "语言运行时",
+      "source": "2026-11-02-go-async-preemption.md",
+      "id": "2026-11-02-go-async-preemption",
+      "insight": "把外部抢占请求接到可解释的安全位置，先保留可恢复状态，再把执行机会交给其他任务。"
     }
   ]
 }

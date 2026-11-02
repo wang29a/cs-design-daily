@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1070" viewBox="0 0 560 1070" role="img" aria-labelledby="title desc">
+<title id="title">执行机会换人，计算状态要保留</title><desc id="desc">N=1,000,000,000 · GOMAXPROCS=1 · 教学交错</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1070" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">执行机会换人，计算状态要保留</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">N=1,000,000,000 · GOMAXPROCS=1 · 教学交错</text>
+<rect x="32" y="112" width="496" height="242" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="149" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">① GA 运行，GB 已排队</text>
+<text x="48" y="204" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">M0 + P0：GA 在循环头 L</text>
+<text x="48" y="259" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">i=121，sum=7260</text>
+<text x="48" y="320" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">已完成 1 到 120 的相加</text>
+<rect x="32" y="402" width="496" height="242" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="439" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">② 安全保存后，换 GB 运行</text>
+<text x="48" y="494" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">M0 + P0：GB → 输出 42</text>
+<text x="48" y="549" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">GA 的继续位置、寄存器与标志已保存</text>
+<text x="48" y="610" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">GA：Runnable；没有在等网络</text>
+<rect x="32" y="692" width="496" height="242" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="729" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">③ 恢复 GA，继续原计算</text>
+<text x="48" y="784" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">M0 + P0：GA 回到 L</text>
+<text x="48" y="839" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">7260 + 121 = 7381</text>
+<text x="48" y="900" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">随后 i=122；没有从头重算</text>
+<path d="M 280 366 L 280 392" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 656 L 280 682" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 32 956 H 528" stroke="#d9dfdc"/>
+<text x="280" y="995" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">最后 GA 输出 500000000500000000</text>
+<text x="280" y="1034" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">数值用于验算，不代表抢占计时</text>
+<text x="280" y="1061" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">箭头表示选定顺序；同一 M 恢复不是保证</text>
+</g>
+</svg>

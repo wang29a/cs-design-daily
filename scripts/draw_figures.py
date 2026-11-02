@@ -1512,6 +1512,54 @@ def go_scheduler_claim():
     d.save()
 
 
+def go_preempt_safe_point():
+    d = Drawing('go-preempt-safe-point', 850, '信号送达，还需核对暂停条件', 'Linux/amd64 · 普通调度抢占分支 · 教学流程')
+    d.card(32, 112, 496, 88, '① SIGURG 到达 M0', '当前用户 G 是否仍需抢占？', size=25)
+    d.arrow([(280, 213), (280, 244)], color='teal')
+    d.rect(32, 254, 496, 200, WHITE)
+    d.text(52, 292, '② 核对可暂停条件', size=25, weight=600)
+    d.text(52, 340, '运行时状态允许切走吗？', size=23)
+    d.text(52, 386, '栈余量足够放下抢占入口吗？', size=23)
+    d.text(52, 431, '编译器与运行时允许在此 PC 暂停吗？', size=22)
+    d.arrow([(280, 466), (280, 493), (148, 493), (148, 531)], color='rust')
+    d.arrow([(280, 466), (280, 493), (412, 493), (412, 531)], color='teal')
+    d.text(105, 523, '否', size=24, color=RUST, weight=600)
+    d.text(452, 523, '是', size=24, color=TEAL, weight=600)
+    for x, title, a, b, fill in [
+        (32, '本次不注入', '继续原代码', '不是切换完成', PEACH),
+        (296, '改写恢复上下文', '信号返回后进入', 'asyncPreempt', GREEN),
+    ]:
+        d.rect(x, 544, 232, 172, fill)
+        d.text(x + 116, 584, title, size=23, weight=600, anchor='middle')
+        d.text(x + 116, 632, a, size=22, anchor='middle')
+        d.text(x + 116, 682, b, size=22, anchor='middle')
+    d.rule(748)
+    d.text(280, 789, '请求、可暂停、已切换，是不同阶段', size=24, anchor='middle')
+    d.text(280, 832, '箭头为判定流程；后续仍可重试或同步响应', size=21, color=MUTED, anchor='middle')
+    d.save()
+
+
+def go_preempt_resume():
+    d = Drawing('go-preempt-resume', 1070, '执行机会换人，计算状态要保留', 'N=1,000,000,000 · GOMAXPROCS=1 · 教学交错')
+    for y, title, a, b, c, fill in [
+        (112, '① GA 运行，GB 已排队', 'M0 + P0：GA 在循环头 L', 'i=121，sum=7260', '已完成 1 到 120 的相加', WHITE),
+        (402, '② 安全保存后，换 GB 运行', 'M0 + P0：GB → 输出 42', 'GA 的继续位置、寄存器与标志已保存', 'GA：Runnable；没有在等网络', GREEN),
+        (692, '③ 恢复 GA，继续原计算', 'M0 + P0：GA 回到 L', '7260 + 121 = 7381', '随后 i=122；没有从头重算', WHITE),
+    ]:
+        d.rect(32, y, 496, 242, fill)
+        d.text(48, y + 37, title, size=25, weight=600)
+        d.text(48, y + 92, a, size=24)
+        d.text(48, y + 147, b, size=22)
+        d.text(48, y + 208, c, size=22, color=MUTED)
+    for y in [354, 644]:
+        d.arrow([(280, y + 12), (280, y + 38)], color='teal')
+    d.rule(956)
+    d.text(280, 995, '最后 GA 输出 500000000500000000', size=23, anchor='middle')
+    d.text(280, 1034, '数值用于验算，不代表抢占计时', size=22, color=MUTED, anchor='middle')
+    d.text(280, 1061, '箭头表示选定顺序；同一 M 恢复不是保证', size=20, color=MUTED, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -1539,7 +1587,8 @@ def main():
                 go_netpoll_handoff, go_netpoll_resume,
                 go_stack_copy, go_stack_pointers,
                 go_gc_deletion, go_gc_insertion,
-                go_scheduler_steal, go_scheduler_claim]
+                go_scheduler_steal, go_scheduler_claim,
+                go_preempt_safe_point, go_preempt_resume]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')
