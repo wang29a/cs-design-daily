@@ -1560,6 +1560,64 @@ def go_preempt_resume():
     d.save()
 
 
+def go_channel_handoff():
+    d = Drawing('go-channel-handoff', 1030, '交付了值，不等于业务已经做完', '无缓冲 c · v 假定在 GR 栈上 · 教学顺序')
+    d.rect(32, 112, 496, 224, WHITE)
+    d.text(48, 151, '① GR 先到：登记后等待', size=25, weight=600)
+    d.card(48, 174, 218, 85, 'c 的接收等待记录', '保存 GR 与目标地址', size=21)
+    d.card(332, 174, 180, 85, 'GR 栈中的 v', '尚未收到值', size=21)
+    d.arrow([(274, 216), (323, 216)])
+    d.text(52, 304, 'GR：Waiting；c 没有数据缓冲区', size=23)
+    d.arrow([(280, 348), (280, 378)])
+    d.rect(32, 390, 496, 267, GREEN)
+    d.text(48, 429, '② GS 写 meta=7，再发送 42', size=24, weight=600)
+    d.card(48, 452, 178, 85, 'GS 的值 42', '等待记录已取出', size=22)
+    d.card(334, 452, 178, 85, 'GR 的 v=42', '直接复制到目标', size=22)
+    d.arrow([(235, 494), (325, 494)], color='teal')
+    d.text(52, 578, '释放 c 的锁 → goready(GR)', size=23)
+    d.text(52, 624, 'GR：Runnable；GS 可以先返回', size=23)
+    d.arrow([(280, 669), (280, 699)])
+    d.rect(32, 711, 496, 204, WHITE)
+    d.text(48, 750, '③ 调度器随后让 GR 继续', size=25, weight=600)
+    d.text(52, 801, '接收完成 → 读取 meta=7', size=24)
+    d.text(52, 852, 'result = 42 + 7 = 49', size=25, color=TEAL, weight=600)
+    d.text(52, 892, 'GR：Running；计算后退出', size=22, color=MUTED)
+    d.rule(944)
+    d.text(280, 981, '绿色箭头：值复制；其余箭头：先后或引用', size=21, anchor='middle')
+    d.text(280, 1014, '选定合法顺序，不是实际运行追踪', size=21, color=MUTED, anchor='middle')
+    d.save()
+
+
+def go_channel_wait_race():
+    d = Drawing('go-channel-wait-race', 1134, '登记等待，不能留下检查的缝隙', '上：错误教学实现 · 下：固定版本的真实职责')
+    d.rect(32, 112, 496, 403, PEACH)
+    d.text(48, 152, '反事实：把检查与登记拆开', size=25, color=RUST, weight=600)
+    for y, a, b in [
+        (186, 'GR：未找到 GS，先解锁', '尚未登记接收等待'),
+        (296, 'GS：未找到 GR，登记后睡下', '发送队列有 GS'),
+        (406, 'GR：用旧判断登记后睡下', '接收队列有 GR；双方都在等'),
+    ]:
+        d.text(52, y + 22, a, size=23)
+        d.text(52, y + 58, b, size=21, color=RUST)
+        if y < 406:
+            d.arrow([(280, y + 70), (280, y + 94)], color='rust')
+    d.rule(542)
+    d.text(48, 582, '真实路径：让锁保护整个决定', size=25, color=TEAL, weight=600)
+    for y, title, a, b, fill in [
+        (608, '① GR 持有 c 的锁', '检查无人可配对 → 登记接收等待', 'GS 尚不能进入 c 的临界区', WHITE),
+        (772, '② 运行时提交 GR 的等待', 'GR：Running → Waiting', 'chanparkcommit 最后释放 c 的锁', GREEN),
+        (936, '③ GS 此后取得 c 的锁', '找到 GR → 复制 42 → 释放锁', 'goready：GR → Runnable', WHITE),
+    ]:
+        d.rect(32, y, 496, 137, fill)
+        d.text(48, y + 32, title, size=24, weight=600)
+        d.text(48, y + 73, a, size=23)
+        d.text(48, y + 113, b, size=21, color=MUTED)
+    for y in [745, 909]:
+        d.arrow([(280, y + 5), (280, y + 21)], color='teal')
+    d.text(280, 1116, '箭头表示动作先后，不表示计时', size=21, color=MUTED, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -1588,7 +1646,8 @@ def main():
                 go_stack_copy, go_stack_pointers,
                 go_gc_deletion, go_gc_insertion,
                 go_scheduler_steal, go_scheduler_claim,
-                go_preempt_safe_point, go_preempt_resume]
+                go_preempt_safe_point, go_preempt_resume,
+                go_channel_handoff, go_channel_wait_race]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

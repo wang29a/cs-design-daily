@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1134" viewBox="0 0 560 1134" role="img" aria-labelledby="title desc">
+<title id="title">登记等待，不能留下检查的缝隙</title><desc id="desc">上：错误教学实现 · 下：固定版本的真实职责</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1134" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">登记等待，不能留下检查的缝隙</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">上：错误教学实现 · 下：固定版本的真实职责</text>
+<rect x="32" y="112" width="496" height="403" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="152" fill="#a54426" font-size="25" font-weight="600" text-anchor="start">反事实：把检查与登记拆开</text>
+<text x="52" y="208" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">GR：未找到 GS，先解锁</text>
+<text x="52" y="244" fill="#a54426" font-size="21" font-weight="400" text-anchor="start">尚未登记接收等待</text>
+<path d="M 280 256 L 280 280" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<text x="52" y="318" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">GS：未找到 GR，登记后睡下</text>
+<text x="52" y="354" fill="#a54426" font-size="21" font-weight="400" text-anchor="start">发送队列有 GS</text>
+<path d="M 280 366 L 280 390" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<text x="52" y="428" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">GR：用旧判断登记后睡下</text>
+<text x="52" y="464" fill="#a54426" font-size="21" font-weight="400" text-anchor="start">接收队列有 GR；双方都在等</text>
+<path d="M 32 542 H 528" stroke="#d9dfdc"/>
+<text x="48" y="582" fill="#287467" font-size="25" font-weight="600" text-anchor="start">真实路径：让锁保护整个决定</text>
+<rect x="32" y="608" width="496" height="137" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="640" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">① GR 持有 c 的锁</text>
+<text x="48" y="681" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">检查无人可配对 → 登记接收等待</text>
+<text x="48" y="721" fill="#5b6877" font-size="21" font-weight="400" text-anchor="start">GS 尚不能进入 c 的临界区</text>
+<rect x="32" y="772" width="496" height="137" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="804" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">② 运行时提交 GR 的等待</text>
+<text x="48" y="845" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">GR：Running → Waiting</text>
+<text x="48" y="885" fill="#5b6877" font-size="21" font-weight="400" text-anchor="start">chanparkcommit 最后释放 c 的锁</text>
+<rect x="32" y="936" width="496" height="137" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="968" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">③ GS 此后取得 c 的锁</text>
+<text x="48" y="1009" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">找到 GR → 复制 42 → 释放锁</text>
+<text x="48" y="1049" fill="#5b6877" font-size="21" font-weight="400" text-anchor="start">goready：GR → Runnable</text>
+<path d="M 280 750 L 280 766" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 914 L 280 930" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="1116" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">箭头表示动作先后，不表示计时</text>
+</g>
+</svg>

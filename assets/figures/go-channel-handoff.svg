@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1030" viewBox="0 0 560 1030" role="img" aria-labelledby="title desc">
+<title id="title">交付了值，不等于业务已经做完</title><desc id="desc">无缓冲 c · v 假定在 GR 栈上 · 教学顺序</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1030" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">交付了值，不等于业务已经做完</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">无缓冲 c · v 假定在 GR 栈上 · 教学顺序</text>
+<rect x="32" y="112" width="496" height="224" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="151" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">① GR 先到：登记后等待</text>
+<rect x="48" y="174" width="218" height="85" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="157.0" y="208" fill="#18283b" font-size="21" font-weight="600" text-anchor="middle">c 的接收等待记录</text>
+<text x="157.0" y="239" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">保存 GR 与目标地址</text>
+<rect x="332" y="174" width="180" height="85" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="422.0" y="208" fill="#18283b" font-size="21" font-weight="600" text-anchor="middle">GR 栈中的 v</text>
+<text x="422.0" y="239" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">尚未收到值</text>
+<path d="M 274 216 L 323 216" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)"/>
+<text x="52" y="304" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">GR：Waiting；c 没有数据缓冲区</text>
+<path d="M 280 348 L 280 378" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)"/>
+<rect x="32" y="390" width="496" height="267" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="429" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">② GS 写 meta=7，再发送 42</text>
+<rect x="48" y="452" width="178" height="85" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="137.0" y="486" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">GS 的值 42</text>
+<text x="137.0" y="517" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">等待记录已取出</text>
+<rect x="334" y="452" width="178" height="85" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="423.0" y="486" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">GR 的 v=42</text>
+<text x="423.0" y="517" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">直接复制到目标</text>
+<path d="M 235 494 L 325 494" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="52" y="578" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">释放 c 的锁 → goready(GR)</text>
+<text x="52" y="624" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">GR：Runnable；GS 可以先返回</text>
+<path d="M 280 669 L 280 699" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)"/>
+<rect x="32" y="711" width="496" height="204" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="750" fill="#18283b" font-size="25" font-weight="600" text-anchor="start">③ 调度器随后让 GR 继续</text>
+<text x="52" y="801" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">接收完成 → 读取 meta=7</text>
+<text x="52" y="852" fill="#287467" font-size="25" font-weight="600" text-anchor="start">result = 42 + 7 = 49</text>
+<text x="52" y="892" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">GR：Running；计算后退出</text>
+<path d="M 32 944 H 528" stroke="#d9dfdc"/>
+<text x="280" y="981" fill="#18283b" font-size="21" font-weight="400" text-anchor="middle">绿色箭头：值复制；其余箭头：先后或引用</text>
+<text x="280" y="1014" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">选定合法顺序，不是实际运行追踪</text>
+</g>
+</svg>

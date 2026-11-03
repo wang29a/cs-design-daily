@@ -296,6 +296,15 @@
       "source": "2026-11-02-go-async-preemption.md",
       "id": "2026-11-02-go-async-preemption",
       "insight": "把外部抢占请求接到可解释的安全位置，先保留可恢复状态，再把执行机会交给其他任务。"
+    },
+    {
+      "date": "2026-11-03",
+      "title": "Go：channel 怎样把值的交付与任务唤醒接在一起",
+      "subtitle": "从 42 的直接交接，看等待登记、内存可见性与发送完成的边界",
+      "topic": "语言运行时",
+      "source": "2026-11-03-go-channel-handoff.md",
+      "id": "2026-11-03-go-channel-handoff",
+      "insight": "把配对检查、等待登记和任务状态转换接成受保护的交接，发送者才能可靠交付并唤醒；交接完成仍不等于接收者业务完成。"
     }
   ]
 }
