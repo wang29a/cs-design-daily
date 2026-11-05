@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1110" viewBox="0 0 560 1110" role="img" aria-labelledby="title desc">
+<title id="title">取消后来到达，不能改写已选交接</title><desc id="desc">选定 GS 先取得资格，GR 最后恢复 · 教学顺序</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1110" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">取消后来到达，不能改写已选交接</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">选定 GS 先取得资格，GR 最后恢复 · 教学顺序</text>
+<rect x="32" y="112" width="496" height="186" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="150" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">① GS 在 c 上取得资格</text>
+<text x="48" y="206" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">摘下 Sc；原子地将标记 0 → 1</text>
+<text x="48" y="261" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">交付 42 → 解锁 → 让 GR 可运行</text>
+<rect x="32" y="348" width="496" height="186" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="386" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">② GX 关闭 done，遇到 Sd</text>
+<text x="48" y="442" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">尝试将同一标记 0 → 1：失败</text>
+<text x="48" y="497" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">摘掉过期 Sd；不再唤醒 GR</text>
+<rect x="32" y="584" width="496" height="186" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="622" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">③ GR 恢复，重新取得相关锁</text>
+<text x="48" y="678" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">确认 Sc 是本轮获胜记录</text>
+<text x="48" y="733" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">Sd 已离队；两份等待记录都回收</text>
+<rect x="32" y="820" width="496" height="186" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="48" y="858" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">④ 只执行结果分支</text>
+<text x="48" y="914" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">v = 42；answer = 42 × 2 = 84</text>
+<text x="48" y="969" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">本轮 select 结束；取消不再覆盖它</text>
+<path d="M 280 310 L 280 336" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 546 L 280 572" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 782 L 280 808" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 32 1034 H 528" stroke="#d9dfdc"/>
+<text x="280" y="1071" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">取得资格、完成交付、执行业务是不同阶段</text>
+<text x="280" y="1100" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">箭头表示动作先后，不表示实际计时</text>
+</g>
+</svg>

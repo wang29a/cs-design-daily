@@ -1618,6 +1618,50 @@ def go_channel_wait_race():
     d.save()
 
 
+def go_select_registration():
+    d = Drawing('go-select-registration', 732, '两条队列，只对应一份继续资格', 'c / done 均未就绪 · GR 已提交等待 · 教学模型')
+    for x, title, a, b in [
+        (32, 'c 的接收队列', 'Sc：等待结果', '接收目标槽位'),
+        (296, 'done 的接收队列', 'Sd：等待取消', '不接收业务值'),
+    ]:
+        d.rect(x, 116, 232, 166, WHITE)
+        d.text(x+116, 154, title, size=23, weight=600, anchor='middle')
+        d.text(x+116, 205, a, size=22, anchor='middle')
+        d.text(x+116, 251, b, size=21, color=MUTED, anchor='middle')
+    d.arrow([(148, 290), (148, 324), (228, 324), (228, 359)])
+    d.arrow([(412, 290), (412, 324), (332, 324), (332, 359)])
+    d.rect(32, 372, 496, 159, GREEN)
+    d.text(280, 411, '同一个 GR：Waiting', size=25, weight=600, anchor='middle')
+    d.text(280, 465, 'GR.selectDone = 0', size=26, color=TEAL, weight=600, anchor='middle')
+    d.text(280, 506, '本轮尚无人取得交接与唤醒资格', size=22, anchor='middle')
+    d.rule(566)
+    d.text(280, 607, 'Sc、Sd 都引用 GR；不是两个任务', size=23, anchor='middle')
+    d.text(280, 652, '各自持有 channel 锁，还要争同一枚标记', size=22, anchor='middle')
+    d.text(280, 702, '箭头表示引用；图不构成运行证据', size=21, color=MUTED, anchor='middle')
+    d.save()
+
+
+def go_select_winner():
+    d = Drawing('go-select-winner', 1110, '取消后来到达，不能改写已选交接', '选定 GS 先取得资格，GR 最后恢复 · 教学顺序')
+    rows = [
+        (112, '① GS 在 c 上取得资格', '摘下 Sc；原子地将标记 0 → 1', '交付 42 → 解锁 → 让 GR 可运行', GREEN),
+        (348, '② GX 关闭 done，遇到 Sd', '尝试将同一标记 0 → 1：失败', '摘掉过期 Sd；不再唤醒 GR', PEACH),
+        (584, '③ GR 恢复，重新取得相关锁', '确认 Sc 是本轮获胜记录', 'Sd 已离队；两份等待记录都回收', WHITE),
+        (820, '④ 只执行结果分支', 'v = 42；answer = 42 × 2 = 84', '本轮 select 结束；取消不再覆盖它', GREEN),
+    ]
+    for y, title, a, b, fill in rows:
+        d.rect(32, y, 496, 186, fill)
+        d.text(48, y+38, title, size=24, weight=600)
+        d.text(48, y+94, a, size=22)
+        d.text(48, y+149, b, size=22, color=MUTED)
+    for y in [298, 534, 770]:
+        d.arrow([(280, y+12), (280, y+38)], color='teal')
+    d.rule(1034)
+    d.text(280, 1071, '取得资格、完成交付、执行业务是不同阶段', size=22, anchor='middle')
+    d.text(280, 1100, '箭头表示动作先后，不表示实际计时', size=21, color=MUTED, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -1647,7 +1691,8 @@ def main():
                 go_gc_deletion, go_gc_insertion,
                 go_scheduler_steal, go_scheduler_claim,
                 go_preempt_safe_point, go_preempt_resume,
-                go_channel_handoff, go_channel_wait_race]
+                go_channel_handoff, go_channel_wait_race,
+                go_select_registration, go_select_winner]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

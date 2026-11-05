@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="732" viewBox="0 0 560 732" role="img" aria-labelledby="title desc">
+<title id="title">两条队列，只对应一份继续资格</title><desc id="desc">c / done 均未就绪 · GR 已提交等待 · 教学模型</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="732" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">两条队列，只对应一份继续资格</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">c / done 均未就绪 · GR 已提交等待 · 教学模型</text>
+<rect x="32" y="116" width="232" height="166" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="148" y="154" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">c 的接收队列</text>
+<text x="148" y="205" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">Sc：等待结果</text>
+<text x="148" y="251" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">接收目标槽位</text>
+<rect x="296" y="116" width="232" height="166" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="412" y="154" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">done 的接收队列</text>
+<text x="412" y="205" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">Sd：等待取消</text>
+<text x="412" y="251" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">不接收业务值</text>
+<path d="M 148 290 L 148 324 L 228 324 L 228 359" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)"/>
+<path d="M 412 290 L 412 324 L 332 324 L 332 359" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)"/>
+<rect x="32" y="372" width="496" height="159" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280" y="411" fill="#18283b" font-size="25" font-weight="600" text-anchor="middle">同一个 GR：Waiting</text>
+<text x="280" y="465" fill="#287467" font-size="26" font-weight="600" text-anchor="middle">GR.selectDone = 0</text>
+<text x="280" y="506" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">本轮尚无人取得交接与唤醒资格</text>
+<path d="M 32 566 H 528" stroke="#d9dfdc"/>
+<text x="280" y="607" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">Sc、Sd 都引用 GR；不是两个任务</text>
+<text x="280" y="652" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">各自持有 channel 锁，还要争同一枚标记</text>
+<text x="280" y="702" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">箭头表示引用；图不构成运行证据</text>
+</g>
+</svg>
