@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="962" viewBox="0 0 560 962" role="img" aria-labelledby="title desc">
+<title id="title">一次取消沿哪条分支传播</title><desc id="desc">R 商品页请求 · S 推荐 · I 库存 · H 画像</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="962" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">一次取消沿哪条分支传播</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">R 商品页请求 · S 推荐 · I 库存 · H 画像</text>
+<rect x="32" y="110" width="496" height="348" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="147" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">① 请求刚建立</text>
+<rect x="184" y="174" width="192" height="52" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="208.0" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">R 请求</text>
+<path d="M 260 226 L 260 246 L 155 246 L 155 270" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)"/>
+<path d="M 300 226 L 300 246 L 405 246 L 405 270" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)"/>
+<rect x="62" y="274" width="186" height="52" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="155.0" y="308.0" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">S 推荐</text>
+<rect x="312" y="274" width="186" height="52" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="405.0" y="308.0" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">I 库存</text>
+<path d="M 155 326 L 155 363" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)"/>
+<rect x="62" y="368" width="186" height="52" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="155.0" y="402.0" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">H 画像</text>
+<text x="304" y="394" fill="#5b6877" font-size="21" font-weight="400" text-anchor="start">四个节点均未取消</text>
+<path d="M 280 470 L 280 496" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="508" width="496" height="164" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="547" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">② 调用 cancelS()</text>
+<text x="50" y="591" fill="#a54426" font-size="23" font-weight="400" text-anchor="start">S、H 的 Done 已关闭</text>
+<text x="50" y="638" fill="#287467" font-size="23" font-weight="400" text-anchor="start">R 的子集合只留下 I</text>
+<path d="M 280 683 L 280 709" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="721" width="496" height="148" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="761" fill="#18283b" font-size="24" font-weight="600" text-anchor="start">③ 调用 cancelR()</text>
+<text x="50" y="810" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">R、I 的 Done 也关闭</text>
+<text x="50" y="848" fill="#5b6877" font-size="21" font-weight="400" text-anchor="start">四个节点都已收到取消通知</text>
+<path d="M 32 895 H 528" stroke="#d9dfdc"/>
+<text x="280" y="930" fill="#18283b" font-size="21" font-weight="400" text-anchor="middle">深色箭头为派生，绿色箭头为阶段先后</text>
+</g>
+</svg>

@@ -1662,6 +1662,51 @@ def go_select_winner():
     d.save()
 
 
+def go_context_cancel_tree():
+    d = Drawing('go-context-cancel-tree', 962, '一次取消沿哪条分支传播', 'R 商品页请求 · S 推荐 · I 库存 · H 画像')
+    d.rect(32, 110, 496, 348, WHITE)
+    d.text(50, 147, '① 请求刚建立', size=24, weight=600)
+    d.card(184, 174, 192, 52, 'R 请求', fill=GREEN, size=23)
+    d.arrow([(260, 226), (260, 246), (155, 246), (155, 270)])
+    d.arrow([(300, 226), (300, 246), (405, 246), (405, 270)])
+    d.card(62, 274, 186, 52, 'S 推荐', fill=GREEN, size=23)
+    d.card(312, 274, 186, 52, 'I 库存', fill=GREEN, size=23)
+    d.arrow([(155, 326), (155, 363)])
+    d.card(62, 368, 186, 52, 'H 画像', fill=GREEN, size=23)
+    d.text(304, 394, '四个节点均未取消', size=21, color=MUTED)
+    d.arrow([(280, 470), (280, 496)], color='teal')
+    d.rect(32, 508, 496, 164, WHITE)
+    d.text(50, 547, '② 调用 cancelS()', size=24, weight=600)
+    d.text(50, 591, 'S、H 的 Done 已关闭', size=23, color=RUST)
+    d.text(50, 638, 'R 的子集合只留下 I', size=23, color=TEAL)
+    d.arrow([(280, 683), (280, 709)], color='teal')
+    d.rect(32, 721, 496, 148, PEACH)
+    d.text(50, 761, '③ 调用 cancelR()', size=24, weight=600)
+    d.text(50, 810, 'R、I 的 Done 也关闭', size=23)
+    d.text(50, 848, '四个节点都已收到取消通知', size=21, color=MUTED)
+    d.rule(895)
+    d.text(280, 930, '深色箭头为派生，绿色箭头为阶段先后', size=21, anchor='middle')
+    d.save()
+
+
+def go_context_register_race():
+    d = Drawing('go-context-register-race', 756, '新孩子怎样接到取消', 'L 正从 S 派生，首次检查时 S.Done 仍打开')
+    cases = [
+        (114, '顺序一：L 先登记', 'L 持 S 的锁，加入子集合', 'S 随后持锁取消，遍历到 L', GREEN),
+        (406, '顺序二：S 先取消', 'S 持锁写入错误，清空子集合', 'L 随后持锁复查，直接继承取消', PEACH),
+    ]
+    for y, title, first, second, fill in cases:
+        d.rect(32, y, 496, 256, fill)
+        d.text(50, y+42, title, size=24, weight=650)
+        d.text(50, y+97, first, size=23)
+        d.arrow([(280, y+111), (280, y+141)], color='teal')
+        d.text(50, y+180, second, size=23)
+        d.text(50, y+228, '结果　L.Done 已关闭', size=23, weight=600)
+    d.rule(691)
+    d.text(280, 726, '箭头表示先后。两段交错均为教学推演。', size=21, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -1692,7 +1737,8 @@ def main():
                 go_scheduler_steal, go_scheduler_claim,
                 go_preempt_safe_point, go_preempt_resume,
                 go_channel_handoff, go_channel_wait_race,
-                go_select_registration, go_select_winner]
+                go_select_registration, go_select_winner,
+                go_context_cancel_tree, go_context_register_race]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

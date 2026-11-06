@@ -314,6 +314,15 @@
       "source": "2026-11-04-go-select-single-winner.md",
       "id": "2026-11-04-go-select-single-winner",
       "insight": "让多条队列中的候选登记共同争取一份交接资格，再由恢复路径清理落选关系，使多路等待只兑现一次选择。"
+    },
+    {
+      "date": "2026-11-07",
+      "title": "Go 的 context 怎样把取消沿调用树传下去",
+      "subtitle": "取消推荐时怎样通知画像查询，又让库存继续等待",
+      "topic": "语言运行时",
+      "source": "2026-11-07-go-context-cancel-tree.md",
+      "id": "2026-11-07-go-context-cancel-tree",
+      "insight": "用父子登记表达取消范围，再用同一把父锁协调登记和取消，使并发派生的子节点也能收到信号。"
     }
   ]
 }
