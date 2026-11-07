@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="988" viewBox="0 0 560 988" role="img" aria-labelledby="title desc">
+<title id="title">先发取消信号，再等组员返回</title><desc id="desc">C 是派生上下文 · n 是未完成任务数</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="988" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">先发取消信号，再等组员返回</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">C 是派生上下文 · n 是未完成任务数</text>
+<rect x="32" y="112" width="496" height="169" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="150" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">① P 和 I 都已登记</text>
+<text x="50" y="201" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">n = 2，C 尚未取消</text>
+<text x="50" y="249" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">R 进入 Wait，保留 B</text>
+<rect x="32" y="319" width="496" height="169" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="357" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">② I 返回 E</text>
+<text x="50" y="408" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">先记下 E 并取消 C，再把 n 减到 1</text>
+<text x="50" y="456" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">R 继续等，B 仍可能被 P 使用</text>
+<rect x="32" y="526" width="496" height="169" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="564" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">③ P 完成最后一次访问并返回</text>
+<text x="50" y="615" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">包装函数把 n 减到 0</text>
+<text x="50" y="663" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">B 的组内使用结束</text>
+<rect x="32" y="733" width="496" height="169" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="771" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">④ Wait 返回 E</text>
+<text x="50" y="822" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">R 归还 B，再向上层报告失败</text>
+<text x="50" y="870" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">返回的仍是库存错误 E</text>
+<path d="M 280 288 L 280 312" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 495 L 280 519" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 702 L 280 726" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 32 929 H 528" stroke="#d9dfdc"/>
+<text x="280" y="963" fill="#18283b" font-size="21" font-weight="400" text-anchor="middle">箭头表示步骤先后。时序为教学推演。</text>
+</g>
+</svg>

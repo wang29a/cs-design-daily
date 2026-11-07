@@ -1707,6 +1707,44 @@ def go_context_register_race():
     d.save()
 
 
+def go_errgroup_buffer_lifetime():
+    d = Drawing('go-errgroup-buffer-lifetime', 812, '收到错误时，B 还归谁用', 'R 当前请求 · R2 新请求 · P 查价 · I 库存')
+    stages = [
+        (112, '① 库存 I 返回错误 E', 'R 仍持有 B，查价 P 正在使用', WHITE),
+        (332, '② 若 R 立刻归还 B', 'R2 可能借到 B，与 P 重叠访问', PEACH),
+        (552, '安全归还所需的完成条件', 'P 结束对 B 的最后一次访问并返回', GREEN),
+    ]
+    for y, title, detail, fill in stages:
+        d.rect(32, y, 496, 162, fill)
+        d.text(50, y+48, title, size=25, weight=650)
+        d.text(50, y+108, detail, size=23)
+    d.arrow([(280, 285), (280, 320)], color='rust')
+    d.rule(520)
+    d.rule(747)
+    d.text(280, 782, '上方是提前归还的反例，下方给出归还条件。', size=21, anchor='middle')
+    d.save()
+
+
+def go_errgroup_cancel_join():
+    d = Drawing('go-errgroup-cancel-join', 988, '先发取消信号，再等组员返回', 'C 是派生上下文 · n 是未完成任务数')
+    stages = [
+        (112, '① P 和 I 都已登记', 'n = 2，C 尚未取消', 'R 进入 Wait，保留 B', WHITE),
+        (319, '② I 返回 E', '先记下 E 并取消 C，再把 n 减到 1', 'R 继续等，B 仍可能被 P 使用', PEACH),
+        (526, '③ P 完成最后一次访问并返回', '包装函数把 n 减到 0', 'B 的组内使用结束', GREEN),
+        (733, '④ Wait 返回 E', 'R 归还 B，再向上层报告失败', '返回的仍是库存错误 E', GREEN),
+    ]
+    for y, title, status, meaning, fill in stages:
+        d.rect(32, y, 496, 169, fill)
+        d.text(50, y+38, title, size=24, weight=650)
+        d.text(50, y+89, status, size=22)
+        d.text(50, y+137, meaning, size=22, color=MUTED)
+    for y in (281, 488, 695):
+        d.arrow([(280, y+7), (280, y+31)], color='teal')
+    d.rule(929)
+    d.text(280, 963, '箭头表示步骤先后。时序为教学推演。', size=21, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -1738,7 +1776,8 @@ def main():
                 go_preempt_safe_point, go_preempt_resume,
                 go_channel_handoff, go_channel_wait_race,
                 go_select_registration, go_select_winner,
-                go_context_cancel_tree, go_context_register_race]
+                go_context_cancel_tree, go_context_register_race,
+                go_errgroup_buffer_lifetime, go_errgroup_cancel_join]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

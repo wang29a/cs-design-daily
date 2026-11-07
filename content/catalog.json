@@ -323,6 +323,15 @@
       "source": "2026-11-07-go-context-cancel-tree.md",
       "id": "2026-11-07-go-context-cancel-tree",
       "insight": "用父子登记表达取消范围，再用同一把父锁协调登记和取消，使并发派生的子节点也能收到信号。"
+    },
+    {
+      "date": "2026-11-08",
+      "title": "Go 的 errgroup 为什么在报错后还要等任务收尾",
+      "subtitle": "用一块借来的缓冲区分清取消信号与完成确认",
+      "topic": "语言运行时",
+      "source": "2026-11-08-go-errgroup-cancel-and-join.md",
+      "id": "2026-11-08-go-errgroup-cancel-and-join",
+      "insight": "用首个错误启动取消，用所有已登记任务的返回确定资源可以归还，让通知和收尾各有自己的完成条件。"
     }
   ]
 }
