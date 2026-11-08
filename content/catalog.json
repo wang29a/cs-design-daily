@@ -332,6 +332,15 @@
       "source": "2026-11-08-go-errgroup-cancel-and-join.md",
       "id": "2026-11-08-go-errgroup-cancel-and-join",
       "insight": "用首个错误启动取消，用所有已登记任务的返回确定资源可以归还，让通知和收尾各有自己的完成条件。"
+    },
+    {
+      "date": "2026-11-09",
+      "title": "Go 的 singleflight 怎样让三个请求共用一次回源",
+      "subtitle": "从缓存缺口到结果交付，分清共享查询与各自的等待期限",
+      "topic": "语言运行时",
+      "source": "2026-11-09-go-singleflight-shared-fetch.md",
+      "id": "2026-11-09-go-singleflight-shared-fetch",
+      "insight": "给每个键的一次在途查询分配共享身份，让后来者加入结果交付，同时把各自的等待期限与查询的寿命分开。"
     }
   ]
 }

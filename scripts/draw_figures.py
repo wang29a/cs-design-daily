@@ -1745,6 +1745,52 @@ def go_errgroup_cancel_join():
     d.save()
 
 
+def go_singleflight_register():
+    d = Drawing('go-singleflight-register', 598, '三次登记，共用一次回源', '教学模型 · K 代表 SKU42 的公开人民币价格')
+    requests = [(32, 'R1', '创建 C'), (202, 'R2', '加入 C'), (372, 'R3', '加入 C')]
+    for x, request, detail in requests:
+        d.card(x, 112, 156, 86, request, detail)
+    d.rect(32, 248, 496, 177, GREEN)
+    for index, (x, _, _) in enumerate(requests, start=1):
+        d.arrow([(x+78, 205), (x+78, 273)])
+        d.card(x+16, 280, 124, 51, f'ch{index}', size=22)
+    d.text(280, 371, 'K → C · 组表中的当前调用', size=25, weight=650, anchor='middle')
+    d.text(280, 403, 'C 执行 R1 提供的 fn', size=22, anchor='middle')
+    d.arrow([(280, 432), (280, 475)], color='teal')
+    d.text(303, 461, '查询 1 次', size=21, color=TEAL)
+    d.card(131, 483, 298, 55, '价格后端', size=23)
+    d.rule(554)
+    d.text(280, 580, '深色箭头表示登记，绿色箭头表示查询。', size=21, anchor='middle')
+    d.save()
+
+
+def go_singleflight_delivery():
+    d = Drawing('go-singleflight-delivery', 780, 'R2 离开，C 继续到完成', '教学模型 · ch1、ch2、ch3 各有一格缓冲')
+    stages = [
+        (112, '① C 正在回源', 'R1、R2、R3 分别等 ch1、ch2、ch3', WHITE),
+        (244, '② R2 的请求超时', 'R2 结束等待，C 仍保留 ch2', PEACH),
+        (376, '③ fn 回填 69 元并返回', 'C 撤下 K → C，向三个通道各送一份结果', GREEN),
+    ]
+    for y, title, detail, fill in stages:
+        d.rect(32, y, 496, 94, fill)
+        d.text(49, y+36, title, size=24, weight=650)
+        d.text(49, y+71, detail, size=22)
+    for y in (206, 338):
+        d.arrow([(280, y+5), (280, y+30)], color='teal')
+    for x, channel, outcome, fill in [(32, 'ch1', 'R1 取走', WHITE),
+                                        (202, 'ch2', '留在缓冲', PEACH),
+                                        (372, 'ch3', 'R3 取走', WHITE)]:
+        d.arrow([(x+78, 477), (x+78, 520)], color='teal')
+        d.rect(x, 527, 156, 144, fill)
+        d.text(x+78, 561, channel, size=24, weight=650, anchor='middle')
+        d.text(x+78, 608, '69 元', size=23, anchor='middle')
+        d.text(x+78, 645, outcome, size=22, color=MUTED, anchor='middle')
+    d.text(280, 710, 'ch2 无人接收，发送仍然可以完成。', size=22, weight=600, anchor='middle')
+    d.rule(732)
+    d.text(280, 760, '箭头表示步骤先后。', size=21, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -1777,7 +1823,8 @@ def main():
                 go_channel_handoff, go_channel_wait_race,
                 go_select_registration, go_select_winner,
                 go_context_cancel_tree, go_context_register_race,
-                go_errgroup_buffer_lifetime, go_errgroup_cancel_join]
+                go_errgroup_buffer_lifetime, go_errgroup_cancel_join,
+                go_singleflight_register, go_singleflight_delivery]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

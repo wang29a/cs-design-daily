@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="780" viewBox="0 0 560 780" role="img" aria-labelledby="title desc">
+<title id="title">R2 离开，C 继续到完成</title><desc id="desc">教学模型 · ch1、ch2、ch3 各有一格缓冲</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="780" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">R2 离开，C 继续到完成</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型 · ch1、ch2、ch3 各有一格缓冲</text>
+<rect x="32" y="112" width="496" height="94" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="148" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">① C 正在回源</text>
+<text x="49" y="183" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">R1、R2、R3 分别等 ch1、ch2、ch3</text>
+<rect x="32" y="244" width="496" height="94" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="280" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">② R2 的请求超时</text>
+<text x="49" y="315" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">R2 结束等待，C 仍保留 ch2</text>
+<rect x="32" y="376" width="496" height="94" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="412" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">③ fn 回填 69 元并返回</text>
+<text x="49" y="447" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">C 撤下 K → C，向三个通道各送一份结果</text>
+<path d="M 280 211 L 280 236" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 343 L 280 368" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 110 477 L 110 520" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="527" width="156" height="144" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="110" y="561" fill="#18283b" font-size="24" font-weight="650" text-anchor="middle">ch1</text>
+<text x="110" y="608" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">69 元</text>
+<text x="110" y="645" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">R1 取走</text>
+<path d="M 280 477 L 280 520" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="202" y="527" width="156" height="144" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280" y="561" fill="#18283b" font-size="24" font-weight="650" text-anchor="middle">ch2</text>
+<text x="280" y="608" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">69 元</text>
+<text x="280" y="645" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">留在缓冲</text>
+<path d="M 450 477 L 450 520" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="372" y="527" width="156" height="144" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="450" y="561" fill="#18283b" font-size="24" font-weight="650" text-anchor="middle">ch3</text>
+<text x="450" y="608" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">69 元</text>
+<text x="450" y="645" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">R3 取走</text>
+<text x="280" y="710" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">ch2 无人接收，发送仍然可以完成。</text>
+<path d="M 32 732 H 528" stroke="#d9dfdc"/>
+<text x="280" y="760" fill="#18283b" font-size="21" font-weight="400" text-anchor="middle">箭头表示步骤先后。</text>
+</g>
+</svg>
