@@ -1791,6 +1791,46 @@ def go_singleflight_delivery():
     d.save()
 
 
+def go_weighted_admission():
+    d = Drawing('go-weighted-admission', 758, '还有空位，先留给队首', '教学模型 · 总预算 5 个单位 · 队首写在左边')
+    stages = [
+        (112, '① A 和 B 已开始解码', '占用 4 · 空闲 1', '持有 A 3、B 1', WHITE),
+        (251, '② C 和 D 先后入队', '占用 4 · 空闲 1', '队列［C 需 4，D 需 1］', PEACH),
+        (390, '③ B 归还 1，队首仍放不下', '占用 3 · 空闲 2', '队列［C 需 4，D 需 1］', PEACH),
+        (529, '④ A 归还 3，空闲一度达到 5', '先授予 C 4，再授予 D 1', '占用 5 · 空闲 0 · 队列清空', GREEN),
+    ]
+    for y, title, state, detail, fill in stages:
+        d.rect(32, y, 496, 106, fill)
+        d.text(49, y+33, title, size=24, weight=650)
+        d.text(49, y+63, state, size=22)
+        d.text(49, y+91, detail, size=21, color=MUTED)
+    for y in (218, 357, 496):
+        d.arrow([(280, y+5), (280, y+27)], color='teal')
+    d.text(280, 674, 'C、D 完成并归还后，占用回到 0。', size=22, weight=600, anchor='middle')
+    d.rule(706)
+    d.text(280, 739, '箭头表示步骤先后。授予先后独立于运行先后。', size=20, anchor='middle')
+    d.save()
+
+
+def go_weighted_cancel():
+    d = Drawing('go-weighted-cancel', 567, '队首退出，原有空位就能发放', '教学模型 · A 和 B 全程持有 4 个单位')
+    stages = [
+        (112, '① C 等 4，D 等 1', '占用 4 · 空闲 1 · C 在队首', WHITE),
+        (238, '② C 超时，离开队首', '占用仍是 4 · 空闲仍是 1', PEACH),
+        (364, '③ D 成为队首，获准解码', '占用 5 · 空闲 0 · 队列清空', GREEN),
+    ]
+    for y, title, detail, fill in stages:
+        d.rect(32, y, 496, 92, fill)
+        d.text(49, y+36, title, size=24, weight=650)
+        d.text(49, y+71, detail, size=22)
+    for y in (204, 330):
+        d.arrow([(280, y+5), (280, y+28)], color='teal')
+    d.text(280, 496, 'C 返回超时错误，D 拿到原本空着的 1。', size=22, weight=600, anchor='middle')
+    d.rule(519)
+    d.text(280, 550, '箭头表示步骤先后。', size=21, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -1824,7 +1864,8 @@ def main():
                 go_select_registration, go_select_winner,
                 go_context_cancel_tree, go_context_register_race,
                 go_errgroup_buffer_lifetime, go_errgroup_cancel_join,
-                go_singleflight_register, go_singleflight_delivery]
+                go_singleflight_register, go_singleflight_delivery,
+                go_weighted_admission, go_weighted_cancel]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

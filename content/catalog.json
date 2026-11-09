@@ -341,6 +341,15 @@
       "source": "2026-11-09-go-singleflight-shared-fetch.md",
       "id": "2026-11-09-go-singleflight-shared-fetch",
       "insight": "给每个键的一次在途查询分配共享身份，让后来者加入结果交付，同时把各自的等待期限与查询的寿命分开。"
+    },
+    {
+      "date": "2026-11-10",
+      "title": "Go 的加权信号量为什么让小任务等在大任务后面",
+      "subtitle": "从五个额度单位看整份授予、队首等待与取消",
+      "topic": "语言运行时",
+      "source": "2026-11-10-go-weighted-semaphore.md",
+      "id": "2026-11-10-go-weighted-semaphore",
+      "insight": "为队首积攒额度可以防止大任务被连续的小任务插队，先记账再唤醒让准入顺序与预算上限同时成立。"
     }
   ]
 }

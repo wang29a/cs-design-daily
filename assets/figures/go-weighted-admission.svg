@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="758" viewBox="0 0 560 758" role="img" aria-labelledby="title desc">
+<title id="title">还有空位，先留给队首</title><desc id="desc">教学模型 · 总预算 5 个单位 · 队首写在左边</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="758" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">还有空位，先留给队首</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型 · 总预算 5 个单位 · 队首写在左边</text>
+<rect x="32" y="112" width="496" height="106" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="145" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">① A 和 B 已开始解码</text>
+<text x="49" y="175" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">占用 4 · 空闲 1</text>
+<text x="49" y="203" fill="#5b6877" font-size="21" font-weight="400" text-anchor="start">持有 A 3、B 1</text>
+<rect x="32" y="251" width="496" height="106" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="284" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">② C 和 D 先后入队</text>
+<text x="49" y="314" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">占用 4 · 空闲 1</text>
+<text x="49" y="342" fill="#5b6877" font-size="21" font-weight="400" text-anchor="start">队列［C 需 4，D 需 1］</text>
+<rect x="32" y="390" width="496" height="106" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="423" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">③ B 归还 1，队首仍放不下</text>
+<text x="49" y="453" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">占用 3 · 空闲 2</text>
+<text x="49" y="481" fill="#5b6877" font-size="21" font-weight="400" text-anchor="start">队列［C 需 4，D 需 1］</text>
+<rect x="32" y="529" width="496" height="106" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="562" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">④ A 归还 3，空闲一度达到 5</text>
+<text x="49" y="592" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">先授予 C 4，再授予 D 1</text>
+<text x="49" y="620" fill="#5b6877" font-size="21" font-weight="400" text-anchor="start">占用 5 · 空闲 0 · 队列清空</text>
+<path d="M 280 223 L 280 245" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 362 L 280 384" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 501 L 280 523" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="674" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">C、D 完成并归还后，占用回到 0。</text>
+<path d="M 32 706 H 528" stroke="#d9dfdc"/>
+<text x="280" y="739" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">箭头表示步骤先后。授予先后独立于运行先后。</text>
+</g>
+</svg>

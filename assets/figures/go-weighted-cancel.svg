@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="567" viewBox="0 0 560 567" role="img" aria-labelledby="title desc">
+<title id="title">队首退出，原有空位就能发放</title><desc id="desc">教学模型 · A 和 B 全程持有 4 个单位</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="567" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">队首退出，原有空位就能发放</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型 · A 和 B 全程持有 4 个单位</text>
+<rect x="32" y="112" width="496" height="92" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="148" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">① C 等 4，D 等 1</text>
+<text x="49" y="183" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">占用 4 · 空闲 1 · C 在队首</text>
+<rect x="32" y="238" width="496" height="92" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="274" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">② C 超时，离开队首</text>
+<text x="49" y="309" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">占用仍是 4 · 空闲仍是 1</text>
+<rect x="32" y="364" width="496" height="92" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="400" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">③ D 成为队首，获准解码</text>
+<text x="49" y="435" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">占用 5 · 空闲 0 · 队列清空</text>
+<path d="M 280 209 L 280 232" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 335 L 280 358" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="496" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">C 返回超时错误，D 拿到原本空着的 1。</text>
+<path d="M 32 519 H 528" stroke="#d9dfdc"/>
+<text x="280" y="550" fill="#18283b" font-size="21" font-weight="400" text-anchor="middle">箭头表示步骤先后。</text>
+</g>
+</svg>
