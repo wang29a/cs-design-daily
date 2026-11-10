@@ -350,6 +350,15 @@
       "source": "2026-11-10-go-weighted-semaphore.md",
       "id": "2026-11-10-go-weighted-semaphore",
       "insight": "为队首积攒额度可以防止大任务被连续的小任务插队，先记账再唤醒让准入顺序与预算上限同时成立。"
+    },
+    {
+      "date": "2026-11-11",
+      "title": "Go 的限流器怎样为下一次发送预约额度",
+      "subtitle": "用两枚令牌推演等待时间如何记账、预约如何取消",
+      "topic": "语言运行时",
+      "source": "2026-11-11-go-rate-reservation.md",
+      "id": "2026-11-11-go-rate-reservation",
+      "insight": "预约时就从共享余额扣账，把未来额度的缺口换算成最早可执行时刻。"
     }
   ]
 }

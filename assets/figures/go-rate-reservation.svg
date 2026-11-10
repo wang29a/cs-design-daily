@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="610" viewBox="0 0 560 610" role="img" aria-labelledby="title desc">
+<title id="title">余额越低，最早发送时刻越晚</title><desc id="desc">教学模型 · 桶容量 2 · 每秒补 2 枚令牌</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="610" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">余额越低，最早发送时刻越晚</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型 · 桶容量 2 · 每秒补 2 枚令牌</text>
+<rect x="32" y="112" width="496" height="89" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="147" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">A 先取 2 枚</text>
+<text x="50" y="178" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">余额 2 → 0</text>
+<text x="446" y="146" fill="#287467" font-size="25" font-weight="650" text-anchor="middle">0 秒</text>
+<text x="446" y="177" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">最早发送</text>
+<rect x="32" y="234" width="496" height="89" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="269" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">B 再预约 1 枚</text>
+<text x="50" y="300" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">余额 0 → −1</text>
+<text x="446" y="268" fill="#287467" font-size="25" font-weight="650" text-anchor="middle">0.5 秒</text>
+<text x="446" y="299" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">最早发送</text>
+<rect x="32" y="356" width="496" height="89" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="50" y="391" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">C 再预约 1 枚</text>
+<text x="50" y="422" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">余额 −1 → −2</text>
+<text x="446" y="390" fill="#287467" font-size="25" font-weight="650" text-anchor="middle">1 秒</text>
+<text x="446" y="421" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">最早发送</text>
+<path d="M 280 205 L 280 226" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 327 L 280 348" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="474" width="496" height="64" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280" y="514" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">缺口 ÷ 每秒 2 枚 = 还要等待的秒数</text>
+<path d="M 32 553 H 528" stroke="#d9dfdc"/>
+<text x="280" y="587" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">A、B、C 都在 0 秒申请。箭头表示记账先后。</text>
+</g>
+</svg>

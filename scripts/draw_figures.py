@@ -1831,6 +1831,48 @@ def go_weighted_cancel():
     d.save()
 
 
+def go_rate_reservation():
+    d = Drawing('go-rate-reservation', 610, '余额越低，最早发送时刻越晚', '教学模型 · 桶容量 2 · 每秒补 2 枚令牌')
+    stages = [
+        (112, 'A 先取 2 枚', '余额 2 → 0', '0 秒', WHITE),
+        (234, 'B 再预约 1 枚', '余额 0 → −1', '0.5 秒', GREEN),
+        (356, 'C 再预约 1 枚', '余额 −1 → −2', '1 秒', GREEN),
+    ]
+    for y, title, balance, send, fill in stages:
+        d.rect(32, y, 496, 89, fill)
+        d.text(50, y+35, title, size=24, weight=650)
+        d.text(50, y+66, balance, size=22)
+        d.text(446, y+34, send, size=25, color=TEAL, weight=650, anchor='middle')
+        d.text(446, y+65, '最早发送', size=20, color=MUTED, anchor='middle')
+    for y in (201, 323):
+        d.arrow([(280, y+4), (280, y+25)], color='teal')
+    d.rect(32, 474, 496, 64)
+    d.text(280, 514, '缺口 ÷ 每秒 2 枚 = 还要等待的秒数', size=22, weight=600, anchor='middle')
+    d.rule(553)
+    d.text(280, 587, 'A、B、C 都在 0 秒申请。箭头表示记账先后。', size=20, anchor='middle')
+    d.save()
+
+
+def go_rate_cancel():
+    d = Drawing('go-rate-cancel', 674, '取消同样一枚，可退的却不同', '教学模型 · B 预约 0.5 秒 · C 预约 1 秒')
+    branches = [
+        (113, '分支一 · 0.25 秒取消 C', '推进余额 −1.5，退 1 枚，余额 −0.5',
+         '1 秒时有 1 枚，D 可以立即发送', GREEN),
+        (369, '分支二 · 0.25 秒取消 B', 'C 的预约比 B 晚 0.5 秒，只退 0 枚',
+         '1 秒时余额为 0，D 拿不到令牌', PEACH),
+    ]
+    for y, title, cancellation, outcome, fill in branches:
+        d.rect(32, y, 496, 106, fill)
+        d.text(48, y+36, title, size=24, weight=650)
+        d.text(48, y+76, cancellation, size=22)
+        d.arrow([(280, y+112), (280, y+140)], color='teal')
+        d.rect(32, y+147, 496, 67)
+        d.text(280, y+189, outcome, size=22, weight=600, anchor='middle')
+    d.rule(608)
+    d.text(280, 646, '两条分支独立，箭头表示各自的时序。', size=21, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -1865,7 +1907,8 @@ def main():
                 go_context_cancel_tree, go_context_register_race,
                 go_errgroup_buffer_lifetime, go_errgroup_cancel_join,
                 go_singleflight_register, go_singleflight_delivery,
-                go_weighted_admission, go_weighted_cancel]
+                go_weighted_admission, go_weighted_cancel,
+                go_rate_reservation, go_rate_cancel]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')
