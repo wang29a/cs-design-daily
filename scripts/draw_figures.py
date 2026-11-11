@@ -1873,6 +1873,68 @@ def go_rate_cancel():
     d.save()
 
 
+def kafka_log_cursors():
+    d = Drawing('kafka-log-cursors', 550, '共享日志，各记各的恢复点', '教学模型 · 三条记录均已可读 · offset 属于 P0')
+    d.text(32, 126, '分区 P0 · 记录读过以后仍保留', size=23, weight=600)
+    records = [(32, '100', '下单'), (158, '101', '付款'), (284, '102', '发货')]
+    for x, offset, event in records:
+        d.card(x, 151, 118, 86, offset, event, GREEN)
+    d.rect(410, 151, 118, 86, WHITE, dash=True)
+    d.text(469, 185, '103', size=24, weight=600, anchor='middle')
+    d.text(469, 216, '末尾位置', size=20, color=MUTED, anchor='middle')
+    d.arrow([(142, 336), (142, 286), (217, 286), (217, 244)])
+    d.arrow([(418, 336), (418, 286), (469, 286), (469, 244)])
+    for x, group, committed, detail in [
+        (32, '通知组 N', '已提交 101', '已完成下单'),
+        (308, '统计组 S', '已提交 103', '已完成三条'),
+    ]:
+        d.rect(x, 344, 220, 118)
+        d.text(x+110, 377, group, size=24, weight=650, anchor='middle')
+        d.text(x+110, 411, committed, size=23, anchor='middle')
+        d.text(x+110, 442, detail, size=21, color=MUTED, anchor='middle')
+    d.rule(489)
+    d.text(280, 526, '箭头指向恢复后下一次读取的位置。', size=21, anchor='middle')
+    d.save()
+
+
+def kafka_log_replay():
+    d = Drawing('kafka-log-replay', 741, '通知已发出，恢复点还未前进', '教学时序 · N 手动提交 · S 始终已提交 103')
+    stages = [
+        (112, '① N 读取付款事件 101', '原已提交 101', WHITE),
+        (251, '② 付款通知成功发出，随后崩溃', '尚未提交 102 · 已提交仍为 101', PEACH),
+        (390, '③ 新实例从 101 恢复', '再次取得付款事件 · 通知可能重复', PEACH),
+        (529, '④ 再处理成功，并成功提交 102', '接着处理发货 102，完成后提交 103', GREEN),
+    ]
+    for y, title, detail, fill in stages:
+        d.rect(32, y, 496, 105, fill)
+        d.text(49, y+38, title, size=24, weight=650)
+        d.text(49, y+80, detail, size=22)
+    for y in (217, 356, 495):
+        d.arrow([(280, y+5), (280, y+28)], color='teal')
+    d.rule(677)
+    d.text(280, 713, '箭头表示先后。重读不会倒退 S 的恢复点。', size=21, anchor='middle')
+    d.save()
+
+
+def kafka_log_retention():
+    d = Drawing('kafka-log-retention', 620, '恢复地址还在，对应历史已过期', '教学分支 · N 停在 101 · 段界为简化设定')
+    d.rect(32, 113, 496, 139)
+    d.text(49, 146, '① 清理之前，可读起点为 100', size=24, weight=650)
+    d.card(49, 162, 292, 72, '旧段［100，101］', size=23)
+    d.card(359, 162, 152, 72, '后段［102］', size=22)
+    d.arrow([(80, 260), (80, 302)], color='teal')
+    d.text(300, 290, '旧段满足条件，整体清理', size=21, color=TEAL, anchor='middle')
+    d.rect(32, 314, 496, 139, GREEN)
+    d.text(49, 348, '② 清理之后，可读起点为 102', size=24, weight=650)
+    d.card(49, 366, 292, 68, '100、101 已无法读取', size=23, fill=PEACH)
+    d.card(359, 366, 152, 68, '后段［102］', size=22)
+    d.text(280, 497, 'N 的 101 已越界，S 的 103 仍是末尾。', size=22, weight=600, anchor='middle')
+    d.text(280, 535, '从最早位置 102 继续，也补不回付款事件。', size=21, anchor='middle')
+    d.rule(561)
+    d.text(280, 599, '箭头表示清理前后的变化。', size=21, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -1908,7 +1970,8 @@ def main():
                 go_errgroup_buffer_lifetime, go_errgroup_cancel_join,
                 go_singleflight_register, go_singleflight_delivery,
                 go_weighted_admission, go_weighted_cancel,
-                go_rate_reservation, go_rate_cancel]
+                go_rate_reservation, go_rate_cancel,
+                kafka_log_cursors, kafka_log_replay, kafka_log_retention]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

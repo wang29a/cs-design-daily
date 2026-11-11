@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="550" viewBox="0 0 560 550" role="img" aria-labelledby="title desc">
+<title id="title">共享日志，各记各的恢复点</title><desc id="desc">教学模型 · 三条记录均已可读 · offset 属于 P0</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="550" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">共享日志，各记各的恢复点</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型 · 三条记录均已可读 · offset 属于 P0</text>
+<text x="32" y="126" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">分区 P0 · 记录读过以后仍保留</text>
+<rect x="32" y="151" width="118" height="86" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="91.0" y="185" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">100</text>
+<text x="91.0" y="216" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">下单</text>
+<rect x="158" y="151" width="118" height="86" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="217.0" y="185" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">101</text>
+<text x="217.0" y="216" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">付款</text>
+<rect x="284" y="151" width="118" height="86" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="343.0" y="185" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">102</text>
+<text x="343.0" y="216" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">发货</text>
+<rect x="410" y="151" width="118" height="86" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5" stroke-dasharray="7 5"/>
+<text x="469" y="185" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">103</text>
+<text x="469" y="216" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">末尾位置</text>
+<path d="M 142 336 L 142 286 L 217 286 L 217 244" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)"/>
+<path d="M 418 336 L 418 286 L 469 286 L 469 244" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)"/>
+<rect x="32" y="344" width="220" height="118" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="142" y="377" fill="#18283b" font-size="24" font-weight="650" text-anchor="middle">通知组 N</text>
+<text x="142" y="411" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">已提交 101</text>
+<text x="142" y="442" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">已完成下单</text>
+<rect x="308" y="344" width="220" height="118" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="418" y="377" fill="#18283b" font-size="24" font-weight="650" text-anchor="middle">统计组 S</text>
+<text x="418" y="411" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">已提交 103</text>
+<text x="418" y="442" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">已完成三条</text>
+<path d="M 32 489 H 528" stroke="#d9dfdc"/>
+<text x="280" y="526" fill="#18283b" font-size="21" font-weight="400" text-anchor="middle">箭头指向恢复后下一次读取的位置。</text>
+</g>
+</svg>

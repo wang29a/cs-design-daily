@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="620" viewBox="0 0 560 620" role="img" aria-labelledby="title desc">
+<title id="title">恢复地址还在，对应历史已过期</title><desc id="desc">教学分支 · N 停在 101 · 段界为简化设定</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="620" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">恢复地址还在，对应历史已过期</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学分支 · N 停在 101 · 段界为简化设定</text>
+<rect x="32" y="113" width="496" height="139" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="146" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">① 清理之前，可读起点为 100</text>
+<rect x="49" y="162" width="292" height="72" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="195.0" y="206.0" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">旧段［100，101］</text>
+<rect x="359" y="162" width="152" height="72" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="435.0" y="206.0" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">后段［102］</text>
+<path d="M 80 260 L 80 302" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="300" y="290" fill="#287467" font-size="21" font-weight="400" text-anchor="middle">旧段满足条件，整体清理</text>
+<rect x="32" y="314" width="496" height="139" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="348" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">② 清理之后，可读起点为 102</text>
+<rect x="49" y="366" width="292" height="68" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="195.0" y="408.0" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">100、101 已无法读取</text>
+<rect x="359" y="366" width="152" height="68" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="435.0" y="408.0" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">后段［102］</text>
+<text x="280" y="497" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">N 的 101 已越界，S 的 103 仍是末尾。</text>
+<text x="280" y="535" fill="#18283b" font-size="21" font-weight="400" text-anchor="middle">从最早位置 102 继续，也补不回付款事件。</text>
+<path d="M 32 561 H 528" stroke="#d9dfdc"/>
+<text x="280" y="599" fill="#18283b" font-size="21" font-weight="400" text-anchor="middle">箭头表示清理前后的变化。</text>
+</g>
+</svg>

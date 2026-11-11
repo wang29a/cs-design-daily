@@ -359,6 +359,15 @@
       "source": "2026-11-11-go-rate-reservation.md",
       "id": "2026-11-11-go-rate-reservation",
       "insight": "预约时就从共享余额扣账，把未来额度的缺口换算成最早可执行时刻。"
+    },
+    {
+      "date": "2026-11-12",
+      "title": "Kafka 为什么把消息保留和消费进度分开",
+      "subtitle": "沿一条订单日志，推演独立读取、崩溃重读与历史过期",
+      "topic": "消息与流处理",
+      "source": "2026-11-12-kafka-log-consumer-offsets.md",
+      "id": "2026-11-12-kafka-log-consumer-offsets",
+      "insight": "让日志负责保留可重读的历史，让各消费组分别保存恢复位置，读取进度与历史回收便能按各自的条件推进。"
     }
   ]
 }
