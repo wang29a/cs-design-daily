@@ -1935,6 +1935,57 @@ def kafka_log_retention():
     d.save()
 
 
+def kafka_partition_order():
+    d = Drawing('kafka-partition-order', 822, '订单内依次处理，订单间各自推进', '教学模型 · P = 2 · 哈希值与 offset 为设定')
+    orders = [
+        (32, '订单 42', 'h42 = 8', '8 % 2 = 0', 'P0',
+         ['100  下单', '101  付款', '102  发货'], 'N0', '下一位置 103'),
+        (292, '订单 99', 'h99 = 5', '5 % 2 = 1', 'P1',
+         ['7  下单', '8  付款', '9  发货'], 'N1', '下一位置 10'),
+    ]
+    for x, order, key_hash, routing, partition, records, consumer, end in orders:
+        d.card(x, 112, 236, 86, order, key_hash)
+        d.text(x+118, 232, routing, size=25, weight=650, anchor='middle')
+        d.arrow([(x+118, 244), (x+118, 274)], color='teal')
+        d.rect(x, 286, 236, 187, GREEN)
+        d.text(x+118, 321, partition, size=25, weight=650, anchor='middle')
+        for y, record in zip((365, 404, 443), records):
+            d.text(x+118, y, record, size=24, anchor='middle')
+        d.arrow([(x+118, 481), (x+118, 516)], color='teal')
+        d.rect(x, 528, 236, 119)
+        d.text(x+118, 565, consumer + ' 顺序处理', size=23, weight=650, anchor='middle')
+        d.text(x+118, 604, end, size=23, anchor='middle')
+        d.text(x+118, 633, '三条均完成之后', size=21, color=MUTED, anchor='middle')
+    d.text(280, 695, 'N1 可以先完成，N0 仍在处理付款。', size=22, weight=600, anchor='middle')
+    d.text(280, 735, '通知组 N 内，每条分区日志各有负责实例。', size=21, anchor='middle')
+    d.rule(761)
+    d.text(280, 798, '箭头表示各自的事件流。', size=21, anchor='middle')
+    d.save()
+
+
+def kafka_partition_expansion():
+    d = Drawing('kafka-partition-expansion', 707, '分区数变了，同一个键可能换路', '教学分支 · 订单 42 的哈希值始终为 8')
+    stages = [
+        (112, '① 两个分区，先写下单', '8 % 2 = 0 → P0',
+         '下单已写入 P0 的 100', WHITE),
+        (279, '② 扩到三个分区，获知新元数据', '新增 P2，分区数 P = 3',
+         'P0 的下单记录继续留在原处', PEACH),
+        (446, '③ 下一条付款按新规则发送', '8 % 3 = 2 → P2',
+         '付款进入 P2 的 0', GREEN),
+    ]
+    for y, title, route, detail, fill in stages:
+        d.rect(32, y, 496, 125, fill)
+        d.text(49, y+35, title, size=24, weight=650)
+        d.text(49, y+75, route, size=24)
+        d.text(49, y+108, detail, size=22, color=MUTED)
+    for y in (237, 404):
+        d.arrow([(280, y+7), (280, y+34)], color='teal')
+    d.text(280, 613, 'P2 可能先被处理，P0 的下单仍在等待。', size=22, weight=600, anchor='middle')
+    d.rule(649)
+    d.text(280, 683, '箭头表示扩容前后的步骤。offset 属于各自分区。', size=20, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -1971,7 +2022,8 @@ def main():
                 go_singleflight_register, go_singleflight_delivery,
                 go_weighted_admission, go_weighted_cancel,
                 go_rate_reservation, go_rate_cancel,
-                kafka_log_cursors, kafka_log_replay, kafka_log_retention]
+                kafka_log_cursors, kafka_log_replay, kafka_log_retention,
+                kafka_partition_order, kafka_partition_expansion]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

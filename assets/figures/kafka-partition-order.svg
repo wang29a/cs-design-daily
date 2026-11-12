@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="822" viewBox="0 0 560 822" role="img" aria-labelledby="title desc">
+<title id="title">订单内依次处理，订单间各自推进</title><desc id="desc">教学模型 · P = 2 · 哈希值与 offset 为设定</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="822" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">订单内依次处理，订单间各自推进</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型 · P = 2 · 哈希值与 offset 为设定</text>
+<rect x="32" y="112" width="236" height="86" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="150.0" y="146" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">订单 42</text>
+<text x="150.0" y="177" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">h42 = 8</text>
+<text x="150" y="232" fill="#18283b" font-size="25" font-weight="650" text-anchor="middle">8 % 2 = 0</text>
+<path d="M 150 244 L 150 274" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="286" width="236" height="187" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="150" y="321" fill="#18283b" font-size="25" font-weight="650" text-anchor="middle">P0</text>
+<text x="150" y="365" fill="#18283b" font-size="24" font-weight="400" text-anchor="middle">100  下单</text>
+<text x="150" y="404" fill="#18283b" font-size="24" font-weight="400" text-anchor="middle">101  付款</text>
+<text x="150" y="443" fill="#18283b" font-size="24" font-weight="400" text-anchor="middle">102  发货</text>
+<path d="M 150 481 L 150 516" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="528" width="236" height="119" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="150" y="565" fill="#18283b" font-size="23" font-weight="650" text-anchor="middle">N0 顺序处理</text>
+<text x="150" y="604" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">下一位置 103</text>
+<text x="150" y="633" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">三条均完成之后</text>
+<rect x="292" y="112" width="236" height="86" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="410.0" y="146" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">订单 99</text>
+<text x="410.0" y="177" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">h99 = 5</text>
+<text x="410" y="232" fill="#18283b" font-size="25" font-weight="650" text-anchor="middle">5 % 2 = 1</text>
+<path d="M 410 244 L 410 274" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="292" y="286" width="236" height="187" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="410" y="321" fill="#18283b" font-size="25" font-weight="650" text-anchor="middle">P1</text>
+<text x="410" y="365" fill="#18283b" font-size="24" font-weight="400" text-anchor="middle">7  下单</text>
+<text x="410" y="404" fill="#18283b" font-size="24" font-weight="400" text-anchor="middle">8  付款</text>
+<text x="410" y="443" fill="#18283b" font-size="24" font-weight="400" text-anchor="middle">9  发货</text>
+<path d="M 410 481 L 410 516" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="292" y="528" width="236" height="119" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="410" y="565" fill="#18283b" font-size="23" font-weight="650" text-anchor="middle">N1 顺序处理</text>
+<text x="410" y="604" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">下一位置 10</text>
+<text x="410" y="633" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">三条均完成之后</text>
+<text x="280" y="695" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">N1 可以先完成，N0 仍在处理付款。</text>
+<text x="280" y="735" fill="#18283b" font-size="21" font-weight="400" text-anchor="middle">通知组 N 内，每条分区日志各有负责实例。</text>
+<path d="M 32 761 H 528" stroke="#d9dfdc"/>
+<text x="280" y="798" fill="#18283b" font-size="21" font-weight="400" text-anchor="middle">箭头表示各自的事件流。</text>
+</g>
+</svg>

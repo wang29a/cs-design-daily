@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="707" viewBox="0 0 560 707" role="img" aria-labelledby="title desc">
+<title id="title">分区数变了，同一个键可能换路</title><desc id="desc">教学分支 · 订单 42 的哈希值始终为 8</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="707" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">分区数变了，同一个键可能换路</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学分支 · 订单 42 的哈希值始终为 8</text>
+<rect x="32" y="112" width="496" height="125" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="147" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">① 两个分区，先写下单</text>
+<text x="49" y="187" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">8 % 2 = 0 → P0</text>
+<text x="49" y="220" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">下单已写入 P0 的 100</text>
+<rect x="32" y="279" width="496" height="125" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="314" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">② 扩到三个分区，获知新元数据</text>
+<text x="49" y="354" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">新增 P2，分区数 P = 3</text>
+<text x="49" y="387" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">P0 的下单记录继续留在原处</text>
+<rect x="32" y="446" width="496" height="125" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="481" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">③ 下一条付款按新规则发送</text>
+<text x="49" y="521" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">8 % 3 = 2 → P2</text>
+<text x="49" y="554" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">付款进入 P2 的 0</text>
+<path d="M 280 244 L 280 271" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 411 L 280 438" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="613" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">P2 可能先被处理，P0 的下单仍在等待。</text>
+<path d="M 32 649 H 528" stroke="#d9dfdc"/>
+<text x="280" y="683" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">箭头表示扩容前后的步骤。offset 属于各自分区。</text>
+</g>
+</svg>

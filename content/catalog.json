@@ -368,6 +368,15 @@
       "source": "2026-11-12-kafka-log-consumer-offsets.md",
       "id": "2026-11-12-kafka-log-consumer-offsets",
       "insight": "让日志负责保留可重读的历史，让各消费组分别保存恢复位置，读取进度与历史回收便能按各自的条件推进。"
+    },
+    {
+      "date": "2026-11-13",
+      "title": "Kafka 为什么把需要保序的事件放进同一个分区",
+      "subtitle": "从两个订单推演按键路由、并行处理与扩容后的顺序边界",
+      "topic": "消息与流处理",
+      "source": "2026-11-13-kafka-partition-order.md",
+      "id": "2026-11-13-kafka-partition-order",
+      "insight": "用业务键把需要排序的事件放入同一条日志，让独立分区并行推进，同时由应用维护路由和处理顺序的条件。"
     }
   ]
 }
