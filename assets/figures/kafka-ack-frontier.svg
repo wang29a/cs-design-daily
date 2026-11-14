@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="759" viewBox="0 0 560 759" role="img" aria-labelledby="title desc">
+<title id="title">写在 A 上，还要等共同前缀</title><desc id="desc">教学模型 · ISR 始终为 A、B、C · min ISR = 2</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="759" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">写在 A 上，还要等共同前缀</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型 · ISR 始终为 A、B、C · min ISR = 2</text>
+<rect x="32" y="112" width="496" height="151" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="147" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">① A 追加付款事件 100</text>
+<text x="113" y="187" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">A 的 LEO</text>
+<text x="113" y="218" fill="#18283b" font-size="26" font-weight="650" text-anchor="middle">101</text>
+<text x="280" y="187" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">B 的 LEO</text>
+<text x="280" y="218" fill="#18283b" font-size="26" font-weight="650" text-anchor="middle">100</text>
+<text x="447" y="187" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">C 的 LEO</text>
+<text x="447" y="218" fill="#18283b" font-size="26" font-weight="650" text-anchor="middle">100</text>
+<text x="280" y="249" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">HW = 100，目标 101 仍未覆盖</text>
+<rect x="32" y="303" width="496" height="151" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="338" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">② leader 确认 B 已追上</text>
+<text x="113" y="378" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">A 的 LEO</text>
+<text x="113" y="409" fill="#18283b" font-size="26" font-weight="650" text-anchor="middle">101</text>
+<text x="280" y="378" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">B 的 LEO</text>
+<text x="280" y="409" fill="#18283b" font-size="26" font-weight="650" text-anchor="middle">101</text>
+<text x="447" y="378" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">C 的 LEO</text>
+<text x="447" y="409" fill="#18283b" font-size="26" font-weight="650" text-anchor="middle">100</text>
+<text x="280" y="440" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">HW = 100，C 还在 ISR 中</text>
+<rect x="32" y="494" width="496" height="151" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="529" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">③ leader 确认 C 也已追上</text>
+<text x="113" y="569" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">A 的 LEO</text>
+<text x="113" y="600" fill="#18283b" font-size="26" font-weight="650" text-anchor="middle">101</text>
+<text x="280" y="569" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">B 的 LEO</text>
+<text x="280" y="600" fill="#18283b" font-size="26" font-weight="650" text-anchor="middle">101</text>
+<text x="447" y="569" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">C 的 LEO</text>
+<text x="447" y="600" fill="#18283b" font-size="26" font-weight="650" text-anchor="middle">101</text>
+<text x="280" y="631" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">HW = 101，可以成功确认本次写入</text>
+<path d="M 280 269 L 280 296" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 460 L 280 487" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="685" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">LEO 是下一写入位置，100 这条记录的目标为 101。</text>
+<path d="M 32 708 H 528" stroke="#d9dfdc"/>
+<text x="280" y="740" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">箭头表示时序，进度为 leader 已获知的状态。</text>
+</g>
+</svg>

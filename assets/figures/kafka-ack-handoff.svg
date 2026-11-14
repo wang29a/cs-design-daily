@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="729" viewBox="0 0 560 729" role="img" aria-labelledby="title desc">
+<title id="title">确认范围与接任范围一起约束</title><desc id="desc">独立故障分支 · ELR 关闭 · 不干净选主关闭</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="729" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">确认范围与接任范围一起约束</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">独立故障分支 · ELR 关闭 · 不干净选主关闭</text>
+<rect x="32" y="112" width="496" height="125" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="147" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">① C 掉队，ISR 变更已经生效</text>
+<text x="49" y="187" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">ISR = {A, B} · A、B 的 LEO 均为 101</text>
+<text x="49" y="220" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">HW 可到 101，达到 min ISR = 2</text>
+<rect x="32" y="279" width="496" height="125" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="314" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">② 写入成功确认后，A 失联</text>
+<text x="49" y="354" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">B 接任，保有付款事件 100</text>
+<text x="49" y="387" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">C 的 LEO 仍为 100，缺少付款事件</text>
+<rect x="32" y="446" width="496" height="125" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="481" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">③ 只剩 B 同步时</text>
+<text x="49" y="521" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">ISR = {B}，规模 1 小于最小规模 2</text>
+<text x="49" y="554" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">后续新的 acks=all 写入不能成功</text>
+<path d="M 280 244 L 280 271" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 411 L 280 438" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="619" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">成功确认的事件，由合格的接任副本承接。</text>
+<path d="M 32 661 H 528" stroke="#d9dfdc"/>
+<text x="280" y="700" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">箭头表示故障与交接先后，全部为教学推演。</text>
+</g>
+</svg>

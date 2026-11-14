@@ -1986,6 +1986,51 @@ def kafka_partition_expansion():
     d.save()
 
 
+def kafka_ack_frontier():
+    d = Drawing('kafka-ack-frontier', 759, '写在 A 上，还要等共同前缀', '教学模型 · ISR 始终为 A、B、C · min ISR = 2')
+    stages = [
+        (112, '① A 追加付款事件 100', ['101', '100', '100'], 'HW = 100，目标 101 仍未覆盖', PEACH),
+        (303, '② leader 确认 B 已追上', ['101', '101', '100'], 'HW = 100，C 还在 ISR 中', PEACH),
+        (494, '③ leader 确认 C 也已追上', ['101', '101', '101'], 'HW = 101，可以成功确认本次写入', GREEN),
+    ]
+    for y, title, ends, outcome, fill in stages:
+        d.rect(32, y, 496, 151, fill)
+        d.text(49, y+35, title, size=24, weight=650)
+        for x, replica, end in zip((113, 280, 447), ('A', 'B', 'C'), ends):
+            d.text(x, y+75, replica+' 的 LEO', size=21, color=MUTED, anchor='middle')
+            d.text(x, y+106, end, size=26, weight=650, anchor='middle')
+        d.text(280, y+137, outcome, size=22, anchor='middle')
+    for y in (263, 454):
+        d.arrow([(280, y+6), (280, y+33)], color='teal')
+    d.text(280, 685, 'LEO 是下一写入位置，100 这条记录的目标为 101。', size=20, anchor='middle')
+    d.rule(708)
+    d.text(280, 740, '箭头表示时序，进度为 leader 已获知的状态。', size=20, anchor='middle')
+    d.save()
+
+
+def kafka_ack_handoff():
+    d = Drawing('kafka-ack-handoff', 729, '确认范围与接任范围一起约束', '独立故障分支 · ELR 关闭 · 不干净选主关闭')
+    stages = [
+        (112, '① C 掉队，ISR 变更已经生效', 'ISR = {A, B} · A、B 的 LEO 均为 101',
+         'HW 可到 101，达到 min ISR = 2', GREEN),
+        (279, '② 写入成功确认后，A 失联', 'B 接任，保有付款事件 100',
+         'C 的 LEO 仍为 100，缺少付款事件', WHITE),
+        (446, '③ 只剩 B 同步时', 'ISR = {B}，规模 1 小于最小规模 2',
+         '后续新的 acks=all 写入不能成功', PEACH),
+    ]
+    for y, title, detail, outcome, fill in stages:
+        d.rect(32, y, 496, 125, fill)
+        d.text(49, y+35, title, size=24, weight=650)
+        d.text(49, y+75, detail, size=22)
+        d.text(49, y+108, outcome, size=22, color=MUTED)
+    for y in (237, 404):
+        d.arrow([(280, y+7), (280, y+34)], color='teal')
+    d.text(280, 619, '成功确认的事件，由合格的接任副本承接。', size=22, weight=600, anchor='middle')
+    d.rule(661)
+    d.text(280, 700, '箭头表示故障与交接先后，全部为教学推演。', size=20, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -2023,7 +2068,8 @@ def main():
                 go_weighted_admission, go_weighted_cancel,
                 go_rate_reservation, go_rate_cancel,
                 kafka_log_cursors, kafka_log_replay, kafka_log_retention,
-                kafka_partition_order, kafka_partition_expansion]
+                kafka_partition_order, kafka_partition_expansion,
+                kafka_ack_frontier, kafka_ack_handoff]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

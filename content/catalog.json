@@ -377,6 +377,15 @@
       "source": "2026-11-13-kafka-partition-order.md",
       "id": "2026-11-13-kafka-partition-order",
       "insight": "用业务键把需要排序的事件放入同一条日志，让独立分区并行推进，同时由应用维护路由和处理顺序的条件。"
+    },
+    {
+      "date": "2026-11-14",
+      "title": "Kafka 的 leader 已经写下消息，为什么还不能报成功",
+      "subtitle": "用三个副本追踪高水位、同步集合和故障交接的完成条件",
+      "topic": "消息与流处理",
+      "source": "2026-11-14-kafka-replication-acks.md",
+      "id": "2026-11-14-kafka-replication-acks",
+      "insight": "让写入确认等待共享复制前沿覆盖自己的目标，并用同步集合与最小规模约束故障后的历史承接。"
     }
   ]
 }
