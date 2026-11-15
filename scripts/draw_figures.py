@@ -2031,6 +2031,52 @@ def kafka_ack_handoff():
     d.save()
 
 
+def kafka_idempotent_retry():
+    d = Drawing('kafka-idempotent-retry', 840, '重试保留身份，日志只追加一次', '教学模型 · P0 · 生产者 ID 7 · epoch 0')
+    stages = [
+        (112, '① 首次发送：付款，序号 0', '追加到 offset 100，日志末尾 101',
+         '成功回复丢失，客户端仍在等待', PEACH),
+        (310, '② 自动重试：付款，仍是序号 0', '命中旧批次，返回原 offset 100',
+         '不再追加，日志末尾仍为 101', GREEN),
+        (508, '③ 收到回复，这次发送完成', '下一条发货用序号 1 → offset 101',
+         '新记录追加后，日志末尾成为 102', WHITE),
+    ]
+    for y, title, state, outcome, fill in stages:
+        d.rect(32, y, 496, 150, fill)
+        d.text(49, y+36, title, size=24, weight=650)
+        d.text(49, y+81, state, size=23)
+        d.text(49, y+125, outcome, size=23, color=MUTED)
+    for y in (262, 460):
+        d.arrow([(280, y+9), (280, y+39)], color='teal')
+    d.text(280, 709, '序号：生产者在 P0 的发送次序', size=23, anchor='middle')
+    d.text(280, 745, 'offset：记录在整条 P0 日志的位置', size=23, anchor='middle')
+    d.rule(772)
+    d.text(280, 809, '箭头表示时序。无其他写入，每批一条记录。', size=20, anchor='middle')
+    d.save()
+
+
+def kafka_idempotent_scope():
+    d = Drawing('kafka-idempotent-scope', 803, '新调用获得新身份，不按内容去重', '独立分支 · P0 已有付款 offset 100 · 下一位置 101')
+    d.rect(32, 112, 496, 110, GREEN)
+    d.text(280, 151, '已写入：付款，ID 7 / epoch 0 / 序号 0', size=22, weight=600, anchor='middle')
+    d.text(280, 194, '下面两支互斥，各自从这一状态出发', size=22, color=MUTED, anchor='middle')
+    d.arrow([(280, 232), (280, 252), (75, 252), (75, 276)], color='rust')
+    d.arrow([(280, 252), (510, 252), (510, 530), (489, 530)], color='rust')
+    d.rect(32, 286, 456, 146, PEACH)
+    d.text(49, 324, 'A · 同一生产者另调 send', size=24, weight=650)
+    d.text(49, 367, 'ID 7 / epoch 0 / 序号 1', size=24)
+    d.text(49, 409, '付款再次追加 → offset 101', size=24, color=RUST)
+    d.rect(32, 466, 456, 146, PEACH)
+    d.text(49, 504, 'B · 重建生产者，获得新 ID 8', size=24, weight=650)
+    d.text(49, 547, 'ID 8 / epoch 0 / 序号 0', size=24)
+    d.text(49, 589, '付款再次追加 → offset 101', size=24, color=RUST)
+    d.text(280, 664, '两支的 key 与内容都和原付款相同。', size=23, anchor='middle')
+    d.text(280, 703, '追加身份不同，就不是旧批次的重试。', size=23, weight=600, anchor='middle')
+    d.rule(737)
+    d.text(280, 774, '箭头表示可选分支，不表示 A 后再执行 B。', size=20, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -2069,7 +2115,8 @@ def main():
                 go_rate_reservation, go_rate_cancel,
                 kafka_log_cursors, kafka_log_replay, kafka_log_retention,
                 kafka_partition_order, kafka_partition_expansion,
-                kafka_ack_frontier, kafka_ack_handoff]
+                kafka_ack_frontier, kafka_ack_handoff,
+                kafka_idempotent_retry, kafka_idempotent_scope]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

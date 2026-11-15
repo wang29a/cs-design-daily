@@ -386,6 +386,15 @@
       "source": "2026-11-14-kafka-replication-acks.md",
       "id": "2026-11-14-kafka-replication-acks",
       "insight": "让写入确认等待共享复制前沿覆盖自己的目标，并用同步集合与最小规模约束故障后的历史承接。"
+    },
+    {
+      "date": "2026-11-15",
+      "title": "Kafka 的写入确认丢了，重试为什么不会再添一份消息",
+      "subtitle": "沿付款事件追踪批次身份、重复检测与应用重发的边界",
+      "topic": "消息与流处理",
+      "source": "2026-11-15-kafka-idempotent-retries.md",
+      "id": "2026-11-15-kafka-idempotent-retries",
+      "insight": "让同一次发送在重试时保留身份与序号，接收方即可复用原追加结果；新的业务发送仍需承担自己的去重责任。"
     }
   ]
 }
