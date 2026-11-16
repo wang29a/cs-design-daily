@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="844" viewBox="0 0 560 844" role="img" aria-labelledby="title desc">
+<title id="title">复制完成，不等于事务结果已确定</title><desc id="desc">教学模型 · P0 · T 未结束 · 每批一条记录</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="844" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">复制完成，不等于事务结果已确定</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型 · P0 · T 未结束 · 每批一条记录</text>
+<rect x="32" y="108" width="496" height="82" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="142" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">LSO = 100 · 从这里起暂不交付</text>
+<text x="280.0" y="173" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">稳定范围只包含 offset &lt; 100</text>
+<rect x="52" y="225" width="456" height="100" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="259" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">100 · T 的付款流水</text>
+<text x="280.0" y="290" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">已复制，但事务结果未定</text>
+<rect x="52" y="367" width="456" height="100" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="401" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">101 · U 的普通心跳</text>
+<text x="280.0" y="432" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">已复制，不属于事务 T</text>
+<rect x="52" y="509" width="456" height="100" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="543" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">102 · T 的通知任务</text>
+<text x="280.0" y="574" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">已复制，但事务结果未定</text>
+<path d="M 280 332 L 280 357" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)"/>
+<path d="M 280 474 L 280 499" fill="none" stroke="#18283b" stroke-width="2.5" marker-end="url(#ink)"/>
+<rect x="32" y="645" width="496" height="82" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="679" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">HW = 103 · 三条记录均已复制</text>
+<text x="280.0" y="710" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">read_committed 从 100 读取仍需等待</text>
+<path d="M 32 756 H 528" stroke="#d9dfdc"/>
+<text x="280" y="791" fill="#18283b" font-size="21" font-weight="400" text-anchor="middle">向下表示 offset 增大，不是三次读取。</text>
+<text x="280" y="823" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">心跳虽已写好，前面仍有未决事务。</text>
+</g>
+</svg>

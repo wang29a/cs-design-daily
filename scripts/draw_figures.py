@@ -2077,6 +2077,45 @@ def kafka_idempotent_scope():
     d.save()
 
 
+def kafka_lso_frontier():
+    d = Drawing('kafka-lso-frontier', 844, '复制完成，不等于事务结果已确定', '教学模型 · P0 · T 未结束 · 每批一条记录')
+    d.card(32, 108, 496, 82, 'LSO = 100 · 从这里起暂不交付', '稳定范围只包含 offset < 100', PEACH, size=24)
+    stages = [(225, '100 · T 的付款流水', '已复制，但事务结果未定', PEACH),
+              (367, '101 · U 的普通心跳', '已复制，不属于事务 T', GREEN),
+              (509, '102 · T 的通知任务', '已复制，但事务结果未定', PEACH)]
+    for y, title, detail, fill in stages:
+        d.card(52, y, 456, 100, title, detail, fill, size=24)
+    for y in (325, 467):
+        d.arrow([(280, y+7), (280, y+32)], color='ink')
+    d.card(32, 645, 496, 82, 'HW = 103 · 三条记录均已复制', 'read_committed 从 100 读取仍需等待', WHITE, size=24)
+    d.rule(756)
+    d.text(280, 791, '向下表示 offset 增大，不是三次读取。', size=21, anchor='middle')
+    d.text(280, 823, '心跳虽已写好，前面仍有未决事务。', size=21, color=MUTED, anchor='middle')
+    d.save()
+
+
+def kafka_lso_outcome():
+    d = Drawing('kafka-lso-outcome', 855, '边界相同，交付结果由事务身份决定', '两支互斥 · 标记均在 103，且已完成复制')
+    d.card(32, 108, 496, 82, '从图一选择一个结局', '原布局：100 T / 101 U / 102 T', WHITE, size=24)
+    d.arrow([(280, 200), (280, 220), (74, 220), (74, 244)], color='teal')
+    d.arrow([(280, 220), (513, 220), (513, 527), (490, 527)], color='rust')
+    d.rect(32, 254, 456, 196, GREEN)
+    d.text(49, 292, 'A · 103 是 COMMIT 标记', size=24, weight=650)
+    d.text(49, 332, 'HW = LSO = 104', size=25, weight=600)
+    d.text(49, 372, '交付 100 → 101 → 102', size=25, color=TEAL)
+    d.text(49, 414, '标记 103 隐藏，下一位置 104', size=22, color=MUTED)
+    d.rect(32, 490, 456, 196, PEACH)
+    d.text(49, 528, 'B · 103 是 ABORT 标记', size=24, weight=650)
+    d.text(49, 568, 'HW = LSO = 104', size=25, weight=600)
+    d.text(49, 608, '过滤 T 的 100、102，只交付 101', size=22, color=RUST)
+    d.text(49, 650, '标记 103 隐藏，下一位置 104', size=22, color=MUTED)
+    d.text(280, 732, '中止不把整段删掉：U 的心跳仍然有效。', size=23, weight=600, anchor='middle')
+    d.rule(768)
+    d.text(280, 804, '箭头表示分支。下一位置按完整扫描后画出。', size=20, anchor='middle')
+    d.text(280, 836, '不表示单次 poll 必须返回整个事务。', size=20, color=MUTED, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -2116,7 +2155,8 @@ def main():
                 kafka_log_cursors, kafka_log_replay, kafka_log_retention,
                 kafka_partition_order, kafka_partition_expansion,
                 kafka_ack_frontier, kafka_ack_handoff,
-                kafka_idempotent_retry, kafka_idempotent_scope]
+                kafka_idempotent_retry, kafka_idempotent_scope,
+                kafka_lso_frontier, kafka_lso_outcome]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

@@ -395,6 +395,15 @@
       "source": "2026-11-15-kafka-idempotent-retries.md",
       "id": "2026-11-15-kafka-idempotent-retries",
       "insight": "让同一次发送在重试时保留身份与序号，接收方即可复用原追加结果；新的业务发送仍需承担自己的去重责任。"
+    },
+    {
+      "date": "2026-11-16",
+      "title": "Kafka 为什么让一笔未结束的事务挡住后面的消息",
+      "subtitle": "从夹在事务中的普通心跳，推演稳定读取边界与中止过滤",
+      "topic": "消息与流处理",
+      "source": "2026-11-16-kafka-transaction-read-boundary.md",
+      "id": "2026-11-16-kafka-transaction-read-boundary",
+      "insight": "复制前沿内仍可能有未决结果；稳定边界守住可解释的前缀，事务身份再决定其中哪些记录可以交付。"
     }
   ]
 }
