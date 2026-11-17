@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="843" viewBox="0 0 560 843" role="img" aria-labelledby="title desc">
+<title id="title">调整先后，仍有两次提交之间的缺口</title><desc id="desc">教学分支 · 输入 P0 的付款在 100 · G 初始为 100</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="843" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">调整先后，仍有两次提交之间的缺口</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学分支 · 输入 P0 的付款在 100 · G 初始为 100</text>
+<rect x="32" y="115" width="496" height="275" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="152" fill="#18283b" font-size="25" font-weight="650" text-anchor="start">A · 先写任务，再提交进度</text>
+<text x="49" y="198" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">① Q0 的 200 已有有效任务</text>
+<path d="M 73 211 L 73 232" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<text x="49" y="265" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">② 进程退出，G 仍为 100</text>
+<path d="M 73 279 L 73 300" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<text x="49" y="333" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">③ 恢复重读 P0 的 100</text>
+<text x="280" y="370" fill="#a54426" font-size="22" font-weight="400" text-anchor="middle">再次发送可能产生第二份有效任务</text>
+<rect x="32" y="447" width="496" height="275" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="484" fill="#18283b" font-size="25" font-weight="650" text-anchor="start">B · 先提交进度，再写任务</text>
+<text x="49" y="530" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">① G 的下一位置已经是 101</text>
+<path d="M 73 543 L 73 564" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<text x="49" y="597" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">② 进程退出，Q0 还没有任务</text>
+<path d="M 73 611 L 73 632" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<text x="49" y="665" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">③ 恢复从 P0 的 101 继续</text>
+<text x="280" y="702" fill="#a54426" font-size="22" font-weight="400" text-anchor="middle">输入 100 被跳过，任务未产生</text>
+<path d="M 32 759 H 528" stroke="#d9dfdc"/>
+<text x="280" y="796" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">两支互斥；向下箭头表示各自的时间顺序。</text>
+<text x="280" y="828" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">G 保存输入位置，不是输出 Q0 的 offset。</text>
+</g>
+</svg>

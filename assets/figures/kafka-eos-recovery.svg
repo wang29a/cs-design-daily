@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="963" viewBox="0 0 560 963" role="img" aria-labelledby="title desc">
+<title id="title">允许重做，把有效结果与进度一起决定</title><desc id="desc">教学时序 · Q0 无其他写入 · 下游 read_committed</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="963" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">允许重做，把有效结果与进度一起决定</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学时序 · Q0 无其他写入 · 下游 read_committed</text>
+<rect x="32" y="112" width="496" height="148" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="149" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">① T1 写入两项待定数据</text>
+<text x="49" y="192" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">Q0@200：任务；暂存 G[P0] = 101</text>
+<text x="49" y="235" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">G 正式位置仍为 100，尚未请求提交</text>
+<rect x="32" y="310" width="496" height="148" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="347" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">② 崩溃后，同一事务标识初始化</text>
+<text x="49" y="390" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">T1 中止：Q0@201 是 ABORT 标记</text>
+<text x="49" y="433" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">过滤任务 200；G 仍为 100</text>
+<rect x="32" y="508" width="496" height="148" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="545" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">③ 恢复重读 P0@100，开始 T2</text>
+<text x="49" y="588" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">Q0@202：新任务；加入 G[P0] = 101</text>
+<text x="49" y="631" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">计算再次执行，输出仍等待事务决定</text>
+<rect x="32" y="706" width="496" height="148" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="743" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">④ T2 提交，相关处理完成</text>
+<text x="49" y="786" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">Q0@203 是 COMMIT；G[P0] = 101</text>
+<text x="49" y="829" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">下游仅交付有效任务 202</text>
+<path d="M 280 268 L 280 300" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 466 L 280 498" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 664 L 280 696" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 32 890 H 528" stroke="#d9dfdc"/>
+<text x="280" y="925" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">箭头表示时间，结束状态按标记处理完成画出。</text>
+<text x="280" y="952" fill="#5b6877" font-size="19" font-weight="400" text-anchor="middle">G[P0] 是输入恢复位置值；Q0@ 是输出日志位置。</text>
+</g>
+</svg>

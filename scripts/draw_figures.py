@@ -2116,6 +2116,47 @@ def kafka_lso_outcome():
     d.save()
 
 
+def kafka_eos_split_commit():
+    d = Drawing('kafka-eos-split-commit', 843, '调整先后，仍有两次提交之间的缺口', '教学分支 · 输入 P0 的付款在 100 · G 初始为 100')
+    for y, title, first, second, third, fourth in [
+        (115, 'A · 先写任务，再提交进度', '① Q0 的 200 已有有效任务', '② 进程退出，G 仍为 100', '③ 恢复重读 P0 的 100', '再次发送可能产生第二份有效任务'),
+        (447, 'B · 先提交进度，再写任务', '① G 的下一位置已经是 101', '② 进程退出，Q0 还没有任务', '③ 恢复从 P0 的 101 继续', '输入 100 被跳过，任务未产生'),
+    ]:
+        d.rect(32, y, 496, 275, PEACH)
+        d.text(49, y+37, title, size=25, weight=650)
+        d.text(49, y+83, first, size=24)
+        d.arrow([(73, y+96), (73, y+117)], color='rust')
+        d.text(49, y+150, second, size=24)
+        d.arrow([(73, y+164), (73, y+185)], color='rust')
+        d.text(49, y+218, third, size=24)
+        d.text(280, y+255, fourth, size=22, color=RUST, anchor='middle')
+    d.rule(759)
+    d.text(280, 796, '两支互斥；向下箭头表示各自的时间顺序。', size=20, anchor='middle')
+    d.text(280, 828, 'G 保存输入位置，不是输出 Q0 的 offset。', size=20, color=MUTED, anchor='middle')
+    d.save()
+
+
+def kafka_eos_recovery():
+    d = Drawing('kafka-eos-recovery', 963, '允许重做，把有效结果与进度一起决定', '教学时序 · Q0 无其他写入 · 下游 read_committed')
+    stages = [
+        (112, '① T1 写入两项待定数据', 'Q0@200：任务；暂存 G[P0] = 101', 'G 正式位置仍为 100，尚未请求提交', PEACH),
+        (310, '② 崩溃后，同一事务标识初始化', 'T1 中止：Q0@201 是 ABORT 标记', '过滤任务 200；G 仍为 100', WHITE),
+        (508, '③ 恢复重读 P0@100，开始 T2', 'Q0@202：新任务；加入 G[P0] = 101', '计算再次执行，输出仍等待事务决定', PEACH),
+        (706, '④ T2 提交，相关处理完成', 'Q0@203 是 COMMIT；G[P0] = 101', '下游仅交付有效任务 202', GREEN),
+    ]
+    for y, title, state, outcome, fill in stages:
+        d.rect(32, y, 496, 148, fill)
+        d.text(49, y+37, title, size=24, weight=650)
+        d.text(49, y+80, state, size=22)
+        d.text(49, y+123, outcome, size=22, color=MUTED)
+    for y in (260, 458, 656):
+        d.arrow([(280, y+8), (280, y+40)], color='teal')
+    d.rule(890)
+    d.text(280, 925, '箭头表示时间，结束状态按标记处理完成画出。', size=20, anchor='middle')
+    d.text(280, 952, 'G[P0] 是输入恢复位置值；Q0@ 是输出日志位置。', size=19, color=MUTED, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -2156,7 +2197,8 @@ def main():
                 kafka_partition_order, kafka_partition_expansion,
                 kafka_ack_frontier, kafka_ack_handoff,
                 kafka_idempotent_retry, kafka_idempotent_scope,
-                kafka_lso_frontier, kafka_lso_outcome]
+                kafka_lso_frontier, kafka_lso_outcome,
+                kafka_eos_split_commit, kafka_eos_recovery]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')
