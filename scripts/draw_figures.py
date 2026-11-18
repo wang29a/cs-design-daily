@@ -2157,6 +2157,43 @@ def kafka_eos_recovery():
     d.save()
 
 
+def kafka_group_handoff():
+    d = Drawing('kafka-group-handoff', 954, '旧进程仍可恢复，旧资格不能继续生效', '教学时序 · G 的普通提交 · 第 7 代 → 第 8 代')
+    stages = [
+        (112, '① 第 7 代：P0 由 A 处理', 'A 处理完 100，提交下一位置 101', '请求已发出但延迟，G 仍保存 100', PEACH),
+        (308, '② A 心跳中断，会话超时', '移除 A，完成第 8 代分工', 'P0 交给 B；B 从保存位置 100 恢复', WHITE),
+        (504, '③ B 处理 100、101 后提交', '成员 B / 第 8 代 / 下一位置 102', '协调器接受，G[P0] = 102', GREEN),
+        (700, '④ A 的旧请求终于到达', '成员 A / 第 7 代 / 下一位置 101', 'UNKNOWN_MEMBER_ID，保留 102', PEACH),
+    ]
+    for y, title, state, outcome, fill in stages:
+        d.rect(32, y, 496, 146, fill)
+        d.text(49, y+36, title, size=24, weight=650)
+        d.text(49, y+79, state, size=23)
+        d.text(49, y+122, outcome, size=22, color=MUTED)
+    for y in (258, 454, 650):
+        d.arrow([(280, y+8), (280, y+40)], color='teal')
+    d.rule(884)
+    d.text(280, 921, '箭头表示时间。A 的旧请求没有取得新资格。', size=20, anchor='middle')
+    d.text(280, 946, 'G[P0] 表示组保存的下一输入位置。', size=20, color=MUTED, anchor='middle')
+    d.save()
+
+
+def kafka_group_generation_check():
+    d = Drawing('kafka-group-generation-check', 840, '认识这个成员，仍要检查请求的代次', '独立分支 · 当前第 8 代 · A 管 P1，B 管 P0')
+    d.card(32, 112, 496, 90, '到达的是旧请求', '成员 A / 第 7 代 / P0 下一位置 101', PEACH, size=24)
+    d.arrow([(280, 214), (280, 244)], color='teal')
+    d.card(32, 256, 496, 100, '① 成员检查：A 仍在名单中', '当前成员为 A、B → 通过', GREEN, size=24)
+    d.arrow([(280, 368), (280, 399)], color='rust')
+    d.card(32, 411, 496, 106, '② 代次检查：7 不等于 8', '请求的分工依据已经过期', PEACH, size=24)
+    d.arrow([(280, 529), (280, 560)], color='rust')
+    d.card(32, 572, 496, 106, 'ILLEGAL_GENERATION', '拒绝这次提交，不更新保存位置', PEACH, color=RUST, size=25)
+    d.text(280, 726, '成员身份可延续，旧请求不能自动换代。', size=23, weight=600, anchor='middle')
+    d.rule(763)
+    d.text(280, 800, '箭头表示校验步骤。A、B 是 member ID 简称。', size=20, anchor='middle')
+    d.text(280, 828, '不是用新代次重新包装已经过期的工作。', size=20, color=MUTED, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -2198,7 +2235,8 @@ def main():
                 kafka_ack_frontier, kafka_ack_handoff,
                 kafka_idempotent_retry, kafka_idempotent_scope,
                 kafka_lso_frontier, kafka_lso_outcome,
-                kafka_eos_split_commit, kafka_eos_recovery]
+                kafka_eos_split_commit, kafka_eos_recovery,
+                kafka_group_handoff, kafka_group_generation_check]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

@@ -413,6 +413,15 @@
       "source": "2026-11-17-kafka-output-offset-transaction.md",
       "id": "2026-11-17-kafka-output-offset-transaction",
       "insight": "把恢复位置也当作事务数据，与处理结果共享提交决定，允许计算重做而不把未提交尝试当成有效输出。"
+    },
+    {
+      "date": "2026-11-18",
+      "title": "Kafka 换了消费者，旧进程为什么不能再提交进度",
+      "subtitle": "从迟到的提交请求，理解超时换人与服务端资格校验的配合",
+      "topic": "消息与流处理",
+      "source": "2026-11-18-kafka-consumer-generation.md",
+      "id": "2026-11-18-kafka-consumer-generation",
+      "insight": "允许超时后重新分工，再在接受提交的入口核对当前成员与组代次，使服务恢复不必依赖旧进程已经死亡。"
     }
   ]
 }

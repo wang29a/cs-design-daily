@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="954" viewBox="0 0 560 954" role="img" aria-labelledby="title desc">
+<title id="title">旧进程仍可恢复，旧资格不能继续生效</title><desc id="desc">教学时序 · G 的普通提交 · 第 7 代 → 第 8 代</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="954" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">旧进程仍可恢复，旧资格不能继续生效</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学时序 · G 的普通提交 · 第 7 代 → 第 8 代</text>
+<rect x="32" y="112" width="496" height="146" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="148" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">① 第 7 代：P0 由 A 处理</text>
+<text x="49" y="191" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">A 处理完 100，提交下一位置 101</text>
+<text x="49" y="234" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">请求已发出但延迟，G 仍保存 100</text>
+<rect x="32" y="308" width="496" height="146" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="344" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">② A 心跳中断，会话超时</text>
+<text x="49" y="387" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">移除 A，完成第 8 代分工</text>
+<text x="49" y="430" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">P0 交给 B；B 从保存位置 100 恢复</text>
+<rect x="32" y="504" width="496" height="146" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="540" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">③ B 处理 100、101 后提交</text>
+<text x="49" y="583" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">成员 B / 第 8 代 / 下一位置 102</text>
+<text x="49" y="626" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">协调器接受，G[P0] = 102</text>
+<rect x="32" y="700" width="496" height="146" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="736" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">④ A 的旧请求终于到达</text>
+<text x="49" y="779" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">成员 A / 第 7 代 / 下一位置 101</text>
+<text x="49" y="822" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">UNKNOWN_MEMBER_ID，保留 102</text>
+<path d="M 280 266 L 280 298" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 462 L 280 494" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 658 L 280 690" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 32 884 H 528" stroke="#d9dfdc"/>
+<text x="280" y="921" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">箭头表示时间。A 的旧请求没有取得新资格。</text>
+<text x="280" y="946" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">G[P0] 表示组保存的下一输入位置。</text>
+</g>
+</svg>

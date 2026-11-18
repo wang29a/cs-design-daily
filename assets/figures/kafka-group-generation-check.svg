@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="840" viewBox="0 0 560 840" role="img" aria-labelledby="title desc">
+<title id="title">认识这个成员，仍要检查请求的代次</title><desc id="desc">独立分支 · 当前第 8 代 · A 管 P1，B 管 P0</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="840" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">认识这个成员，仍要检查请求的代次</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">独立分支 · 当前第 8 代 · A 管 P1，B 管 P0</text>
+<rect x="32" y="112" width="496" height="90" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="146" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">到达的是旧请求</text>
+<text x="280.0" y="177" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">成员 A / 第 7 代 / P0 下一位置 101</text>
+<path d="M 280 214 L 280 244" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="256" width="496" height="100" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="290" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">① 成员检查：A 仍在名单中</text>
+<text x="280.0" y="321" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">当前成员为 A、B → 通过</text>
+<path d="M 280 368 L 280 399" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<rect x="32" y="411" width="496" height="106" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="445" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">② 代次检查：7 不等于 8</text>
+<text x="280.0" y="476" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">请求的分工依据已经过期</text>
+<path d="M 280 529 L 280 560" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<rect x="32" y="572" width="496" height="106" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="606" fill="#a54426" font-size="25" font-weight="600" text-anchor="middle">ILLEGAL_GENERATION</text>
+<text x="280.0" y="637" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">拒绝这次提交，不更新保存位置</text>
+<text x="280" y="726" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">成员身份可延续，旧请求不能自动换代。</text>
+<path d="M 32 763 H 528" stroke="#d9dfdc"/>
+<text x="280" y="800" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">箭头表示校验步骤。A、B 是 member ID 简称。</text>
+<text x="280" y="828" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">不是用新代次重新包装已经过期的工作。</text>
+</g>
+</svg>
