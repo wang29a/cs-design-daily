@@ -422,6 +422,15 @@
       "source": "2026-11-18-kafka-consumer-generation.md",
       "id": "2026-11-18-kafka-consumer-generation",
       "insight": "允许超时后重新分工，再在接受提交的入口核对当前成员与组代次，使服务恢复不必依赖旧进程已经死亡。"
+    },
+    {
+      "date": "2026-11-19",
+      "title": "Kafka 为什么先收回分区，再把它交给新消费者",
+      "subtitle": "从三个消费者的两轮分配，理解保留关系与安全交接的配合",
+      "topic": "消息与流处理",
+      "source": "2026-11-19-kafka-cooperative-rebalance.md",
+      "id": "2026-11-19-kafka-cooperative-rebalance",
+      "insight": "把期望分工与本轮可发布分工分开，先撤回需要迁移的分区，再根据更新后的持有关系授予新人。"
     }
   ]
 }

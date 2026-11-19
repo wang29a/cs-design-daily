@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="874" viewBox="0 0 560 874" role="img" aria-labelledby="title desc">
+<title id="title">本轮先撤回，下一轮再授予</title><desc id="desc">教学时序 · 所有成员健康 · 第二轮目标不变</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="874" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">本轮先撤回，下一轮再授予</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学时序 · 所有成员健康 · 第二轮目标不变</text>
+<rect x="32" y="112" width="496" height="155" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="148" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">① 第一轮发布安全的中间分工</text>
+<text x="49" y="195" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">A: {P0}   B: {P2}   C: {}</text>
+<text x="49" y="243" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">P1 暂不授予 C，等待 A 撤回</text>
+<rect x="32" y="319" width="496" height="155" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="355" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">② A 撤回 P1，并请求重新入组</text>
+<text x="49" y="402" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">完成事件 100，成功保存下一位置 101</text>
+<text x="49" y="450" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">下一轮上报：A 只持有 P0，B 持有 P2</text>
+<rect x="32" y="526" width="496" height="155" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="562" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">③ 第二轮授予已无旧持有者的 P1</text>
+<text x="49" y="609" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">A: {P0}   B: {P2}   C: {P1}</text>
+<text x="49" y="657" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">C 取得 P1，从保存位置 101 恢复</text>
+<path d="M 280 276 L 280 307" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 483 L 280 514" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="731" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">P0、P2 保留关系，无需撤回再初始化。</text>
+<path d="M 32 775 H 528" stroke="#d9dfdc"/>
+<text x="280" y="815" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">箭头表示时间。迁移 P1 会经历交接空档。</text>
+<text x="280" y="850" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">保留关系不等于整个组协议没有等待。</text>
+</g>
+</svg>

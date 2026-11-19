@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="788" viewBox="0 0 560 788" role="img" aria-labelledby="title desc">
+<title id="title">目标分工没有重复，交接仍可能重叠</title><desc id="desc">教学反事实 · C 新加入 · 只准备移动 P1</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="788" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">目标分工没有重复，交接仍可能重叠</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学反事实 · C 新加入 · 只准备移动 P1</text>
+<rect x="32" y="112" width="496" height="136" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="148" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">① 当前仍持有的分区</text>
+<text x="49" y="189" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">A: {P0, P1}   B: {P2}   C: {}</text>
+<text x="49" y="228" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">P1 目前属于 A</text>
+<rect x="32" y="292" width="496" height="136" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="328" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">② 期望的最终分工</text>
+<text x="49" y="369" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">A: {P0}   B: {P2}   C: {P1}</text>
+<text x="49" y="408" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">这只是目标，还没有证明 A 已撤回</text>
+<rect x="32" y="472" width="496" height="136" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="508" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">③ 反事实：立刻让 C 执行目标</text>
+<text x="49" y="549" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">C 已开始 P1，A 尚未收到撤回</text>
+<text x="49" y="588" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">A 和 C 重叠使用 P1</text>
+<path d="M 280 256 L 280 283" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<path d="M 280 436 L 280 463" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<text x="280" y="660" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">本轮可发布的分工，需要考虑旧持有关系。</text>
+<path d="M 32 704 H 528" stroke="#d9dfdc"/>
+<text x="280" y="744" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">箭头表示计划与送达顺序。③ 是错误方案。</text>
+<text x="280" y="775" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">不是 Kafka 协作式协议实际采用的步骤。</text>
+</g>
+</svg>

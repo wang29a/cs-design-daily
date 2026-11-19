@@ -2194,6 +2194,48 @@ def kafka_group_generation_check():
     d.save()
 
 
+def kafka_cooperative_target():
+    d = Drawing('kafka-cooperative-target', 788, '目标分工没有重复，交接仍可能重叠', '教学反事实 · C 新加入 · 只准备移动 P1')
+    stages = [
+        (112, '① 当前仍持有的分区', 'A: {P0, P1}   B: {P2}   C: {}', 'P1 目前属于 A', WHITE),
+        (292, '② 期望的最终分工', 'A: {P0}   B: {P2}   C: {P1}', '这只是目标，还没有证明 A 已撤回', GREEN),
+        (472, '③ 反事实：立刻让 C 执行目标', 'C 已开始 P1，A 尚未收到撤回', 'A 和 C 重叠使用 P1', PEACH),
+    ]
+    for y, title, state, outcome, fill in stages:
+        d.rect(32, y, 496, 136, fill)
+        d.text(49, y+36, title, size=24, weight=650)
+        d.text(49, y+77, state, size=23)
+        d.text(49, y+116, outcome, size=22, color=MUTED)
+    for y in (248, 428):
+        d.arrow([(280, y+8), (280, y+35)], color='rust')
+    d.text(280, 660, '本轮可发布的分工，需要考虑旧持有关系。', size=23, weight=600, anchor='middle')
+    d.rule(704)
+    d.text(280, 744, '箭头表示计划与送达顺序。③ 是错误方案。', size=20, anchor='middle')
+    d.text(280, 775, '不是 Kafka 协作式协议实际采用的步骤。', size=20, color=MUTED, anchor='middle')
+    d.save()
+
+
+def kafka_cooperative_rounds():
+    d = Drawing('kafka-cooperative-rounds', 874, '本轮先撤回，下一轮再授予', '教学时序 · 所有成员健康 · 第二轮目标不变')
+    stages = [
+        (112, '① 第一轮发布安全的中间分工', 'A: {P0}   B: {P2}   C: {}', 'P1 暂不授予 C，等待 A 撤回', PEACH),
+        (319, '② A 撤回 P1，并请求重新入组', '完成事件 100，成功保存下一位置 101', '下一轮上报：A 只持有 P0，B 持有 P2', WHITE),
+        (526, '③ 第二轮授予已无旧持有者的 P1', 'A: {P0}   B: {P2}   C: {P1}', 'C 取得 P1，从保存位置 101 恢复', GREEN),
+    ]
+    for y, title, state, outcome, fill in stages:
+        d.rect(32, y, 496, 155, fill)
+        d.text(49, y+36, title, size=24, weight=650)
+        d.text(49, y+83, state, size=22)
+        d.text(49, y+131, outcome, size=22, color=MUTED)
+    for y in (267, 474):
+        d.arrow([(280, y+9), (280, y+40)], color='teal')
+    d.text(280, 731, 'P0、P2 保留关系，无需撤回再初始化。', size=23, weight=600, anchor='middle')
+    d.rule(775)
+    d.text(280, 815, '箭头表示时间。迁移 P1 会经历交接空档。', size=20, anchor='middle')
+    d.text(280, 850, '保留关系不等于整个组协议没有等待。', size=20, color=MUTED, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -2236,7 +2278,8 @@ def main():
                 kafka_idempotent_retry, kafka_idempotent_scope,
                 kafka_lso_frontier, kafka_lso_outcome,
                 kafka_eos_split_commit, kafka_eos_recovery,
-                kafka_group_handoff, kafka_group_generation_check]
+                kafka_group_handoff, kafka_group_generation_check,
+                kafka_cooperative_target, kafka_cooperative_rounds]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')
