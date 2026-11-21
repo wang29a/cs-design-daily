@@ -431,6 +431,15 @@
       "source": "2026-11-19-kafka-cooperative-rebalance.md",
       "id": "2026-11-19-kafka-cooperative-rebalance",
       "insight": "把期望分工与本轮可发布分工分开，先撤回需要迁移的分区，再根据更新后的持有关系授予新人。"
+    },
+    {
+      "date": "2026-11-21",
+      "title": "Kafka 删掉旧消息后，为什么仍能重建最新状态",
+      "subtitle": "沿订单状态重放，理解按键清理、地址空洞与删除保留的边界",
+      "topic": "消息与流处理",
+      "source": "2026-11-21-kafka-log-compaction.md",
+      "id": "2026-11-21-kafka-log-compaction",
+      "insight": "用同键后继承接最终答案，后台清除被覆盖的历史；保留原地址和可观察的删除，才能让恢复仍有依据。"
     }
   ]
 }

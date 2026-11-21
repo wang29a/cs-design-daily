@@ -2236,6 +2236,66 @@ def kafka_cooperative_rounds():
     d.save()
 
 
+def kafka_compaction_rewrite():
+    d = Drawing('kafka-compaction-rewrite', 1000, '删去被覆盖的值，留下原来的地址', '教学模型 · P0 · 活动段已滚动到 106')
+    d.text(40, 122, '① 清理前：六条记录均可读', size=24, weight=650)
+    d.rect(32, 144, 496, 254, WHITE)
+    d.text(54, 176, 'offset', size=22, weight=600)
+    d.text(181, 176, '订单键', size=22, weight=600)
+    d.text(323, 176, '完整新状态', size=22, weight=600)
+    for i, (offset, key, state, keep) in enumerate([
+        ('100', '42', '已下单', False), ('101', '77', '已付款', True),
+        ('102', '99', '待付款', False), ('103', '42', '已付款', False),
+        ('104', '99', 'null / 删除', True), ('105', '42', '已发货', True),
+    ]):
+        y = 211 + 33 * i
+        color = TEAL if keep else MUTED
+        d.text(58, y, offset, size=23, color=color, weight=600 if keep else 400)
+        d.text(200, y, key, size=23, color=color)
+        d.text(323, y, state, size=23, color=color)
+    d.arrow([(280, 407), (280, 440)], color='teal')
+    d.card(32, 452, 496, 100, '② 摘要：键 → 较后的位置', '42→105  ·  77→101  ·  99→104', GREEN, size=24)
+    d.arrow([(280, 563), (280, 597)], color='teal')
+    d.text(40, 633, '③ 重写后：仍保留删除标记', size=24, weight=650)
+    for i, (offset, key, state) in enumerate([
+        ('101', '77', '已付款'), ('104', '99', 'null / 删除'), ('105', '42', '已发货')
+    ]):
+        y = 655 + i * 54
+        d.rect(32, y, 496, 46, GREEN)
+        d.text(58, y+31, offset, size=23, weight=600)
+        d.text(200, y+31, key, size=23)
+        d.text(323, y+31, state, size=23)
+    d.text(280, 857, '从空表重放：77 已付款，42 已发货', size=23, weight=600, anchor='middle')
+    d.text(280, 893, '99 不存在；读取位置最后推进到 106', size=22, anchor='middle')
+    d.rule(924)
+    d.text(280, 959, '箭头表示清理步骤。原 offset 不重新编号。', size=20, anchor='middle')
+    d.text(280, 986, '段界、摘要覆盖范围与结果均为教学设定。', size=20, color=MUTED, anchor='middle')
+    d.save()
+
+
+def kafka_compaction_tombstone():
+    d = Drawing('kafka-compaction-tombstone', 1028, '追到了末尾，旧缓存仍可能出错', '教学故障时序 · C 暂停跨过删除保留窗口')
+    stages = [
+        (112, '① C 在清理前读完 102', '本地：99 = 待付款', '保存的下一读取位置：103', WHITE),
+        (302, '② C 暂停，后台先清理旧值', '102 被去掉，104 删除仍保留', '这是 C 清除本地 99 的观察机会', GREEN),
+        (492, '③ 保留条件满足，再次清理', '104 也消失；剩余记录：101、105', 'C 仍未恢复，并没有见过删除', PEACH),
+        (682, '④ C 从 103 继续，取得 105', '进度追到 106；只更新订单 42', '本地 99 仍是待付款 → 状态错误', PEACH),
+    ]
+    for y, title, state, outcome, fill in stages:
+        d.rect(32, y, 496, 142, fill)
+        d.text(49, y+36, title, size=24, weight=650)
+        d.text(49, y+79, state, size=22)
+        d.text(49, y+121, outcome, size=22, color=MUTED)
+    for y in (254, 444, 634):
+        d.arrow([(280, y+8), (280, y+36)], color='rust')
+    d.text(280, 872, '若丢弃旧表，从空表完整重建：', size=23, weight=600, anchor='middle')
+    d.text(280, 909, '101 建立 77，105 建立 42；99 不出现', size=22, anchor='middle')
+    d.rule(942)
+    d.text(280, 979, '箭头表示时间。到期不等于立刻发生清理。', size=20, anchor='middle')
+    d.text(280, 1011, '从空表重建与沿用旧缓存，前提不同。', size=20, color=MUTED, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -2279,7 +2339,8 @@ def main():
                 kafka_lso_frontier, kafka_lso_outcome,
                 kafka_eos_split_commit, kafka_eos_recovery,
                 kafka_group_handoff, kafka_group_generation_check,
-                kafka_cooperative_target, kafka_cooperative_rounds]
+                kafka_cooperative_target, kafka_cooperative_rounds,
+                kafka_compaction_rewrite, kafka_compaction_tombstone]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

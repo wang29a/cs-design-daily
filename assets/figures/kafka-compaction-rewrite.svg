@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1000" viewBox="0 0 560 1000" role="img" aria-labelledby="title desc">
+<title id="title">删去被覆盖的值，留下原来的地址</title><desc id="desc">教学模型 · P0 · 活动段已滚动到 106</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1000" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">删去被覆盖的值，留下原来的地址</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型 · P0 · 活动段已滚动到 106</text>
+<text x="40" y="122" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">① 清理前：六条记录均可读</text>
+<rect x="32" y="144" width="496" height="254" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="54" y="176" fill="#18283b" font-size="22" font-weight="600" text-anchor="start">offset</text>
+<text x="181" y="176" fill="#18283b" font-size="22" font-weight="600" text-anchor="start">订单键</text>
+<text x="323" y="176" fill="#18283b" font-size="22" font-weight="600" text-anchor="start">完整新状态</text>
+<text x="58" y="211" fill="#5b6877" font-size="23" font-weight="400" text-anchor="start">100</text>
+<text x="200" y="211" fill="#5b6877" font-size="23" font-weight="400" text-anchor="start">42</text>
+<text x="323" y="211" fill="#5b6877" font-size="23" font-weight="400" text-anchor="start">已下单</text>
+<text x="58" y="244" fill="#287467" font-size="23" font-weight="600" text-anchor="start">101</text>
+<text x="200" y="244" fill="#287467" font-size="23" font-weight="400" text-anchor="start">77</text>
+<text x="323" y="244" fill="#287467" font-size="23" font-weight="400" text-anchor="start">已付款</text>
+<text x="58" y="277" fill="#5b6877" font-size="23" font-weight="400" text-anchor="start">102</text>
+<text x="200" y="277" fill="#5b6877" font-size="23" font-weight="400" text-anchor="start">99</text>
+<text x="323" y="277" fill="#5b6877" font-size="23" font-weight="400" text-anchor="start">待付款</text>
+<text x="58" y="310" fill="#5b6877" font-size="23" font-weight="400" text-anchor="start">103</text>
+<text x="200" y="310" fill="#5b6877" font-size="23" font-weight="400" text-anchor="start">42</text>
+<text x="323" y="310" fill="#5b6877" font-size="23" font-weight="400" text-anchor="start">已付款</text>
+<text x="58" y="343" fill="#287467" font-size="23" font-weight="600" text-anchor="start">104</text>
+<text x="200" y="343" fill="#287467" font-size="23" font-weight="400" text-anchor="start">99</text>
+<text x="323" y="343" fill="#287467" font-size="23" font-weight="400" text-anchor="start">null / 删除</text>
+<text x="58" y="376" fill="#287467" font-size="23" font-weight="600" text-anchor="start">105</text>
+<text x="200" y="376" fill="#287467" font-size="23" font-weight="400" text-anchor="start">42</text>
+<text x="323" y="376" fill="#287467" font-size="23" font-weight="400" text-anchor="start">已发货</text>
+<path d="M 280 407 L 280 440" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="452" width="496" height="100" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="486" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">② 摘要：键 → 较后的位置</text>
+<text x="280.0" y="517" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">42→105  ·  77→101  ·  99→104</text>
+<path d="M 280 563 L 280 597" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="40" y="633" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">③ 重写后：仍保留删除标记</text>
+<rect x="32" y="655" width="496" height="46" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="58" y="686" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">101</text>
+<text x="200" y="686" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">77</text>
+<text x="323" y="686" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">已付款</text>
+<rect x="32" y="709" width="496" height="46" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="58" y="740" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">104</text>
+<text x="200" y="740" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">99</text>
+<text x="323" y="740" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">null / 删除</text>
+<rect x="32" y="763" width="496" height="46" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="58" y="794" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">105</text>
+<text x="200" y="794" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">42</text>
+<text x="323" y="794" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">已发货</text>
+<text x="280" y="857" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">从空表重放：77 已付款，42 已发货</text>
+<text x="280" y="893" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">99 不存在；读取位置最后推进到 106</text>
+<path d="M 32 924 H 528" stroke="#d9dfdc"/>
+<text x="280" y="959" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">箭头表示清理步骤。原 offset 不重新编号。</text>
+<text x="280" y="986" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">段界、摘要覆盖范围与结果均为教学设定。</text>
+</g>
+</svg>

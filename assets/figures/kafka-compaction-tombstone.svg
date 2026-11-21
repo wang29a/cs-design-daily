@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1028" viewBox="0 0 560 1028" role="img" aria-labelledby="title desc">
+<title id="title">追到了末尾，旧缓存仍可能出错</title><desc id="desc">教学故障时序 · C 暂停跨过删除保留窗口</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1028" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">追到了末尾，旧缓存仍可能出错</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学故障时序 · C 暂停跨过删除保留窗口</text>
+<rect x="32" y="112" width="496" height="142" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="148" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">① C 在清理前读完 102</text>
+<text x="49" y="191" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">本地：99 = 待付款</text>
+<text x="49" y="233" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">保存的下一读取位置：103</text>
+<rect x="32" y="302" width="496" height="142" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="338" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">② C 暂停，后台先清理旧值</text>
+<text x="49" y="381" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">102 被去掉，104 删除仍保留</text>
+<text x="49" y="423" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">这是 C 清除本地 99 的观察机会</text>
+<rect x="32" y="492" width="496" height="142" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="528" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">③ 保留条件满足，再次清理</text>
+<text x="49" y="571" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">104 也消失；剩余记录：101、105</text>
+<text x="49" y="613" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">C 仍未恢复，并没有见过删除</text>
+<rect x="32" y="682" width="496" height="142" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="718" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">④ C 从 103 继续，取得 105</text>
+<text x="49" y="761" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">进度追到 106；只更新订单 42</text>
+<text x="49" y="803" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">本地 99 仍是待付款 → 状态错误</text>
+<path d="M 280 262 L 280 290" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<path d="M 280 452 L 280 480" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<path d="M 280 642 L 280 670" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<text x="280" y="872" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">若丢弃旧表，从空表完整重建：</text>
+<text x="280" y="909" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">101 建立 77，105 建立 42；99 不出现</text>
+<path d="M 32 942 H 528" stroke="#d9dfdc"/>
+<text x="280" y="979" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">箭头表示时间。到期不等于立刻发生清理。</text>
+<text x="280" y="1011" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">从空表重建与沿用旧缓存，前提不同。</text>
+</g>
+</svg>
