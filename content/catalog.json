@@ -440,6 +440,15 @@
       "source": "2026-11-21-kafka-log-compaction.md",
       "id": "2026-11-21-kafka-log-compaction",
       "insight": "用同键后继承接最终答案，后台清除被覆盖的历史；保留原地址和可观察的删除，才能让恢复仍有依据。"
+    },
+    {
+      "date": "2026-11-22",
+      "title": "Flink 已经处理过的消息，恢复时为什么还要再读",
+      "subtitle": "沿三笔金额追踪输入边界、稳定状态视图与故障后的成套恢复",
+      "topic": "消息与流处理",
+      "source": "2026-11-22-flink-checkpoint-replay.md",
+      "id": "2026-11-22-flink-checkpoint-replay",
+      "insight": "让源位置与算子状态对应同一输入边界，保存完成后成套恢复，允许计算重做而不把旧尝试重复计入有效状态。"
     }
   ]
 }

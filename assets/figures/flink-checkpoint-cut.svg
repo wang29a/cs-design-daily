@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="866" viewBox="0 0 560 866" role="img" aria-labelledby="title desc">
+<title id="title">边界前的输入，配上边界前的状态</title><desc id="desc">教学模型 · 单输入 · P0 的 100、101、102</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="866" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">边界前的输入，配上边界前的状态</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型 · 单输入 · P0 的 100、101、102</text>
+<rect x="32" y="112" width="496" height="94" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="146" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">源固定 C7 的下一位置：102</text>
+<text x="280.0" y="177" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">100、101 已发出；102 尚未发出</text>
+<text x="40" y="260" fill="#18283b" font-size="23" font-weight="600" text-anchor="start">源向下游发送的逻辑顺序（左 → 右）</text>
+<rect x="32" y="292" width="106" height="84" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="85.0" y="326" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">100</text>
+<text x="85.0" y="357" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">+10 元</text>
+<rect x="162" y="292" width="106" height="84" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="215.0" y="326" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">101</text>
+<text x="215.0" y="357" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">+20 元</text>
+<rect x="292" y="292" width="106" height="84" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="345.0" y="326" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">C7</text>
+<text x="345.0" y="357" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">边界标记</text>
+<rect x="422" y="292" width="106" height="84" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="475.0" y="326" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">102</text>
+<text x="475.0" y="357" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">+5 元</text>
+<path d="M 142 333 L 156 333" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 272 333 L 286 333" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 402 333 L 416 333" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="416" fill="#18283b" font-size="21" font-weight="400" text-anchor="middle">C7 不越过 100、101，102 也不能越过 C7</text>
+<path d="M 345 434 L 345 459 L 280 459 L 280 482" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<rect x="32" y="494" width="496" height="134" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="530" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">算子收到 C7：固定 sum = 30</text>
+<text x="49" y="573" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">已包含 100、101：10 + 20 = 30</text>
+<text x="49" y="610" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">尚未包含 102：它的 5 元属于边界之后</text>
+<path d="M 280 640 L 280 670" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="682" width="496" height="88" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="716" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">C7 的配套视图</text>
+<text x="280.0" y="747" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">下一源位置 102  ·  算子总额 30</text>
+<path d="M 32 797 H 528" stroke="#d9dfdc"/>
+<text x="280" y="829" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">箭头表示数据顺序与取快照的因果关系。</text>
+<text x="280" y="855" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">视图已固定，保存与整轮确认仍待完成。</text>
+</g>
+</svg>

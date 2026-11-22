@@ -2296,6 +2296,54 @@ def kafka_compaction_tombstone():
     d.save()
 
 
+def flink_checkpoint_cut():
+    d = Drawing('flink-checkpoint-cut', 866, '边界前的输入，配上边界前的状态', '教学模型 · 单输入 · P0 的 100、101、102')
+    d.card(32, 112, 496, 94, '源固定 C7 的下一位置：102', '100、101 已发出；102 尚未发出', GREEN, size=24)
+    d.text(40, 260, '源向下游发送的逻辑顺序（左 → 右）', size=23, weight=600)
+    for x, title, detail, fill in [
+        (32, '100', '+10 元', WHITE), (162, '101', '+20 元', WHITE),
+        (292, 'C7', '边界标记', PEACH), (422, '102', '+5 元', WHITE),
+    ]:
+        d.card(x, 292, 106, 84, title, detail, fill, size=24)
+    for x in (138, 268, 398):
+        d.arrow([(x+4, 333), (x+18, 333)], color='teal')
+    d.text(280, 416, 'C7 不越过 100、101，102 也不能越过 C7', size=21, anchor='middle')
+    d.arrow([(345, 434), (345, 459), (280, 459), (280, 482)], color='rust')
+    d.rect(32, 494, 496, 134, GREEN)
+    d.text(49, 530, '算子收到 C7：固定 sum = 30', size=24, weight=650)
+    d.text(49, 573, '已包含 100、101：10 + 20 = 30', size=23)
+    d.text(49, 610, '尚未包含 102：它的 5 元属于边界之后', size=22, color=MUTED)
+    d.arrow([(280, 640), (280, 670)], color='teal')
+    d.card(32, 682, 496, 88, 'C7 的配套视图', '下一源位置 102  ·  算子总额 30', GREEN, size=24)
+    d.rule(797)
+    d.text(280, 829, '箭头表示数据顺序与取快照的因果关系。', size=20, anchor='middle')
+    d.text(280, 855, '视图已固定，保存与整轮确认仍待完成。', size=20, color=MUTED, anchor='middle')
+    d.save()
+
+
+def flink_checkpoint_replay():
+    d = Drawing('flink-checkpoint-replay', 1048, '状态回到 30，最后的 5 元重新计算', '教学时序 · C7 成功 · C8 未完成时故障')
+    stages = [
+        (112, '① 固定 C7，异步保存', 'C7：下一源位置 102  ·  sum = 30', '后续实时更新不能改写这份旧视图', GREEN),
+        (314, '② 实时计算继续处理 102', '实时 sum：30 + 5 = 35', 'C7 仍为 102 / 30，不是 103 / 35', WHITE),
+        (516, '③ C7 已完成，随后机器故障', 'C8 尚未完成 → 选最新完成的 C7', '丢弃故障前的工作状态 sum = 35', PEACH),
+        (718, '④ 恢复 C7，再处理输入 102', '载入 sum = 30，从 102 重读 5 元', '重新得到 35；下一源位置推进到 103', GREEN),
+    ]
+    for y, title, state, outcome, fill in stages:
+        d.rect(32, y, 496, 148, fill)
+        d.text(49, y+36, title, size=24, weight=650)
+        d.text(49, y+82, state, size=22)
+        d.text(49, y+128, outcome, size=22, color=MUTED)
+    for y in (260, 462, 664):
+        d.arrow([(280, y+9), (280, y+42)], color='teal')
+    d.text(280, 913, '输入 102 执行过两次，有效状态只加一次。', size=23, weight=600, anchor='middle')
+    d.text(280, 950, '下游仍可能再次收到累计值 35。', size=22, anchor='middle')
+    d.rule(980)
+    d.text(280, 1014, '箭头表示先后，数字是教学推演。', size=20, anchor='middle')
+    d.text(280, 1039, '受管状态恢复不等于外部输出自动撤回。', size=20, color=MUTED, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -2340,7 +2388,8 @@ def main():
                 kafka_eos_split_commit, kafka_eos_recovery,
                 kafka_group_handoff, kafka_group_generation_check,
                 kafka_cooperative_target, kafka_cooperative_rounds,
-                kafka_compaction_rewrite, kafka_compaction_tombstone]
+                kafka_compaction_rewrite, kafka_compaction_tombstone,
+                flink_checkpoint_cut, flink_checkpoint_replay]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

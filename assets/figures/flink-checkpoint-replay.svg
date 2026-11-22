@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1048" viewBox="0 0 560 1048" role="img" aria-labelledby="title desc">
+<title id="title">状态回到 30，最后的 5 元重新计算</title><desc id="desc">教学时序 · C7 成功 · C8 未完成时故障</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1048" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">状态回到 30，最后的 5 元重新计算</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学时序 · C7 成功 · C8 未完成时故障</text>
+<rect x="32" y="112" width="496" height="148" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="148" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">① 固定 C7，异步保存</text>
+<text x="49" y="194" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">C7：下一源位置 102  ·  sum = 30</text>
+<text x="49" y="240" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">后续实时更新不能改写这份旧视图</text>
+<rect x="32" y="314" width="496" height="148" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="350" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">② 实时计算继续处理 102</text>
+<text x="49" y="396" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">实时 sum：30 + 5 = 35</text>
+<text x="49" y="442" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">C7 仍为 102 / 30，不是 103 / 35</text>
+<rect x="32" y="516" width="496" height="148" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="552" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">③ C7 已完成，随后机器故障</text>
+<text x="49" y="598" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">C8 尚未完成 → 选最新完成的 C7</text>
+<text x="49" y="644" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">丢弃故障前的工作状态 sum = 35</text>
+<rect x="32" y="718" width="496" height="148" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="754" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">④ 恢复 C7，再处理输入 102</text>
+<text x="49" y="800" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">载入 sum = 30，从 102 重读 5 元</text>
+<text x="49" y="846" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">重新得到 35；下一源位置推进到 103</text>
+<path d="M 280 269 L 280 302" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 471 L 280 504" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 673 L 280 706" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="913" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">输入 102 执行过两次，有效状态只加一次。</text>
+<text x="280" y="950" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">下游仍可能再次收到累计值 35。</text>
+<path d="M 32 980 H 528" stroke="#d9dfdc"/>
+<text x="280" y="1014" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">箭头表示先后，数字是教学推演。</text>
+<text x="280" y="1039" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">受管状态恢复不等于外部输出自动撤回。</text>
+</g>
+</svg>
