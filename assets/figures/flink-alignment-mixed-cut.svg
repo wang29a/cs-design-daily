@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1008" viewBox="0 0 560 1008" role="img" aria-labelledby="title desc">
+<title id="title">不挡住快通道，未来混进旧快照</title><desc id="desc">教学反事实 · C8 下一位置：P0:102 · P1:201</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1008" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">不挡住快通道，未来混进旧快照</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学反事实 · C8 下一位置：P0:102 · P1:201</text>
+<rect x="32" y="112" width="496" height="90" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="146" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">开始观察：sum = 30</text>
+<text x="280.0" y="177" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">P0 的 100、101 已计入，P1 的 200 尚未计入</text>
+<text x="40" y="247" fill="#18283b" font-size="23" font-weight="650" text-anchor="start">快通道 P0：先收到 C8</text>
+<rect x="32" y="270" width="144" height="84" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="104.0" y="304" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">100、101</text>
+<text x="104.0" y="335" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">10 + 20 已计入</text>
+<rect x="208" y="270" width="144" height="84" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="304" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">C8 已到</text>
+<text x="280.0" y="335" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">仅作登记</text>
+<rect x="384" y="270" width="144" height="84" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="456.0" y="304" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">102:+5</text>
+<text x="456.0" y="335" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">被继续处理</text>
+<text x="40" y="412" fill="#18283b" font-size="23" font-weight="650" text-anchor="start">慢通道 P1：200 和 C8 后到</text>
+<rect x="32" y="435" width="144" height="84" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="104.0" y="469" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">200:+7</text>
+<text x="104.0" y="500" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">随后处理</text>
+<rect x="208" y="435" width="144" height="84" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="469" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">C8 后到</text>
+<text x="280.0" y="500" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">现在标记齐备</text>
+<rect x="384" y="435" width="144" height="84" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="456.0" y="469" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">201:+3</text>
+<text x="456.0" y="500" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">留在快照之后</text>
+<path d="M 184 311 L 200 311" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<path d="M 360 311 L 376 311" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<path d="M 184 476 L 200 476" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<path d="M 360 476 L 376 476" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<text x="280" y="569" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">自然方案：先算 5，再算 7，等齐才保存</text>
+<path d="M 280 588 L 280 622" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<rect x="32" y="634" width="496" height="144" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="672" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">C8 错误快照：30 + 5 + 7 = 42</text>
+<text x="49" y="717" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">源位置却仍是 P0:102 · P1:201</text>
+<text x="49" y="759" fill="#a54426" font-size="23" font-weight="400" text-anchor="start">恢复重读 5、3：42 + 5 + 3 = 50</text>
+<rect x="32" y="814" width="496" height="82" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="863.0" fill="#a54426" font-size="22" font-weight="600" text-anchor="middle">正确总额应为 45，多算的是那笔 5 元</text>
+<path d="M 32 927 H 528" stroke="#d9dfdc"/>
+<text x="280" y="960" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">横箭头表示通道顺序，行间没有全局顺序。</text>
+<text x="280" y="990" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">这是错误方案，真实的对齐步骤见图二。</text>
+</g>
+</svg>

@@ -449,6 +449,15 @@
       "source": "2026-11-22-flink-checkpoint-replay.md",
       "id": "2026-11-22-flink-checkpoint-replay",
       "insight": "让源位置与算子状态对应同一输入边界，保存完成后成套恢复，允许计算重做而不把旧尝试重复计入有效状态。"
+    },
+    {
+      "date": "2026-11-23",
+      "title": "Flink 为什么让快输入停下来，等慢输入的检查点标记",
+      "subtitle": "沿两条付款通道，推演边界对齐如何避免恢复时把五元再加一次",
+      "topic": "消息与流处理",
+      "source": "2026-11-23-flink-barrier-alignment.md",
+      "id": "2026-11-23-flink-barrier-alignment",
+      "insight": "先暂停已越过本轮边界的通道，让其余通道走到各自边界，再固定状态，使快照恰好承接每条流应由它负责的前缀。"
     }
   ]
 }

@@ -2344,6 +2344,62 @@ def flink_checkpoint_replay():
     d.save()
 
 
+def flink_alignment_mixed_cut():
+    d = Drawing('flink-alignment-mixed-cut', 1008, '不挡住快通道，未来混进旧快照', '教学反事实 · C8 下一位置：P0:102 · P1:201')
+    d.card(32, 112, 496, 90, '开始观察：sum = 30', 'P0 的 100、101 已计入，P1 的 200 尚未计入', WHITE, size=24)
+    d.text(40, 247, '快通道 P0：先收到 C8', size=23, weight=650)
+    for x, title, detail, fill in [
+        (32, '100、101', '10 + 20 已计入', GREEN),
+        (208, 'C8 已到', '仅作登记', PEACH),
+        (384, '102:+5', '被继续处理', PEACH),
+    ]:
+        d.card(x, 270, 144, 84, title, detail, fill, size=23)
+    d.text(40, 412, '慢通道 P1：200 和 C8 后到', size=23, weight=650)
+    for x, title, detail, fill in [
+        (32, '200:+7', '随后处理', WHITE),
+        (208, 'C8 后到', '现在标记齐备', PEACH),
+        (384, '201:+3', '留在快照之后', WHITE),
+    ]:
+        d.card(x, 435, 144, 84, title, detail, fill, size=23)
+    for y in (311, 476):
+        d.arrow([(184, y), (200, y)], color='rust')
+        d.arrow([(360, y), (376, y)], color='rust')
+    d.text(280, 569, '自然方案：先算 5，再算 7，等齐才保存', size=22, anchor='middle')
+    d.arrow([(280, 588), (280, 622)], color='rust')
+    d.rect(32, 634, 496, 144, PEACH)
+    d.text(49, 672, 'C8 错误快照：30 + 5 + 7 = 42', size=24, weight=650)
+    d.text(49, 717, '源位置却仍是 P0:102 · P1:201', size=23)
+    d.text(49, 759, '恢复重读 5、3：42 + 5 + 3 = 50', size=23, color=RUST)
+    d.card(32, 814, 496, 82, '正确总额应为 45，多算的是那笔 5 元', '', PEACH, color=RUST, size=22)
+    d.rule(927)
+    d.text(280, 960, '横箭头表示通道顺序，行间没有全局顺序。', size=20, anchor='middle')
+    d.text(280, 990, '这是错误方案，真实的对齐步骤见图二。', size=20, color=MUTED, anchor='middle')
+    d.save()
+
+
+def flink_alignment_recovery():
+    d = Drawing('flink-alignment-recovery', 1100, '先让未到边界的通道走到边界', '教学时序 · 暂停交付不等于丢弃后续记录')
+    stages = [
+        (112, '① P0 的 C8 先到，sum = 30', '暂停 P0 后续交付：102 的 5 元先等', 'P1 继续处理标记前的记录', PEACH),
+        (324, '② 加入 P1 的 7 元，再收到 C8', 'sum = 37，两条通道都到达边界', '固定 C8：P0:102 · P1:201 · 总额 37', GREEN),
+        (536, '③ 同步步骤结束，解除暂停', '实时：37 + 5 + 3 = 45', 'C8 旧视图仍为 37，后台继续保存', WHITE),
+        (748, '④ C8 完成后故障：配套恢复', '恢复 37，重读 P0:102 和 P1:201', '再得 45；下一位置分别为 103、202', GREEN),
+    ]
+    for y, title, state, outcome, fill in stages:
+        d.rect(32, y, 496, 154, fill)
+        d.text(49, y+36, title, size=24, weight=650)
+        d.text(49, y+83, state, size=22)
+        d.text(49, y+132, outcome, size=22, color=MUTED)
+    for y in (266, 478, 690):
+        d.arrow([(280, y+9), (280, y+44)], color='teal')
+    d.text(280, 955, '快照承接 10、20、7；重放只补回 5、3。', size=23, weight=600, anchor='middle')
+    d.text(280, 996, '本例故障时，C8 是最新完成的检查点。', size=22, anchor='middle')
+    d.rule(1029)
+    d.text(280, 1064, '向下箭头表示时间，数字是教学推演。', size=20, anchor='middle')
+    d.text(280, 1090, '通道恢复处理可早于整轮可靠保存完成。', size=20, color=MUTED, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -2389,7 +2445,8 @@ def main():
                 kafka_group_handoff, kafka_group_generation_check,
                 kafka_cooperative_target, kafka_cooperative_rounds,
                 kafka_compaction_rewrite, kafka_compaction_tombstone,
-                flink_checkpoint_cut, flink_checkpoint_replay]
+                flink_checkpoint_cut, flink_checkpoint_replay,
+                flink_alignment_mixed_cut, flink_alignment_recovery]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')
