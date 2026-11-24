@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="988" viewBox="0 0 560 988" role="img" aria-labelledby="title desc">
+<title id="title">7 元还没算进去，恢复责任不能丢</title><desc id="desc">教学模型 · C9 源位置：P0:102 · P1:201</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="988" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">7 元还没算进去，恢复责任不能丢</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学模型 · C9 源位置：P0:102 · P1:201</text>
+<rect x="32" y="112" width="496" height="92" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="146" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">任务开始处理首个 C9 标记</text>
+<text x="280.0" y="177" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">P0 的 10、20 已计入，P1 的 7 尚未计入</text>
+<rect x="32" y="260" width="232" height="132" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="148" y="298" fill="#18283b" font-size="24" font-weight="650" text-anchor="middle">算子工作状态</text>
+<text x="148" y="342" fill="#18283b" font-size="26" font-weight="400" text-anchor="middle">sum = 30</text>
+<text x="148" y="377" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">来自 10 + 20</text>
+<rect x="296" y="260" width="232" height="132" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="412" y="298" fill="#18283b" font-size="24" font-weight="650" text-anchor="middle">P1 输入缓冲</text>
+<text x="412" y="342" fill="#18283b" font-size="26" font-weight="400" text-anchor="middle">200:+7</text>
+<text x="412" y="377" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">尚未交给求和函数</text>
+<path d="M 148 402 L 148 433 L 180 433 L 180 478" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 412 402 L 412 433 L 380 433 L 380 478" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<text x="112" y="458" fill="#287467" font-size="21" font-weight="400" text-anchor="middle">固定</text>
+<text x="449" y="458" fill="#a54426" font-size="21" font-weight="400" text-anchor="middle">捕获</text>
+<rect x="32" y="492" width="496" height="224" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="532" fill="#18283b" font-size="25" font-weight="650" text-anchor="start">C9 的配套恢复材料</text>
+<text x="49" y="578" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">源位置：P0:102 · P1:201</text>
+<text x="49" y="625" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">算子快照：sum = 30</text>
+<text x="49" y="674" fill="#18283b" font-size="24" font-weight="400" text-anchor="start">通道状态：P1 的 200:+7</text>
+<text x="280" y="772" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">边界前的 37 元，由 30 + 7 共同承接。</text>
+<text x="280" y="817" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">标记可以先推进，7 元数据仍需保留。</text>
+<path d="M 32 867 H 528" stroke="#d9dfdc"/>
+<text x="280" y="906" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">箭头表示状态固定与通道捕获的归属。</text>
+<text x="280" y="939" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">只画 P1 的一条记录，其他通道无恢复数据。</text>
+<text x="280" y="972" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">固定与捕获不等于整轮可靠保存已完成。</text>
+</g>
+</svg>

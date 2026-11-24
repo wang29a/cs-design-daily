@@ -2400,6 +2400,58 @@ def flink_alignment_recovery():
     d.save()
 
 
+def flink_unaligned_capture():
+    d = Drawing('flink-unaligned-capture', 988, '7 元还没算进去，恢复责任不能丢', '教学模型 · C9 源位置：P0:102 · P1:201')
+    d.card(32, 112, 496, 92, '任务开始处理首个 C9 标记', 'P0 的 10、20 已计入，P1 的 7 尚未计入', WHITE, size=24)
+    d.rect(32, 260, 232, 132, GREEN)
+    d.text(148, 298, '算子工作状态', size=24, weight=650, anchor='middle')
+    d.text(148, 342, 'sum = 30', size=26, anchor='middle')
+    d.text(148, 377, '来自 10 + 20', size=22, color=MUTED, anchor='middle')
+    d.rect(296, 260, 232, 132, PEACH)
+    d.text(412, 298, 'P1 输入缓冲', size=24, weight=650, anchor='middle')
+    d.text(412, 342, '200:+7', size=26, anchor='middle')
+    d.text(412, 377, '尚未交给求和函数', size=22, color=MUTED, anchor='middle')
+    d.arrow([(148, 402), (148, 433), (180, 433), (180, 478)], color='teal')
+    d.arrow([(412, 402), (412, 433), (380, 433), (380, 478)], color='rust')
+    d.text(112, 458, '固定', size=21, color=TEAL, anchor='middle')
+    d.text(449, 458, '捕获', size=21, color=RUST, anchor='middle')
+    d.rect(32, 492, 496, 224, GREEN)
+    d.text(49, 532, 'C9 的配套恢复材料', size=25, weight=650)
+    d.text(49, 578, '源位置：P0:102 · P1:201', size=23)
+    d.text(49, 625, '算子快照：sum = 30', size=24)
+    d.text(49, 674, '通道状态：P1 的 200:+7', size=24)
+    d.text(280, 772, '边界前的 37 元，由 30 + 7 共同承接。', size=23, weight=600, anchor='middle')
+    d.text(280, 817, '标记可以先推进，7 元数据仍需保留。', size=23, anchor='middle')
+    d.rule(867)
+    d.text(280, 906, '箭头表示状态固定与通道捕获的归属。', size=20, anchor='middle')
+    d.text(280, 939, '只画 P1 的一条记录，其他通道无恢复数据。', size=20, color=MUTED, anchor='middle')
+    d.text(280, 972, '固定与捕获不等于整轮可靠保存已完成。', size=20, color=MUTED, anchor='middle')
+    d.save()
+
+
+def flink_unaligned_recovery():
+    d = Drawing('flink-unaligned-recovery', 1100, '先补通道缺口，再接源的后续数据', '教学恢复时序 · C9 是最新完成的检查点')
+    stages = [
+        (112, '① C9 完整成功，材料成套保存', '源 P0:102 / P1:201 · 算子 30', '另有通道记录 P1 的 200:+7', GREEN),
+        (324, '② 实时总额已到 45，任务故障', '协调器与可靠存储仍可用，选择 C9', '故障前的工作状态 45 被丢弃', PEACH),
+        (536, '③ 载入 30，重放通道的 7', 'sum：30 + 7 = 37', '消费通道记录 200，不再从源补 200', WHITE),
+        (748, '④ 从源位置接上后续数据', 'P0:102 加 5，P1:201 加 3', '37 + 5 + 3 = 45；下一位置 103 / 202', GREEN),
+    ]
+    for y, title, state, outcome, fill in stages:
+        d.rect(32, y, 496, 154, fill)
+        d.text(49, y+36, title, size=24, weight=650)
+        d.text(49, y+83, state, size=22)
+        d.text(49, y+132, outcome, size=22, color=MUTED)
+    for y in (266, 478, 690):
+        d.arrow([(280, y+9), (280, y+44)], color='teal')
+    d.text(280, 954, '漏掉通道 7 → 38；把 7 补两次 → 52', size=23, weight=600, color=RUST, anchor='middle')
+    d.text(280, 995, '源位置与通道重放，必须共同解释恢复。', size=22, anchor='middle')
+    d.rule(1029)
+    d.text(280, 1064, '箭头是选定的教学时序，非运行追踪。', size=20, anchor='middle')
+    d.text(280, 1090, '每条通道先接续恢复数据，再接后续数据。', size=20, color=MUTED, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -2446,7 +2498,8 @@ def main():
                 kafka_cooperative_target, kafka_cooperative_rounds,
                 kafka_compaction_rewrite, kafka_compaction_tombstone,
                 flink_checkpoint_cut, flink_checkpoint_replay,
-                flink_alignment_mixed_cut, flink_alignment_recovery]
+                flink_alignment_mixed_cut, flink_alignment_recovery,
+                flink_unaligned_capture, flink_unaligned_recovery]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

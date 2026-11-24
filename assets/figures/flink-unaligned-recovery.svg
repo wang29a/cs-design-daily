@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1100" viewBox="0 0 560 1100" role="img" aria-labelledby="title desc">
+<title id="title">先补通道缺口，再接源的后续数据</title><desc id="desc">教学恢复时序 · C9 是最新完成的检查点</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1100" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">先补通道缺口，再接源的后续数据</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">教学恢复时序 · C9 是最新完成的检查点</text>
+<rect x="32" y="112" width="496" height="154" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="148" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">① C9 完整成功，材料成套保存</text>
+<text x="49" y="195" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">源 P0:102 / P1:201 · 算子 30</text>
+<text x="49" y="244" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">另有通道记录 P1 的 200:+7</text>
+<rect x="32" y="324" width="496" height="154" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="360" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">② 实时总额已到 45，任务故障</text>
+<text x="49" y="407" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">协调器与可靠存储仍可用，选择 C9</text>
+<text x="49" y="456" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">故障前的工作状态 45 被丢弃</text>
+<rect x="32" y="536" width="496" height="154" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="572" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">③ 载入 30，重放通道的 7</text>
+<text x="49" y="619" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">sum：30 + 7 = 37</text>
+<text x="49" y="668" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">消费通道记录 200，不再从源补 200</text>
+<rect x="32" y="748" width="496" height="154" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="784" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">④ 从源位置接上后续数据</text>
+<text x="49" y="831" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">P0:102 加 5，P1:201 加 3</text>
+<text x="49" y="880" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">37 + 5 + 3 = 45；下一位置 103 / 202</text>
+<path d="M 280 275 L 280 310" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 487 L 280 522" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 699 L 280 734" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="954" fill="#a54426" font-size="23" font-weight="600" text-anchor="middle">漏掉通道 7 → 38；把 7 补两次 → 52</text>
+<text x="280" y="995" fill="#18283b" font-size="22" font-weight="400" text-anchor="middle">源位置与通道重放，必须共同解释恢复。</text>
+<path d="M 32 1029 H 528" stroke="#d9dfdc"/>
+<text x="280" y="1064" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">箭头是选定的教学时序，非运行追踪。</text>
+<text x="280" y="1090" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">每条通道先接续恢复数据，再接后续数据。</text>
+</g>
+</svg>
