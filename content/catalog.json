@@ -467,6 +467,15 @@
       "source": "2026-11-24-flink-unaligned-checkpoint.md",
       "id": "2026-11-24-flink-unaligned-checkpoint",
       "insight": "让尚未反映在算子快照、又不会由源重新读取的数据进入通道快照，用保存与重放承担原先对齐等待的责任。"
+    },
+    {
+      "date": "2026-11-25",
+      "title": "Flink 写出的文件，为什么要等检查点完成才算结果",
+      "subtitle": "从待提交文件追踪恢复句柄、发布与重复提交",
+      "topic": "消息与流处理",
+      "source": "2026-11-25-flink-filesink-checkpoint-commit.md",
+      "id": "2026-11-25-flink-filesink-checkpoint-commit",
+      "insight": "先把待发布文件的提交责任存进检查点，再让文件正式可用，使未收到完成通知和重复提交都能被恢复接续。"
     }
   ]
 }

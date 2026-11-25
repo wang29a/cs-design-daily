@@ -2452,6 +2452,54 @@ def flink_unaligned_recovery():
     d.save()
 
 
+def flink_filesink_publication():
+    d = Drawing('flink-filesink-publication', 1040, '先保存发布责任，再发布文件', 'C10 · 单 writer、单 bucket · 教学模型')
+    stages = [
+        (112, '① 处理 P0 的 100、101', 'sum = 30；F10 正在写（in-progress）', '两行：(100,10) · (101,30)', WHITE),
+        (314, '② writer 收到 C10，关闭 F10', 'F10 待提交（pending）· 产生 H10', 'H10 交给 committer，正文留在磁盘', PEACH),
+        (516, '③ C10 整轮可靠完成', '下一源位置 102 · 算子状态 30', '提交端状态包含 H10，可恢复补交', GREEN),
+        (718, '④ committer 提交同一份 F10', 'F10 正式完成（finished）', '读者此后才将这两行作为正式结果', GREEN),
+    ]
+    for y, title, state, detail, fill in stages:
+        d.rect(32, y, 496, 154, fill)
+        d.text(49, y+36, title, size=24, weight=650)
+        d.text(49, y+83, state, size=22)
+        d.text(49, y+132, detail, size=22, color=MUTED)
+    for y in (266, 468, 670):
+        d.arrow([(280, y+9), (280, y+42)], color='teal')
+    d.text(280, 923, '字节已写下 ≠ 检查点完成 ≠ 文件已发布', size=22, weight=600, anchor='middle')
+    d.rule(954)
+    d.text(280, 988, '箭头：先后与提交责任传递；非运行追踪。', size=20, anchor='middle')
+    d.text(280, 1021, 'F10、H10 为代号；pending 是逻辑状态。', size=20, color=MUTED, anchor='middle')
+    d.save()
+
+
+def flink_filesink_recovery():
+    d = Drawing('flink-filesink-recovery', 1240, '恢复既要重放，也要补交', '原机进程故障 · 磁盘与 C10 保留 · 教学时序')
+    stages = [
+        (112, '① C10 完成，F10 尚未发布', 'C10：位置 102 · 状态 30 · H10', '实时 sum=35；F11 暂存 (102,35)', PEACH),
+        (314, '② 进程故障，恢复到 C10', '装载 30；凭 H10 补交原 F10', 'F10 finished；旧 F11 不当正式结果', WHITE),
+        (516, '③ 从 P0:102 重读 5 元', 'sum：30 + 5 = 35', '新尝试 F11R 写入 (102,35)', WHITE),
+        (718, '④ C11 完成后提交 F11R', 'F10 与 F11R 均为 finished', '正式行：(100,10) · (101,30) · (102,35)', GREEN),
+    ]
+    for y, title, state, detail, fill in stages:
+        d.rect(32, y, 496, 154, fill)
+        d.text(49, y+36, title, size=24, weight=650)
+        d.text(49, y+83, state, size=22)
+        d.text(49, y+132, detail, size=21, color=MUTED)
+    for y in (266, 468, 670):
+        d.arrow([(280, y+9), (280, y+42)], color='teal')
+    d.rect(32, 916, 496, 170, GREEN)
+    d.text(49, 955, '相邻窗口：F10 在故障前已发布？', size=23, weight=650)
+    d.text(49, 1002, '恢复仍重试 H10 · 暂存源无、正式目标有', size=21)
+    d.text(49, 1052, '本地实现不再移动，不生成第二份文件。', size=22)
+    d.rule(1120)
+    d.text(280, 1157, '重复尝试同一提交，不是换名重写正文。', size=22, weight=600, anchor='middle')
+    d.text(280, 1192, '只读 finished；旧尝试字节可暂时残留。', size=20, color=MUTED, anchor='middle')
+    d.text(280, 1224, '箭头为主路径先后；下框是另一故障窗口。', size=20, color=MUTED, anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -2499,7 +2547,8 @@ def main():
                 kafka_compaction_rewrite, kafka_compaction_tombstone,
                 flink_checkpoint_cut, flink_checkpoint_replay,
                 flink_alignment_mixed_cut, flink_alignment_recovery,
-                flink_unaligned_capture, flink_unaligned_recovery]
+                flink_unaligned_capture, flink_unaligned_recovery,
+                flink_filesink_publication, flink_filesink_recovery]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

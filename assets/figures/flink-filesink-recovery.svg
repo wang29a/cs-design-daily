@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1240" viewBox="0 0 560 1240" role="img" aria-labelledby="title desc">
+<title id="title">恢复既要重放，也要补交</title><desc id="desc">原机进程故障 · 磁盘与 C10 保留 · 教学时序</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1240" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">恢复既要重放，也要补交</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">原机进程故障 · 磁盘与 C10 保留 · 教学时序</text>
+<rect x="32" y="112" width="496" height="154" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="148" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">① C10 完成，F10 尚未发布</text>
+<text x="49" y="195" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">C10：位置 102 · 状态 30 · H10</text>
+<text x="49" y="244" fill="#5b6877" font-size="21" font-weight="400" text-anchor="start">实时 sum=35；F11 暂存 (102,35)</text>
+<rect x="32" y="314" width="496" height="154" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="350" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">② 进程故障，恢复到 C10</text>
+<text x="49" y="397" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">装载 30；凭 H10 补交原 F10</text>
+<text x="49" y="446" fill="#5b6877" font-size="21" font-weight="400" text-anchor="start">F10 finished；旧 F11 不当正式结果</text>
+<rect x="32" y="516" width="496" height="154" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="552" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">③ 从 P0:102 重读 5 元</text>
+<text x="49" y="599" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">sum：30 + 5 = 35</text>
+<text x="49" y="648" fill="#5b6877" font-size="21" font-weight="400" text-anchor="start">新尝试 F11R 写入 (102,35)</text>
+<rect x="32" y="718" width="496" height="154" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="754" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">④ C11 完成后提交 F11R</text>
+<text x="49" y="801" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">F10 与 F11R 均为 finished</text>
+<text x="49" y="850" fill="#5b6877" font-size="21" font-weight="400" text-anchor="start">正式行：(100,10) · (101,30) · (102,35)</text>
+<path d="M 280 275 L 280 308" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 477 L 280 510" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 679 L 280 712" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="916" width="496" height="170" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="955" fill="#18283b" font-size="23" font-weight="650" text-anchor="start">相邻窗口：F10 在故障前已发布？</text>
+<text x="49" y="1002" fill="#18283b" font-size="21" font-weight="400" text-anchor="start">恢复仍重试 H10 · 暂存源无、正式目标有</text>
+<text x="49" y="1052" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">本地实现不再移动，不生成第二份文件。</text>
+<path d="M 32 1120 H 528" stroke="#d9dfdc"/>
+<text x="280" y="1157" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">重复尝试同一提交，不是换名重写正文。</text>
+<text x="280" y="1192" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">只读 finished；旧尝试字节可暂时残留。</text>
+<text x="280" y="1224" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">箭头为主路径先后；下框是另一故障窗口。</text>
+</g>
+</svg>

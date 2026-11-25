@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1040" viewBox="0 0 560 1040" role="img" aria-labelledby="title desc">
+<title id="title">先保存发布责任，再发布文件</title><desc id="desc">C10 · 单 writer、单 bucket · 教学模型</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1040" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">先保存发布责任，再发布文件</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">C10 · 单 writer、单 bucket · 教学模型</text>
+<rect x="32" y="112" width="496" height="154" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="148" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">① 处理 P0 的 100、101</text>
+<text x="49" y="195" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">sum = 30；F10 正在写（in-progress）</text>
+<text x="49" y="244" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">两行：(100,10) · (101,30)</text>
+<rect x="32" y="314" width="496" height="154" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="350" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">② writer 收到 C10，关闭 F10</text>
+<text x="49" y="397" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">F10 待提交（pending）· 产生 H10</text>
+<text x="49" y="446" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">H10 交给 committer，正文留在磁盘</text>
+<rect x="32" y="516" width="496" height="154" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="552" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">③ C10 整轮可靠完成</text>
+<text x="49" y="599" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">下一源位置 102 · 算子状态 30</text>
+<text x="49" y="648" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">提交端状态包含 H10，可恢复补交</text>
+<rect x="32" y="718" width="496" height="154" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="754" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">④ committer 提交同一份 F10</text>
+<text x="49" y="801" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">F10 正式完成（finished）</text>
+<text x="49" y="850" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">读者此后才将这两行作为正式结果</text>
+<path d="M 280 275 L 280 308" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 477 L 280 510" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 679 L 280 712" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="923" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">字节已写下 ≠ 检查点完成 ≠ 文件已发布</text>
+<path d="M 32 954 H 528" stroke="#d9dfdc"/>
+<text x="280" y="988" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">箭头：先后与提交责任传递；非运行追踪。</text>
+<text x="280" y="1021" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">F10、H10 为代号；pending 是逻辑状态。</text>
+</g>
+</svg>
