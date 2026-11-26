@@ -476,6 +476,15 @@
       "source": "2026-11-25-flink-filesink-checkpoint-commit.md",
       "id": "2026-11-25-flink-filesink-checkpoint-commit",
       "insight": "先把待发布文件的提交责任存进检查点，再让文件正式可用，使未收到完成通知和重复提交都能被恢复接续。"
+    },
+    {
+      "date": "2026-11-26",
+      "title": "Flink 多开一个任务，旧的按键状态怎样找到新主人",
+      "subtitle": "从两个任务扩到三个，追踪键组归属与状态恢复如何一致",
+      "topic": "消息与流处理",
+      "source": "2026-11-26-flink-keygroups-rescaling.md",
+      "id": "2026-11-26-flink-keygroups-rescaling",
+      "insight": "把键先映射到稳定键组，再把组分给当前任务，让输入路由与状态恢复共用同一套归属规则。"
     }
   ]
 }

@@ -2500,6 +2500,72 @@ def flink_filesink_recovery():
     d.save()
 
 
+def flink_keygroups_assignment():
+    d = Drawing('flink-keygroups-assignment', 910, '键组不变，处理者可以换', '最大并行度 M=8 · 当前并行度从 P=2 变 P=3')
+    for x, title, detail, fill in [(32, '客户 3 → g1', 'sum = 10', GREEN),
+                                  (202, '客户 9 → g3', 'sum = 25', PEACH),
+                                  (372, '客户 1 → g6', 'sum = 7', GREEN)]:
+        d.card(x, 112, 156, 100, title, detail, fill, size=22)
+    d.text(32, 267, '保存 S12 时：P=2', size=24, weight=650)
+    for x, w, title in [(32,244,'旧 0：g0–g3'),(284,244,'旧 1：g4–g7')]:
+        d.rect(x, 287, w, 124, WHITE)
+        d.text(x+w/2, 321, title, size=23, anchor='middle', weight=600)
+    for g in range(8):
+        x=36+62*g
+        fill=PEACH if g==3 else GREEN if g in (1,6) else PAPER
+        d.card(x, 342, 54, 53, 'g'+str(g), fill=fill, size=22)
+    for g in (1,3,6):
+        x=63+62*g
+        d.arrow([(x,420),(x,463)],color='rust' if g==3 else 'teal')
+    d.text(32, 500, '恢复 S12 时：P=3', size=24, weight=650)
+    for x,w,title in [(32,182,'新 0：g0–g2'),(218,182,'新 1：g3–g5'),(404,124,'新 2：g6–g7')]:
+        d.rect(x, 520, w, 124, WHITE)
+        d.text(x+w/2,554,title,size=20,anchor='middle',weight=600)
+    for g in range(8):
+        x=36+62*g
+        fill=PEACH if g==3 else GREEN if g in (1,6) else PAPER
+        d.card(x,575,54,53,'g'+str(g),fill=fill,size=22)
+    d.text(280,693,'新 0：客户 3=10 · 新 1：客户 9=25',size=23,anchor='middle')
+    d.text(280,735,'新 2：客户 1=7；每键仍有自己的 sum',size=23,anchor='middle')
+    d.rule(779)
+    d.text(280,817,'竖箭头：同一键组的身份延续。',size=21,anchor='middle')
+    d.text(280,854,'组边界决定新主人，不按旧任务号照搬。',size=21,weight=600,anchor='middle')
+    d.text(280,890,'只画三个键；空组有归属，组不等于文件。',size=20,color=MUTED,anchor='middle')
+    d.save()
+
+
+def flink_keygroups_restore():
+    d = Drawing('flink-keygroups-restore', 1090, '恢复状态与后续记录必须同向', 'S12 已完成 · 源下一位置 104 · 放大新任务 1')
+    for x,title,groups,line1,line2 in [(32,'旧 0 的句柄 H0','g0–g3','g1：客户 3=10','g3：客户 9=25'),
+                                      (286,'旧 1 的句柄 H1','g4–g7','g6：客户 1=7','g4、g5 无客户记录')]:
+        d.rect(x,112,242,184,WHITE)
+        d.text(x+121,148,title,size=23,weight=650,anchor='middle')
+        d.text(x+121,188,groups,size=23,anchor='middle')
+        d.text(x+121,231,line1,size=21,anchor='middle')
+        d.text(x+121,273,line2,size=21,color=MUTED,anchor='middle')
+    d.arrow([(153,307),(153,378)],color='rust')
+    d.arrow([(407,307),(407,378)],color='teal')
+    d.text(93,351,'取 g3',size=21,color=RUST,anchor='middle')
+    d.text(469,351,'取 g4–g5',size=20,color=TEAL,anchor='middle')
+    d.rect(32,394,496,178,GREEN)
+    d.text(280,434,'新 1 的目标范围：g3–g5',size=24,weight=650,anchor='middle')
+    d.text(280,484,'恢复 g3：客户 9 的 sum = 25',size=23,anchor='middle')
+    d.text(280,536,'g4、g5 也归新 1，本例无客户记录',size=22,color=MUTED,anchor='middle')
+    d.arrow([(280,583),(280,618)],color='teal')
+    d.rect(32,634,496,154,GREEN)
+    d.text(280,674,'输入 104：客户 9 再付 3 元',size=24,weight=650,anchor='middle')
+    d.text(280,722,'仍属 g3 → floor(3×3/8) = 新 1',size=23,anchor='middle')
+    d.text(280,768,'与旧状态相遇：25 + 3 = 28',size=24,weight=600,anchor='middle')
+    d.rect(32,830,496,123,PEACH)
+    d.text(280,870,'若按相同任务号照搬旧状态：',size=23,weight=600,anchor='middle')
+    d.text(280,919,'25 留在新 0；新 1 从零加，误得 3',size=23,color=RUST,anchor='middle')
+    d.rule(986)
+    d.text(280,1020,'箭头：状态选取与后续路由；非运行追踪。',size=20,anchor='middle')
+    d.text(280,1054,'H0、H1 为句柄代号，不是一组一份文件。',size=20,color=MUTED,anchor='middle')
+    d.text(280,1080,'旧执行已停止，只保留一个有效主人。',size=20,color=MUTED,anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -2548,7 +2614,8 @@ def main():
                 flink_checkpoint_cut, flink_checkpoint_replay,
                 flink_alignment_mixed_cut, flink_alignment_recovery,
                 flink_unaligned_capture, flink_unaligned_recovery,
-                flink_filesink_publication, flink_filesink_recovery]
+                flink_filesink_publication, flink_filesink_recovery,
+                flink_keygroups_assignment, flink_keygroups_restore]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

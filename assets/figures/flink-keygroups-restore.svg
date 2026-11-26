@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1090" viewBox="0 0 560 1090" role="img" aria-labelledby="title desc">
+<title id="title">恢复状态与后续记录必须同向</title><desc id="desc">S12 已完成 · 源下一位置 104 · 放大新任务 1</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1090" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">恢复状态与后续记录必须同向</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">S12 已完成 · 源下一位置 104 · 放大新任务 1</text>
+<rect x="32" y="112" width="242" height="184" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="153" y="148" fill="#18283b" font-size="23" font-weight="650" text-anchor="middle">旧 0 的句柄 H0</text>
+<text x="153" y="188" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">g0–g3</text>
+<text x="153" y="231" fill="#18283b" font-size="21" font-weight="400" text-anchor="middle">g1：客户 3=10</text>
+<text x="153" y="273" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">g3：客户 9=25</text>
+<rect x="286" y="112" width="242" height="184" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="407" y="148" fill="#18283b" font-size="23" font-weight="650" text-anchor="middle">旧 1 的句柄 H1</text>
+<text x="407" y="188" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">g4–g7</text>
+<text x="407" y="231" fill="#18283b" font-size="21" font-weight="400" text-anchor="middle">g6：客户 1=7</text>
+<text x="407" y="273" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">g4、g5 无客户记录</text>
+<path d="M 153 307 L 153 378" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<path d="M 407 307 L 407 378" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="93" y="351" fill="#a54426" font-size="21" font-weight="400" text-anchor="middle">取 g3</text>
+<text x="469" y="351" fill="#287467" font-size="20" font-weight="400" text-anchor="middle">取 g4–g5</text>
+<rect x="32" y="394" width="496" height="178" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280" y="434" fill="#18283b" font-size="24" font-weight="650" text-anchor="middle">新 1 的目标范围：g3–g5</text>
+<text x="280" y="484" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">恢复 g3：客户 9 的 sum = 25</text>
+<text x="280" y="536" fill="#5b6877" font-size="22" font-weight="400" text-anchor="middle">g4、g5 也归新 1，本例无客户记录</text>
+<path d="M 280 583 L 280 618" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="634" width="496" height="154" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280" y="674" fill="#18283b" font-size="24" font-weight="650" text-anchor="middle">输入 104：客户 9 再付 3 元</text>
+<text x="280" y="722" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">仍属 g3 → floor(3×3/8) = 新 1</text>
+<text x="280" y="768" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">与旧状态相遇：25 + 3 = 28</text>
+<rect x="32" y="830" width="496" height="123" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280" y="870" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">若按相同任务号照搬旧状态：</text>
+<text x="280" y="919" fill="#a54426" font-size="23" font-weight="400" text-anchor="middle">25 留在新 0；新 1 从零加，误得 3</text>
+<path d="M 32 986 H 528" stroke="#d9dfdc"/>
+<text x="280" y="1020" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">箭头：状态选取与后续路由；非运行追踪。</text>
+<text x="280" y="1054" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">H0、H1 为句柄代号，不是一组一份文件。</text>
+<text x="280" y="1080" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">旧执行已停止，只保留一个有效主人。</text>
+</g>
+</svg>

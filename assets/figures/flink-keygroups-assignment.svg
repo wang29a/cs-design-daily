@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="910" viewBox="0 0 560 910" role="img" aria-labelledby="title desc">
+<title id="title">键组不变，处理者可以换</title><desc id="desc">最大并行度 M=8 · 当前并行度从 P=2 变 P=3</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="910" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">键组不变，处理者可以换</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">最大并行度 M=8 · 当前并行度从 P=2 变 P=3</text>
+<rect x="32" y="112" width="156" height="100" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="110.0" y="146" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">客户 3 → g1</text>
+<text x="110.0" y="177" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">sum = 10</text>
+<rect x="202" y="112" width="156" height="100" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280.0" y="146" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">客户 9 → g3</text>
+<text x="280.0" y="177" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">sum = 25</text>
+<rect x="372" y="112" width="156" height="100" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="450.0" y="146" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">客户 1 → g6</text>
+<text x="450.0" y="177" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">sum = 7</text>
+<text x="32" y="267" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">保存 S12 时：P=2</text>
+<rect x="32" y="287" width="244" height="124" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="154.0" y="321" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">旧 0：g0–g3</text>
+<rect x="284" y="287" width="244" height="124" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="406.0" y="321" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">旧 1：g4–g7</text>
+<rect x="36" y="342" width="54" height="53" rx="10" fill="#f7f5f0" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="63.0" y="376.5" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">g0</text>
+<rect x="98" y="342" width="54" height="53" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="125.0" y="376.5" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">g1</text>
+<rect x="160" y="342" width="54" height="53" rx="10" fill="#f7f5f0" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="187.0" y="376.5" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">g2</text>
+<rect x="222" y="342" width="54" height="53" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="249.0" y="376.5" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">g3</text>
+<rect x="284" y="342" width="54" height="53" rx="10" fill="#f7f5f0" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="311.0" y="376.5" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">g4</text>
+<rect x="346" y="342" width="54" height="53" rx="10" fill="#f7f5f0" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="373.0" y="376.5" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">g5</text>
+<rect x="408" y="342" width="54" height="53" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="435.0" y="376.5" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">g6</text>
+<rect x="470" y="342" width="54" height="53" rx="10" fill="#f7f5f0" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="497.0" y="376.5" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">g7</text>
+<path d="M 125 420 L 125 463" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 249 420 L 249 463" fill="none" stroke="#a54426" stroke-width="2.5" marker-end="url(#rust)"/>
+<path d="M 435 420 L 435 463" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="32" y="500" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">恢复 S12 时：P=3</text>
+<rect x="32" y="520" width="182" height="124" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="123.0" y="554" fill="#18283b" font-size="20" font-weight="600" text-anchor="middle">新 0：g0–g2</text>
+<rect x="218" y="520" width="182" height="124" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="309.0" y="554" fill="#18283b" font-size="20" font-weight="600" text-anchor="middle">新 1：g3–g5</text>
+<rect x="404" y="520" width="124" height="124" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="466.0" y="554" fill="#18283b" font-size="20" font-weight="600" text-anchor="middle">新 2：g6–g7</text>
+<rect x="36" y="575" width="54" height="53" rx="10" fill="#f7f5f0" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="63.0" y="609.5" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">g0</text>
+<rect x="98" y="575" width="54" height="53" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="125.0" y="609.5" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">g1</text>
+<rect x="160" y="575" width="54" height="53" rx="10" fill="#f7f5f0" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="187.0" y="609.5" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">g2</text>
+<rect x="222" y="575" width="54" height="53" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="249.0" y="609.5" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">g3</text>
+<rect x="284" y="575" width="54" height="53" rx="10" fill="#f7f5f0" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="311.0" y="609.5" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">g4</text>
+<rect x="346" y="575" width="54" height="53" rx="10" fill="#f7f5f0" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="373.0" y="609.5" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">g5</text>
+<rect x="408" y="575" width="54" height="53" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="435.0" y="609.5" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">g6</text>
+<rect x="470" y="575" width="54" height="53" rx="10" fill="#f7f5f0" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="497.0" y="609.5" fill="#18283b" font-size="22" font-weight="600" text-anchor="middle">g7</text>
+<text x="280" y="693" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">新 0：客户 3=10 · 新 1：客户 9=25</text>
+<text x="280" y="735" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">新 2：客户 1=7；每键仍有自己的 sum</text>
+<path d="M 32 779 H 528" stroke="#d9dfdc"/>
+<text x="280" y="817" fill="#18283b" font-size="21" font-weight="400" text-anchor="middle">竖箭头：同一键组的身份延续。</text>
+<text x="280" y="854" fill="#18283b" font-size="21" font-weight="600" text-anchor="middle">组边界决定新主人，不按旧任务号照搬。</text>
+<text x="280" y="890" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">只画三个键；空组有归属，组不等于文件。</text>
+</g>
+</svg>
