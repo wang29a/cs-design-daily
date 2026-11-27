@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1060" viewBox="0 0 560 1060" role="img" aria-labelledby="title desc">
+<title id="title">先推进时间，再触发与清理</title><desc id="desc">目标窗口 [0,10000) · allowedLateness = 0</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1060" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">先推进时间，再触发与清理</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">目标窗口 [0,10000) · allowedLateness = 0</text>
+<rect x="32" y="112" width="496" height="154" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="148" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">① P1 送到 9000:+3</text>
+<text x="49" y="195" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">旧窗口：37 + 3 = 40</text>
+<text x="49" y="244" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">W1=6999 → W=6999，继续等待</text>
+<rect x="32" y="318" width="496" height="154" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="354" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">② P1 送到 12000:+2</text>
+<text x="49" y="401" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">下一窗口：5 + 2 = 7</text>
+<text x="49" y="450" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">W0=W1=9999 → W=9999</text>
+<rect x="32" y="524" width="496" height="154" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="560" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">③ 触发事件时间定时器 9999</text>
+<text x="49" y="607" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">主输出：旧窗口结果 40</text>
+<text x="49" y="656" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">零允许迟到：输出后清理旧窗口状态</text>
+<rect x="32" y="730" width="496" height="154" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="766" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">④ P1 又送到 6000:+4</text>
+<text x="49" y="813" fill="#18283b" font-size="23" font-weight="400" text-anchor="start">已过清理边界 → 迟到侧输出</text>
+<text x="49" y="862" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">主结果不自动改成 44，W 不后退</text>
+<path d="M 280 275 L 280 310" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 481 L 280 516" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 687 L 280 722" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="936" fill="#18283b" font-size="23" font-weight="600" text-anchor="middle">终点：旧窗已清理，下一窗口仍保存 7</text>
+<path d="M 32 967 H 528" stroke="#d9dfdc"/>
+<text x="280" y="1006" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">箭头：选定教学先后；非运行或性能证据。</text>
+<text x="280" y="1042" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">4 元违反乱序界，不会让水位线自动倒退。</text>
+</g>
+</svg>

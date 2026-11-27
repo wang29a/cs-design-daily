@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1000" viewBox="0 0 560 1000" role="img" aria-labelledby="title desc">
+<title id="title">快路不能替慢路结束过去</title><desc id="desc">D=2000 毫秒 · 两路始终 active · 教学起点</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1000" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">快路不能替慢路结束过去</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">D=2000 毫秒 · 两路始终 active · 教学起点</text>
+<rect x="32" y="112" width="242" height="208" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="153" y="150" fill="#18283b" font-size="24" font-weight="650" text-anchor="middle">快路 P0</text>
+<text x="153" y="198" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">1000:+10</text>
+<text x="153" y="244" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">8000:+20</text>
+<text x="153" y="292" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">12000:+5（下窗）</text>
+<rect x="286" y="112" width="242" height="208" rx="10" fill="#fffefb" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="407" y="150" fill="#18283b" font-size="24" font-weight="650" text-anchor="middle">慢路 P1</text>
+<text x="407" y="198" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">7000:+7 已到</text>
+<text x="407" y="244" fill="#a54426" font-size="22" font-weight="400" text-anchor="middle">9000:+3 尚未到</text>
+<text x="407" y="292" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">不能替它结束等待</text>
+<path d="M 153 329 L 153 348" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 407 329 L 407 348" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="362" width="242" height="100" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="153.0" y="396" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">m0 = 12000</text>
+<text x="153.0" y="427" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">W0 = 9999</text>
+<rect x="286" y="362" width="242" height="100" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="407.0" y="396" fill="#18283b" font-size="24" font-weight="600" text-anchor="middle">m1 = 7000</text>
+<text x="407.0" y="427" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">W1 = 4999</text>
+<path d="M 153 473 L 153 509" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 407 473 L 407 509" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="524" width="496" height="122" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280" y="566" fill="#18283b" font-size="24" font-weight="650" text-anchor="middle">汇合进度 W = min(9999,4999)</text>
+<text x="280" y="618" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">W = 4999，慢路仍决定等待边界</text>
+<path d="M 280 658 L 280 695" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<rect x="32" y="710" width="496" height="144" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="280" y="750" fill="#18283b" font-size="24" font-weight="650" text-anchor="middle">目标窗口 [0,10000)：sum = 37</text>
+<text x="280" y="797" fill="#18283b" font-size="23" font-weight="400" text-anchor="middle">4999 &lt; 9999，尚未达到触发时刻</text>
+<text x="280" y="834" fill="#5b6877" font-size="21" font-weight="400" text-anchor="middle">P0 的 5 元继续留在下一窗口</text>
+<path d="M 32 900 H 528" stroke="#d9dfdc"/>
+<text x="280" y="940" fill="#18283b" font-size="21" font-weight="400" text-anchor="middle">箭头表示进度汇合；不是数据排序。</text>
+<text x="280" y="978" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">时间均为相对起点的毫秒；非运行追踪。</text>
+</g>
+</svg>

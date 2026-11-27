@@ -2566,6 +2566,57 @@ def flink_keygroups_restore():
     d.save()
 
 
+def flink_watermark_minimum():
+    d = Drawing('flink-watermark-minimum', 1000, '快路不能替慢路结束过去', 'D=2000 毫秒 · 两路始终 active · 教学起点')
+    d.rect(32,112,242,208,WHITE)
+    d.text(153,150,'快路 P0',size=24,weight=650,anchor='middle')
+    d.text(153,198,'1000:+10',size=23,anchor='middle')
+    d.text(153,244,'8000:+20',size=23,anchor='middle')
+    d.text(153,292,'12000:+5（下窗）',size=21,color=MUTED,anchor='middle')
+    d.rect(286,112,242,208,WHITE)
+    d.text(407,150,'慢路 P1',size=24,weight=650,anchor='middle')
+    d.text(407,198,'7000:+7 已到',size=23,anchor='middle')
+    d.text(407,244,'9000:+3 尚未到',size=22,color=RUST,anchor='middle')
+    d.text(407,292,'不能替它结束等待',size=21,color=MUTED,anchor='middle')
+    for x in (153,407):d.arrow([(x,329),(x,348)],color='teal')
+    d.card(32,362,242,100,'m0 = 12000','W0 = 9999',GREEN,size=24)
+    d.card(286,362,242,100,'m1 = 7000','W1 = 4999',PEACH,size=24)
+    for x in (153,407):d.arrow([(x,473),(x,509)],color='teal')
+    d.rect(32,524,496,122,GREEN)
+    d.text(280,566,'汇合进度 W = min(9999,4999)',size=24,weight=650,anchor='middle')
+    d.text(280,618,'W = 4999，慢路仍决定等待边界',size=23,anchor='middle')
+    d.arrow([(280,658),(280,695)],color='teal')
+    d.rect(32,710,496,144,PEACH)
+    d.text(280,750,'目标窗口 [0,10000)：sum = 37',size=24,weight=650,anchor='middle')
+    d.text(280,797,'4999 < 9999，尚未达到触发时刻',size=23,anchor='middle')
+    d.text(280,834,'P0 的 5 元继续留在下一窗口',size=21,color=MUTED,anchor='middle')
+    d.rule(900)
+    d.text(280,940,'箭头表示进度汇合；不是数据排序。',size=21,anchor='middle')
+    d.text(280,978,'时间均为相对起点的毫秒；非运行追踪。',size=20,color=MUTED,anchor='middle')
+    d.save()
+
+
+def flink_watermark_window():
+    d = Drawing('flink-watermark-window', 1060, '先推进时间，再触发与清理', '目标窗口 [0,10000) · allowedLateness = 0')
+    stages=[
+        (112,'① P1 送到 9000:+3','旧窗口：37 + 3 = 40','W1=6999 → W=6999，继续等待',WHITE),
+        (318,'② P1 送到 12000:+2','下一窗口：5 + 2 = 7','W0=W1=9999 → W=9999',GREEN),
+        (524,'③ 触发事件时间定时器 9999','主输出：旧窗口结果 40','零允许迟到：输出后清理旧窗口状态',GREEN),
+        (730,'④ P1 又送到 6000:+4','已过清理边界 → 迟到侧输出','主结果不自动改成 44，W 不后退',PEACH),
+    ]
+    for y,title,state,detail,fill in stages:
+        d.rect(32,y,496,154,fill)
+        d.text(49,y+36,title,size=24,weight=650)
+        d.text(49,y+83,state,size=23)
+        d.text(49,y+132,detail,size=22,color=MUTED)
+    for y in (266,472,678):d.arrow([(280,y+9),(280,y+44)],color='teal')
+    d.text(280,936,'终点：旧窗已清理，下一窗口仍保存 7',size=23,weight=600,anchor='middle')
+    d.rule(967)
+    d.text(280,1006,'箭头：选定教学先后；非运行或性能证据。',size=20,anchor='middle')
+    d.text(280,1042,'4 元违反乱序界，不会让水位线自动倒退。',size=20,color=MUTED,anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -2615,7 +2666,8 @@ def main():
                 flink_alignment_mixed_cut, flink_alignment_recovery,
                 flink_unaligned_capture, flink_unaligned_recovery,
                 flink_filesink_publication, flink_filesink_recovery,
-                flink_keygroups_assignment, flink_keygroups_restore]
+                flink_keygroups_assignment, flink_keygroups_restore,
+                flink_watermark_minimum, flink_watermark_window]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

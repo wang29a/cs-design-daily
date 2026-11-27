@@ -485,6 +485,15 @@
       "source": "2026-11-26-flink-keygroups-rescaling.md",
       "id": "2026-11-26-flink-keygroups-rescaling",
       "insight": "把键先映射到稳定键组，再把组分给当前任务，让输入路由与状态恢复共用同一套归属规则。"
+    },
+    {
+      "date": "2026-11-27",
+      "title": "Flink 数据会乱序，时间窗口什么时候该出结果",
+      "subtitle": "从两路付款进度追踪窗口触发、清理与迟到侧输出",
+      "topic": "消息与流处理",
+      "source": "2026-11-27-flink-watermark-window-progress.md",
+      "id": "2026-11-27-flink-watermark-window-progress",
+      "insight": "把每路输入对旧时间的等待边界显式化，再用最慢的有效进度触发窗口，将延迟、状态保留与迟到处置变成可选择的代价。"
     }
   ]
 }
