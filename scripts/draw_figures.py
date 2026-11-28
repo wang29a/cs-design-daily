@@ -2617,6 +2617,51 @@ def flink_watermark_window():
     d.save()
 
 
+def flink_asyncio_segments():
+    d = Drawing('flink-asyncio-segments', 974, '完成了，还得等到自己的段', '容量 4 · 请求并发，输出资格按段推进')
+    d.card(32,112,496,100,'输入：A → B → W → C','A:8000,+20 · B:9000,+3 · C:12000,+5',size=25)
+    d.text(280,259,'A、B、C 的三个外部查询均已发起',size=23,anchor='middle')
+    d.rect(32,286,496,148,WHITE)
+    d.text(280,326,'段 1：A、B 均未完成',size=24,weight=650,anchor='middle')
+    d.text(280,374,'本段可乱序，当前还没有结果可输出',size=23,anchor='middle')
+    d.text(280,414,'A、B 的输入条目各占一个位置',size=21,color=MUTED,anchor='middle')
+    d.arrow([(280,446),(280,471)],color='rust')
+    d.rect(32,486,496,112,PEACH)
+    d.text(280,525,'段 2：W=9999，条目已完成',size=24,weight=650,anchor='middle')
+    d.text(280,573,'仍要等段 1 的结果全部输出',size=23,anchor='middle')
+    d.arrow([(280,610),(280,637)],color='rust')
+    d.rect(32,652,496,140,GREEN)
+    d.text(280,690,'段 3：C′ 查询已完成',size=24,weight=650,anchor='middle')
+    d.text(280,738,'t=12000,+5，先缓存，不跨过 W',size=23,anchor='middle')
+    d.text(280,775,'没有输出，仍然占一个位置',size=21,color=MUTED,anchor='middle')
+    d.text(280,845,'队列占用：A + B + W + C = 4',size=24,weight=600,anchor='middle')
+    d.rule(877)
+    d.text(280,913,'箭头：段间输出资格；不是请求串行执行。',size=20,anchor='middle')
+    d.text(280,949,'W 不查外部服务，但也占队列条目。',size=20,color=MUTED,anchor='middle')
+    d.save()
+
+
+def flink_asyncio_emission():
+    d = Drawing('flink-asyncio-emission', 1080, '回调顺序，不等于下游顺序', '选定回调先后 C → B → A · 均在超时前')
+    stages=[
+        (112,'① C 的回调先递交结果','C′ 缓存在后段，尚无下游输出','队列占用 4；A、B 仍待完成',PEACH),
+        (318,'② B 完成，可以先出首段','输出 B′：旧窗口得到 3','剩 A、W、C；队列占用降为 3',GREEN),
+        (524,'③ A 完成，首段才排空','输出 A′：3 + 20 = 23','现在允许 W 通过，不能漏掉这 20',GREEN),
+        (730,'④ 输出 W，然后才输出 C′','W 触发旧窗口 23；C′ 进入下一窗口','下一窗口为 5；队列最终排空',GREEN),
+    ]
+    for y,title,state,detail,fill in stages:
+        d.rect(32,y,496,154,fill)
+        d.text(49,y+36,title,size=24,weight=650)
+        d.text(49,y+83,state,size=22)
+        d.text(49,y+132,detail,size=22,color=MUTED)
+    for y in (266,472,678):d.arrow([(280,y+9),(280,y+44)],color='teal')
+    d.text(280,938,'下游：B′ → A′ → W → C′',size=25,weight=650,anchor='middle')
+    d.rule(970)
+    d.text(280,1010,'箭头：教学先后，不是运行或性能证据。',size=20,anchor='middle')
+    d.text(280,1046,'容量按输入条目计；时间戳沿用原记录。',size=20,color=MUTED,anchor='middle')
+    d.save()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     drawings = [pipe_flow, pipe_eof, vm_mapping, cow_states, wal_commit, wal_readers,
@@ -2667,7 +2712,8 @@ def main():
                 flink_unaligned_capture, flink_unaligned_recovery,
                 flink_filesink_publication, flink_filesink_recovery,
                 flink_keygroups_assignment, flink_keygroups_restore,
-                flink_watermark_minimum, flink_watermark_window]
+                flink_watermark_minimum, flink_watermark_window,
+                flink_asyncio_segments, flink_asyncio_emission]
     for draw in drawings:
         draw()
     print(f'Generated {len(drawings)} teaching diagrams in assets/figures/')

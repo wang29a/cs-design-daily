@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="1080" viewBox="0 0 560 1080" role="img" aria-labelledby="title desc">
+<title id="title">回调顺序，不等于下游顺序</title><desc id="desc">选定回调先后 C → B → A · 均在超时前</desc>
+<defs>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#18283b"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#287467"/></marker>
+<marker id="rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a54426"/></marker>
+</defs>
+<g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="560" height="1080" rx="12" fill="#f7f5f0" stroke="none" stroke-width="1.5"/>
+<text x="32" y="48" fill="#18283b" font-size="26" font-weight="650" text-anchor="start">回调顺序，不等于下游顺序</text>
+<text x="32" y="80" fill="#5b6877" font-size="20" font-weight="400" text-anchor="start">选定回调先后 C → B → A · 均在超时前</text>
+<rect x="32" y="112" width="496" height="154" rx="10" fill="#fae9df" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="148" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">① C 的回调先递交结果</text>
+<text x="49" y="195" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">C′ 缓存在后段，尚无下游输出</text>
+<text x="49" y="244" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">队列占用 4；A、B 仍待完成</text>
+<rect x="32" y="318" width="496" height="154" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="354" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">② B 完成，可以先出首段</text>
+<text x="49" y="401" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">输出 B′：旧窗口得到 3</text>
+<text x="49" y="450" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">剩 A、W、C；队列占用降为 3</text>
+<rect x="32" y="524" width="496" height="154" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="560" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">③ A 完成，首段才排空</text>
+<text x="49" y="607" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">输出 A′：3 + 20 = 23</text>
+<text x="49" y="656" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">现在允许 W 通过，不能漏掉这 20</text>
+<rect x="32" y="730" width="496" height="154" rx="10" fill="#e7f2ed" stroke="#d9dfdc" stroke-width="1.5"/>
+<text x="49" y="766" fill="#18283b" font-size="24" font-weight="650" text-anchor="start">④ 输出 W，然后才输出 C′</text>
+<text x="49" y="813" fill="#18283b" font-size="22" font-weight="400" text-anchor="start">W 触发旧窗口 23；C′ 进入下一窗口</text>
+<text x="49" y="862" fill="#5b6877" font-size="22" font-weight="400" text-anchor="start">下一窗口为 5；队列最终排空</text>
+<path d="M 280 275 L 280 310" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 481 L 280 516" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<path d="M 280 687 L 280 722" fill="none" stroke="#287467" stroke-width="2.5" marker-end="url(#teal)"/>
+<text x="280" y="938" fill="#18283b" font-size="25" font-weight="650" text-anchor="middle">下游：B′ → A′ → W → C′</text>
+<path d="M 32 970 H 528" stroke="#d9dfdc"/>
+<text x="280" y="1010" fill="#18283b" font-size="20" font-weight="400" text-anchor="middle">箭头：教学先后，不是运行或性能证据。</text>
+<text x="280" y="1046" fill="#5b6877" font-size="20" font-weight="400" text-anchor="middle">容量按输入条目计；时间戳沿用原记录。</text>
+</g>
+</svg>

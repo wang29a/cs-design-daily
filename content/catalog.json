@@ -494,6 +494,15 @@
       "source": "2026-11-27-flink-watermark-window-progress.md",
       "id": "2026-11-27-flink-watermark-window-progress",
       "insight": "把每路输入对旧时间的等待边界显式化，再用最慢的有效进度触发窗口，将延迟、状态保留与迟到处置变成可选择的代价。"
+    },
+    {
+      "date": "2026-11-28",
+      "title": "Flink 查询已经返回，为什么结果还要在队列里等",
+      "subtitle": "从三笔付款追踪回调完成、分段输出和水位线的先后",
+      "topic": "消息与流处理",
+      "source": "2026-11-28-flink-asyncio-watermark-order.md",
+      "id": "2026-11-28-flink-asyncio-watermark-order",
+      "insight": "把回调完成与允许输出分开：水位线把有限队列分成段，段内可以乱序，段间保留时间边界。"
     }
   ]
 }
